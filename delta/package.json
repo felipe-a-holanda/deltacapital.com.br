@@ -1,0 +1,29 @@
+{
+  "name": "deltacapital",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.4.2",
+    "file-loader": "^6.0.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "node-sass": "^4.13.1",
+    "postcss-loader": "^3.0.0",
+    "sass": "^1.26.3",
+    "sass-loader": "^8.0.2",
+    "webpack": "^4.42.0",
+    "webpack-bundle-tracker": "^0.4.3",
+    "webpack-cli": "^3.3.10"
+  },
+  "scripts": {
+    "css-build": "node-sass --omit-source-map-url delta/static/sass/main.scss delta/static/css/main.css",
+    "css-watch": "npm run css-build -- --watch",
+    "start": "npm run css-watch",
+    "build": "webpack"
+  },
+  "author": "Felipe Holanda",
+  "license": "ISC"
+}

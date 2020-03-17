@@ -1,4 +1,5 @@
-{% load static %}
+{% load static compress %}
+{% load render_bundle from webpack_loader %}
 <!DOCTYPE HTML>
 <!--
 	Industrious by TEMPLATED
@@ -12,8 +13,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <meta name="description" content="" />
 <meta name="keywords" content="" />
-<link rel="stylesheet" href="{% static 'css/main.css' %}" />
+<!--<link rel="stylesheet" href="{% static 'css/main.css' %}" />-->
 
+{% compress css %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}" />
+{% endcompress %}
+
+
+{% render_bundle 'main' 'css' %}
 
 </head>
 <body class="is-preload">
@@ -254,16 +261,41 @@
 </footer>
 
 <!-- Scripts --> 
+
+<!--<script src="{% static 'js/main.js' %} "></script> -->
+
+
+
+
+{% compress js %}
+
 <script src="{% static 'js/jquery.min.js' %}"></script> 
-<script src="{% static 'js/browser.min.js' %} "></script> 
-<script src="{% static 'js/breakpoints.min.js' %} "></script> 
-<script src="{% static 'js/util.js' %} "></script> 
-<script src="{% static 'js/main.js' %} "></script> 
-<script src="{% static 'js/parallax.js' %} "></script> 
+<script src="{% static 'js/browser.min.js' %}"></script> 
+<script src="{% static 'js/breakpoints.min.js' %}"></script> 
+<script src="{% static 'js/util.js' %}"></script> 
+<script src="{% static 'js/parallax.js' %}"></script>
+
+
 <script>
 	// Pretty simple huh?
 	var scene = document.getElementById('banner');
 	var parallax = new Parallax(scene);
 </script>
+{% endcompress %}
+
+
+
+
+
+
+
+ 
+{% render_bundle 'main' 'js' %}
+
+
+
+
+
+
 </body>
 </html>

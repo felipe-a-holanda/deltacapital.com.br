@@ -40,11 +40,15 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = [
+    'webpack_loader',
+    'compressor',
+    
+]
 
 
 LOCAL_APPS = [
-    'delta'
+    'delta',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -133,12 +137,29 @@ STATIC_ROOT = join(BASE_DIR,"staticfiles")
 
 STATICFILES_DIRS = [join(BASE_DIR,"delta/static")]
 
+
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    #"compressor.finders.CompressorFinder",
+    "compressor.finders.CompressorFinder",
 ]
 
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = join(BASE_DIR, "media")
+
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'CACHE': not DEBUG,
+        'BUNDLE_DIR_NAME': 'webpack_bundles/', # must end with slash
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+        'POLL_INTERVAL': 0.1,
+        'TIMEOUT': None,
+        'IGNORE': [r'.+\.hot-update.js', r'.+\.map'],
+        'LOADER_CLASS': 'webpack_loader.loader.WebpackLoader',
+    }
+}
+
+COMPRESS_ENABLED = True
+COMPRESS_ROOT = STATIC_ROOT
