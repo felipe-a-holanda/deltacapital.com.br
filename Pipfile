@@ -41,6 +41,7 @@ psycopg2 = "==2.8.5"
 whitenoise = "==5.0.1"
 Django = "==3.0.6"
 Markdown = "==3.2.1"
+django-allauth = "==0.42.0"
 
 [requires]
 python_version = "3.8"
