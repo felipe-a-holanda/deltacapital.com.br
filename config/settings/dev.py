@@ -1,7 +1,11 @@
 from .base import *  # noqa
+from .base import env
 from .base import INSTALLED_APPS
 from .base import MIDDLEWARE
 from .base import ROOT_DIR
+
+DEBUG = env("DEBUG")
+
 
 # https://django-extensions.readthedocs.io/en/latest/installation_instructions.html#configuration
 INSTALLED_APPS += ["django_extensions", "debug_toolbar"]  # noqa F405

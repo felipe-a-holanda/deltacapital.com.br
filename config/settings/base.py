@@ -17,7 +17,7 @@ import environ
 ROOT_DIR = Path(__file__).parents[2]  # user-records/)
 APPS_DIR = ROOT_DIR / "apps"  # user-records/)
 
-env = environ.Env()
+env = environ.Env(DEBUG=(bool, False))
 env.read_env(str(ROOT_DIR / ".env"))
 
 # insert apps folder to sys path: apps don't need to be in project root
