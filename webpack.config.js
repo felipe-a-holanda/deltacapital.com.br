@@ -11,13 +11,13 @@ module.exports = {
 
   // Path to your entry point. From this file Webpack will begin his work
   //entry: './src/javascript/index.js',
-  entry:  './delta/static/js/main',
+  entry:  './static/js/main',
 
   // Path and filename of your result bundle.
   // Webpack will bundle all JavaScript into this file
   output: {
     //path: path.resolve(__dirname, 'webpack_bundles'),
-    path: path.resolve('./delta/static/webpack_bundles/'),
+    path: path.resolve('./static/webpack_bundles/'),
     filename: "js/[name]-[hash].js"
   },
   
