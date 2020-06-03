@@ -1,0 +1,220 @@
+
+{% extends 'delta/base.html' %}
+{% load static compress %}
+
+{% block content %}
+<!-- Banner -->
+<section id="banner">
+
+  <div class="inner" data-depth="0.10">
+    <h1>Delta Capital</h1>
+    <p>Em todo lugar onde estamos presentes, buscamos oferecer produtos e serviços
+      financeiros ideais para que você alcance seus objetivos.<br>
+    </p>
+  </div>
+
+
+  <video autoplay loop muted playsinline src="{% static 'images/banner.mp4' %} "
+         data-depth="0.20"></video>
+
+  <img class="float-img" src="{% static 'images/man-transparent.webp' %} "
+       data-depth="0.40">
+
+
+</section>
+<div id="shape-mask"></div>
+
+
+<!-- Highlights -->
+<section class="wrapper">
+  <div class="inner">
+    <header class="special">
+      <h2>Nossos Serviços</h2>
+      <p>Conte com a gente para tirar seu sonho do papel, financiamento de veículos,
+        cartão de crédito, capital de giro e seguros.</p>
+    </header>
+    <div class="highlights">
+      <section>
+        <div class="content">
+          <header><a href="#" class="icon fa-car"><span class="label">Icon</span></a>
+            <h3>Financiamento de Veículos</h3>
+          </header>
+          <p>Condições especiais para você comprar seu veículo com taxas
+            diferenciadas.</p>
+          <footer>
+            <button class="button">Saiba Mais</button>
+          </footer>
+        </div>
+      </section>
+      <section>
+        <div class="content">
+          <header><a href="#" class="icon fa-credit-card"><span
+                  class="label">Icon</span></a>
+            <h3>Cartão de Crédito</h3>
+          </header>
+          <p>Solicite agora um cartão de crédito VISA ou MASTERCARD para você ou sua
+            empresa.</p>
+          <footer>
+            <button class="button">Saiba Mais</button>
+          </footer>
+        </div>
+      </section>
+      <section>
+        <div class="content">
+          <header><a href="#" class="icon fa-dollar"><span class="label">Icon</span></a>
+            <h3>Capital de Giro</h3>
+          </header>
+          <p>Melhores taxas de juros do mercado em um empréstimo totalmente online e
+            seguro.</p>
+          <footer>
+            <button class="button">Saiba Mais</button>
+          </footer>
+        </div>
+      </section>
+      <section>
+        <div class="content">
+          <header><a href="#" class="icon fa-sun-o"><span class="label">Icon</span></a>
+            <h3>Energia Solar</h3>
+          </header>
+          <p>Crédito para aquisição de sistemas para a geração de energia solar.</p>
+          <footer>
+            <button class="button">Saiba Mais</button>
+          </footer>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+<section class="cards">
+  <div class="card-columns">
+    <div class="content"><a class="card" href="#!">
+      <div class="front">
+        <div>
+          <p><span class="icon fa-car"><span class="label">Icon</span></span></p>
+          <p>Financiamento de Veículos</p>
+        </div>
+      </div>
+      <div class="back">
+        <div>
+          <p>Condições especiais para você comprar seu veículo com taxas
+            diferenciadas.</p>
+          <button class="button">Saiba Mais</button>
+        </div>
+      </div>
+    </a> <a class="card" href="#!">
+      <div class="front">
+        <div>
+          <p><span class="icon fa-credit-card"><span class="label">Icon</span></span>
+          </p>
+          <p>Cartão de Crédito</p>
+        </div>
+      </div>
+      <div class="back">
+        <div>
+          <p>Solicite agora um cartão de crédito VISA ou MASTERCARD para você ou sua
+            empresa.</p>
+          <button class="button">Solicite agora</button>
+        </div>
+      </div>
+    </a> <a class="card" href="#!">
+      <div class="front">
+        <div>
+          <p><span class="icon fa-dollar"><span class="label">Icon</span></span></p>
+          <p>Capital de Giro</p>
+        </div>
+      </div>
+      <div class="back">
+        <div>
+          <p>Melhores taxas de juros do mercado em um empréstimo totalmente online e
+            seguro</p>
+          <button class="button">Simule aqui</button>
+        </div>
+      </div>
+    </a> <a class="card" href="#!">
+      <div class="front">
+        <div>
+          <p><span class="icon fa-sun-o"><span class="label">Icon</span></span></p>
+          <p>Energia Solar</p>
+        </div>
+      </div>
+      <div class="back">
+        <div>
+          <p>Crédito para aquisição de sistemas para a geração de energia solar.</p>
+          <button class="button">Simule aqui</button>
+        </div>
+      </div>
+    </a></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<a id="sobre"></a>
+<section id="cta" class="wrapper">
+
+  <div class="inner">
+    <h2>Sobre Nós</h2>
+    <h3>O que fazemos?</h3>
+    <p>A Delta Capital foi criada em 2011 como correspondente de instituições
+      financeiras com foco em Financiamento de Veículos, Cartão de Crédito para pessoa
+      física e Cartão de Crédito Empresarial e Seguros. Com uma equipe formada por
+      operadores de financiamento experientes e devidamente certificados pela FEBRABAN,
+      a Delta Capital é hoje o principal correspondente em atividade junto às
+      instituições financeiras que representa na nossa região e mantemos investimentos
+      permanentes no aprimoramento dos nossos serviços.</p>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="wrapper">
+  <div class="inner">
+    <header class="special">
+      <h2>Faucibus consequat lorem</h2>
+      <p>In arcu accumsan arcu adipiscing accumsan orci ac. Felis id enim aliquet.
+        Accumsan ac integer lobortis commodo ornare aliquet accumsan erat tempus amet
+        porttitor.</p>
+    </header>
+    <div class="testimonials">
+      <section>
+        <div class="content">
+          <blockquote>
+            <p>Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida
+              odio porttitor sem non mi integer non faucibus.</p>
+          </blockquote>
+          <div class="author">
+            <div class="image"><img src="{% static 'images/pic01.jpg' %}" alt=""/></div>
+            <p class="credit">- <strong>Jane Doe</strong> <span>CEO - ABC Inc.</span>
+            </p>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="content">
+          <blockquote>
+            <p>Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida
+              odio porttitor sem non mi integer non faucibus.</p>
+          </blockquote>
+          <div class="author">
+            <div class="image"><img src="{% static 'images/pic03.jpg' %} " alt=""/>
+            </div>
+            <p class="credit">- <strong>John Doe</strong> <span>CEO - ABC Inc.</span>
+            </p>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="content">
+          <blockquote>
+            <p>Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida
+              odio porttitor sem non mi integer non faucibus.</p>
+          </blockquote>
+          <div class="author">
+            <div class="image"><img src="{% static 'images/pic02.jpg' %}" alt=""/></div>
+            <p class="credit">- <strong>Janet Smith</strong> <span>CEO - ABC Inc.</span>
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+{% endblock content %}

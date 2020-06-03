@@ -31,7 +31,7 @@ sys.path.insert(0, str(ROOT_DIR / "apps"))
 SECRET_KEY = "iqk^jqy+ewr#%hwt5cq2v0e%u%-+0i9j(6p@4x#*9*+t%y4hl8"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DEBUG", default=False)
 
 
 # Application definition
@@ -52,6 +52,8 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    "constance",  # https://github.com/jazzband/django-constance
+    "constance.backends.database",
 ]
 
 
@@ -75,7 +77,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [str(ROOT_DIR / "templates")],
+        "DIRS": [str(APPS_DIR / "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -168,3 +170,16 @@ WEBPACK_LOADER = {
 
 COMPRESS_ENABLED = True
 COMPRESS_ROOT = STATIC_ROOT
+
+
+
+# django-constance
+CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
+#CONSTANCE_DATABASE_CACHE_BACKEND = "default"
+
+CONSTANCE_CONFIG = {
+    "WHATSAPP_NUMERO": ("558540422050", "Número de contato Whatsapp"),
+    "WHATSAPP_MENSAGEM": ("Olá, vi o site DeltaCapital.com.br e gostaria de mais informações.", "Texto da mensagem do Whatsapp"),
+    "INSTAGRAM_USUARIO": ("delta.capital", "Nome de usuário do Instagram"),
+    "FACEBOOK_USUARIO": ("deltacapital.com.br", "Nome de usuário do Facebook"),
+}
