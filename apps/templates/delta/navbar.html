@@ -2,7 +2,10 @@
   <ul class="links">
     <li><a href="{% url 'delta:home' %}">Início</a></li>
     <li><a href="{% url 'delta:home' %}#sobre">Sobre</a></li>
-    <li><a href="generic.html">Serviços</a></li>
-    <li><a href="generic.html">Contato</a></li>
+    <li><a href="{% url 'delta:produto' 'financiamento-de-veiculos' %}">Financiamento de Veículos</a></li>
+    <li><a href="{% url 'delta:produto' 'cartao-de-credito' %}">Cartão de Crédito</a></li>
+    <li><a href="{% url 'delta:produto' 'capital-de-giro' %}">Capital de Giro</a></li>
+    <li><a href="#contato">Contato</a></li>
+
   </ul>
 </nav>
