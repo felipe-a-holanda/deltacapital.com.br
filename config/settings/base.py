@@ -15,6 +15,7 @@ from pathlib import Path
 import environ
 
 ROOT_DIR = Path(__file__).parents[2]  # user-records/)
+BASE_DIR = str(ROOT_DIR)
 APPS_DIR = ROOT_DIR / "apps"  # user-records/)
 
 env = environ.Env(DEBUG=(bool, False))
@@ -32,7 +33,7 @@ SECRET_KEY = "iqk^jqy+ewr#%hwt5cq2v0e%u%-+0i9j(6p@4x#*9*+t%y4hl8"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
-
+DEBUG_TEMPLATE = DEBUG
 
 # Application definition
 
@@ -54,6 +55,7 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount",
     "constance",  # https://github.com/jazzband/django-constance
     "constance.backends.database",
+    "crispy_forms",
 ]
 
 
@@ -78,14 +80,22 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [str(APPS_DIR / "templates")],
-        "APP_DIRS": True,
+        # "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-            ]
+                # "fobi.context_processors.theme",  # Important!
+                # "fobi.context_processors.dynamic_values",  # Optional
+            ],
+            "loaders": [
+                "django.template.loaders.filesystem.Loader",
+                "django.template.loaders.app_directories.Loader",
+                "admin_tools.template_loaders.Loader",
+            ],
+            "debug": DEBUG_TEMPLATE,
         },
     }
 ]
@@ -119,7 +129,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # though not all of them may be available with every OS.
 # In Windows, this must be set to your system time zone.
-TIME_ZONE = "UTC"
+# TIME_ZONE = "UTC"
+TIME_ZONE = "America/Fortaleza"
 # https://docs.djangoproject.com/en/dev/ref/settings/#language-code
 LANGUAGE_CODE = "pt-BR"
 # https://docs.djangoproject.com/en/dev/ref/settings/#site-id
@@ -172,14 +183,16 @@ COMPRESS_ENABLED = True
 COMPRESS_ROOT = STATIC_ROOT
 
 
-
 # django-constance
 CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
-#CONSTANCE_DATABASE_CACHE_BACKEND = "default"
+# CONSTANCE_DATABASE_CACHE_BACKEND = "default"
 
 CONSTANCE_CONFIG = {
     "WHATSAPP_NUMERO": ("558540422050", "Número de contato Whatsapp"),
-    "WHATSAPP_MENSAGEM": ("Olá, vi o site DeltaCapital.com.br e gostaria de mais informações.", "Texto da mensagem do Whatsapp"),
+    "WHATSAPP_MENSAGEM": (
+        "Olá, vi o site DeltaCapital.com.br e gostaria de mais informações.",
+        "Texto da mensagem do Whatsapp",
+    ),
     "INSTAGRAM_USUARIO": ("delta.capital", "Nome de usuário do Instagram"),
     "FACEBOOK_USUARIO": ("deltacapital.com.br", "Nome de usuário do Facebook"),
 }

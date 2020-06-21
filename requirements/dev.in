@@ -1,0 +1,37 @@
+-r base.in
+ipython==7.14.0
+Werkzeug==1.0.1 # https://github.com/pallets/werkzeug
+
+
+
+# Testing
+# ------------------------------------------------------------------------------
+django-stubs  # https://github.com/typeddjango/django-stubs
+factory-boy  # https://github.com/FactoryBoy/factory_boy
+pytest  # https://github.com/pytest-dev/pytest
+pytest-cov  # https://github.com/pytest-dev/pytest-cov
+pytest-sugar  # https://github.com/Frozenball/pytest-sugar
+pytest-django  # https://github.com/pytest-dev/pytest-django
+
+# Code quality
+# ------------------------------------------------------------------------------
+black  # https://github.com/ambv/black
+coverage  # https://github.com/nedbat/coveragepy
+flake8  # https://github.com/PyCQA/flake8
+flake8-isort  # https://github.com/gforcada/flake8-isort
+mypy  # https://github.com/python/mypy
+pylint-django  # https://github.com/PyCQA/pylint-django
+pre-commit  # https://github.com/pre-commit/pre-commit
+
+
+# Django
+# ------------------------------------------------------------------------------
+django-debug-toolbar  # https://github.com/jazzband/django-debug-toolbar
+django-extensions  # https://github.com/django-extensions/django-extensions
+django-coverage-plugin  # https://github.com/nedbat/django_coverage_plugin
+
+
+# Other
+# ------------------------------------------------------------------------------
+
+pip-tools

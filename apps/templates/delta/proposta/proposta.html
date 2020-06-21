@@ -1,0 +1,26 @@
+{% extends 'delta/base.html' %}
+{% load static compress %}
+{% load crispy_forms_tags %}
+
+{% block title %}Delta Capital - Proposta{% endblock %}
+
+{% block headmedia %}
+{{ form.media }}
+{% endblock headmedia %}
+
+
+{% block content %}
+
+<section class="wrapper">
+  <div class="inner" data-depth="0.10">
+    <h1>Financiamento de Veículos</h1>
+    <form id="job-application-form" method="post" action=".">
+      {% csrf_token %}
+      {{ form|crispy }}
+
+      <button class="button submit" type="submit" value="continue">Próximo</button>
+
+    </form>
+  </div>
+</section>
+{% endblock content %}

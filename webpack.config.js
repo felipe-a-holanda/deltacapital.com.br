@@ -9,6 +9,8 @@ var BundleTracker = require('webpack-bundle-tracker');
 // Here you write different options and tell Webpack what to do
 module.exports = {
 
+
+
   // Path to your entry point. From this file Webpack will begin his work
   //entry: './src/javascript/index.js',
   entry:  './static/js/main',
@@ -110,7 +112,15 @@ module.exports = {
     plugins: [
     new BundleTracker({filename: './webpack-stats.json'}),
     new MiniCssExtractPlugin({  filename: "css/[name]-[hash].css"   }),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery"
+    })
   ],
+
+
+
+
   
   
 

@@ -33,61 +33,13 @@
       <p>Conte com a gente para tirar seu sonho do papel, financiamento de veículos,
         cartão de crédito, capital de giro e seguros.</p>
     </header>
-    <div class="highlights">
-      <section>
-        <div class="content">
-          <header><a href="#" class="icon fa-car"><span class="label">Icon</span></a>
-            <h3>Financiamento de Veículos</h3>
-          </header>
-          <p>Condições especiais para você comprar seu veículo com taxas
-            diferenciadas.</p>
-          <footer>
-            <button class="button">Saiba Mais</button>
-          </footer>
-        </div>
-      </section>
-      <section>
-        <div class="content">
-          <header><a href="#" class="icon fa-credit-card"><span
-                  class="label">Icon</span></a>
-            <h3>Cartão de Crédito</h3>
-          </header>
-          <p>Solicite agora um cartão de crédito VISA ou MASTERCARD para você ou sua
-            empresa.</p>
-          <footer>
-            <button class="button">Saiba Mais</button>
-          </footer>
-        </div>
-      </section>
-      <section>
-        <div class="content">
-          <header><a href="#" class="icon fa-dollar"><span class="label">Icon</span></a>
-            <h3>Capital de Giro</h3>
-          </header>
-          <p>Melhores taxas de juros do mercado em um empréstimo totalmente online e
-            seguro.</p>
-          <footer>
-            <button class="button">Saiba Mais</button>
-          </footer>
-        </div>
-      </section>
-      <section>
-        <div class="content">
-          <header><a href="#" class="icon fa-sun-o"><span class="label">Icon</span></a>
-            <h3>Energia Solar</h3>
-          </header>
-          <p>Crédito para aquisição de sistemas para a geração de energia solar.</p>
-          <footer>
-            <button class="button">Saiba Mais</button>
-          </footer>
-        </div>
-      </section>
-    </div>
+
   </div>
 </section>
 <section class="cards">
   <div class="card-columns">
-    <div class="content"><a class="card" href="#!">
+    <div class="content">
+      <a class="card" href="{% url 'delta:produto' 'financiamento-de-veiculos' %}">
       <div class="front">
         <div>
           <p><span class="icon fa-car"><span class="label">Icon</span></span></p>
@@ -98,10 +50,11 @@
         <div>
           <p>Condições especiais para você comprar seu veículo com taxas
             diferenciadas.</p>
+
           <button class="button">Saiba Mais</button>
         </div>
       </div>
-    </a> <a class="card" href="#!">
+    </a> <a class="card" href="{% url 'delta:produto' 'cartao-de-credito' %}">
       <div class="front">
         <div>
           <p><span class="icon fa-credit-card"><span class="label">Icon</span></span>
@@ -116,7 +69,7 @@
           <button class="button">Solicite agora</button>
         </div>
       </div>
-    </a> <a class="card" href="#!">
+    </a> <a class="card" href="{% url 'delta:produto' 'capital-de-giro' %}">
       <div class="front">
         <div>
           <p><span class="icon fa-dollar"><span class="label">Icon</span></span></p>
@@ -130,17 +83,18 @@
           <button class="button">Simule aqui</button>
         </div>
       </div>
-    </a> <a class="card" href="#!">
+    </a> <a class="card" href="{% url 'delta:produto' 'emprestimo-pessoal' %}">
       <div class="front">
         <div>
           <p><span class="icon fa-sun-o"><span class="label">Icon</span></span></p>
-          <p>Energia Solar</p>
+          <p>Empréstimo Pessoal</p>
         </div>
       </div>
       <div class="back">
         <div>
           <p>Crédito para aquisição de sistemas para a geração de energia solar.</p>
           <button class="button">Simule aqui</button>
+
         </div>
       </div>
     </a></div>
@@ -218,3 +172,18 @@
   </div>
 </section>
 {% endblock content %}
+
+
+
+{% block js %}
+
+<script src="{% static 'js/parallax.js' %}"></script>
+
+
+<script>
+	// Pretty simple huh?
+	var scene = document.getElementById('banner');
+	var parallax = new Parallax(scene);
+
+</script>
+{% endblock js %}

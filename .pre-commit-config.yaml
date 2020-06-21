@@ -29,9 +29,3 @@ repos:
       entry: bash -c "./manage.py makemigrations --check --dry-run"
       types: ["python"]
       pass_filenames: false
-    - id: pytest
-      name: pytest
-      language: system
-      entry: pytest
-      pass_filenames: false
-      always_run: true

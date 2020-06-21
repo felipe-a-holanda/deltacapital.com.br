@@ -25,5 +25,9 @@
     "build": "webpack"
   },
   "author": "Felipe Holanda",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "inputmask": "^5.0.3",
+    "jquery": "^3.5.1"
+  }
 }

@@ -18,6 +18,7 @@
 
 
   {% render_bundle 'main' 'css' %}
+  {% block headmedia %}{% endblock headmedia %}
 
 </head>
 <body class="is-preload">
@@ -87,15 +88,10 @@
 <script src="{% static 'js/browser.min.js' %}"></script>
 <script src="{% static 'js/breakpoints.min.js' %}"></script>
 <script src="{% static 'js/util.js' %}"></script>
-<script src="{% static 'js/parallax.js' %}"></script>
 
 
-<script>
-	// Pretty simple huh?
-	var scene = document.getElementById('banner');
-	var parallax = new Parallax(scene);
-
-</script>
+{% block js %}
+{% endblock js %}
 
 {% endcompress %}
 

@@ -56,6 +56,10 @@
 			@include vendor('pointer-events', 'none');
 			opacity: 0.25;
 		}
+
+		&.submit{
+		    margin: 2rem 0rem 0rem 0rem;
+		}
 	}
 
 	@mixin color-button($p: null) {

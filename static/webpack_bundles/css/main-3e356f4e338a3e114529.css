@@ -283,7 +283,7 @@ input, select, textarea {
 }
 
 a {
-  color: DarkBlue;
+  color: MediumBlue;
 }
 
 strong, b {
@@ -398,6 +398,13 @@ button:disabled,
   pointer-events: none;
   opacity: 0.25;
 }
+input[type=submit].submit,
+input[type=reset].submit,
+input[type=button].submit,
+button.submit,
+.button.submit {
+  margin: 2rem 0rem 0rem 0rem;
+}
 
 input[type=submit],
 input[type=reset],
@@ -413,15 +420,15 @@ input[type=reset]:hover,
 input[type=button]:hover,
 button:hover,
 .button:hover {
-  box-shadow: inset 0 0 0 1px DarkBlue;
-  color: DarkBlue !important;
+  box-shadow: inset 0 0 0 1px MediumBlue;
+  color: MediumBlue !important;
 }
 input[type=submit]:hover:active,
 input[type=reset]:hover:active,
 input[type=button]:hover:active,
 button:hover:active,
 .button:hover:active {
-  background-color: rgba(0, 0, 139, 0.25);
+  background-color: rgba(0, 0, 205, 0.25);
 }
 input[type=submit].primary,
 input[type=reset].primary,
@@ -429,7 +436,7 @@ input[type=button].primary,
 button.primary,
 .button.primary {
   box-shadow: none;
-  background-color: DarkBlue;
+  background-color: MediumBlue;
   color: #ffffff !important;
 }
 input[type=submit].primary:hover,
@@ -437,7 +444,7 @@ input[type=reset].primary:hover,
 input[type=button].primary:hover,
 button.primary:hover,
 .button.primary:hover {
-  background-color: #0000a5;
+  background-color: #0000e7;
   box-shadow: none;
 }
 input[type=submit].primary:hover:active,
@@ -445,7 +452,7 @@ input[type=reset].primary:hover:active,
 input[type=button].primary:hover:active,
 button.primary:hover:active,
 .button.primary:hover:active {
-  background-color: #000072;
+  background-color: #0000b4;
 }
 
 /* Form */
@@ -490,7 +497,7 @@ label {
   display: block;
   font-size: 1rem;
   font-weight: 600;
-  margin: 0 0 1rem 0;
+  margin: 1rem 0 0 0;
 }
 
 input[type=text],
@@ -620,8 +627,8 @@ input[type=search]:focus,
 input[type=url]:focus,
 select:focus,
 textarea:focus {
-  border-color: DarkBlue;
-  box-shadow: 0 0 0 1px DarkBlue;
+  border-color: MediumBlue;
+  box-shadow: 0 0 0 1px MediumBlue;
 }
 
 select {
@@ -643,14 +650,14 @@ input[type=radio] + label:before {
 }
 input[type=checkbox]:checked + label:before,
 input[type=radio]:checked + label:before {
-  background-color: DarkBlue;
-  border-color: DarkBlue;
+  background-color: MediumBlue;
+  border-color: MediumBlue;
   color: #ffffff;
 }
 input[type=checkbox]:focus + label:before,
 input[type=radio]:focus + label:before {
-  border-color: DarkBlue;
-  box-shadow: 0 0 0 1px DarkBlue;
+  border-color: MediumBlue;
+  box-shadow: 0 0 0 1px MediumBlue;
 }
 
 ::-webkit-input-placeholder {
@@ -1198,7 +1205,7 @@ table.alt tbody tr td {
   box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.025);
 }
 .testimonials .content .credit strong {
-  color: DarkBlue;
+  color: MediumBlue;
 }
 
 /* Actions */
@@ -2438,7 +2445,7 @@ ul.icons li .icon:before {
   color: #ffffff;
 }
 #banner a {
-  color: DarkBlue;
+  color: MediumBlue;
 }
 #banner strong, #banner b {
   color: #ffffff;
@@ -2470,15 +2477,15 @@ ul.icons li .icon:before {
 #banner input[type=button]:hover,
 #banner button:hover,
 #banner .button:hover {
-  box-shadow: inset 0 0 0 1px DarkBlue;
-  color: DarkBlue !important;
+  box-shadow: inset 0 0 0 1px MediumBlue;
+  color: MediumBlue !important;
 }
 #banner input[type=submit]:hover:active,
 #banner input[type=reset]:hover:active,
 #banner input[type=button]:hover:active,
 #banner button:hover:active,
 #banner .button:hover:active {
-  background-color: rgba(0, 0, 139, 0.25);
+  background-color: rgba(0, 0, 205, 0.25);
 }
 #banner input[type=submit].primary,
 #banner input[type=reset].primary,
@@ -2486,7 +2493,7 @@ ul.icons li .icon:before {
 #banner button.primary,
 #banner .button.primary {
   box-shadow: none;
-  background-color: DarkBlue;
+  background-color: MediumBlue;
   color: #ffffff !important;
 }
 #banner input[type=submit].primary:hover,
@@ -2494,7 +2501,7 @@ ul.icons li .icon:before {
 #banner input[type=button].primary:hover,
 #banner button.primary:hover,
 #banner .button.primary:hover {
-  background-color: #0000a5;
+  background-color: #0000e7;
   box-shadow: none;
 }
 #banner input[type=submit].primary:hover:active,
@@ -2502,7 +2509,7 @@ ul.icons li .icon:before {
 #banner input[type=button].primary:hover:active,
 #banner button.primary:hover:active,
 #banner .button.primary:hover:active {
-  background-color: #000072;
+  background-color: #0000b4;
 }
 #banner label {
   color: #ffffff;
@@ -2526,8 +2533,8 @@ ul.icons li .icon:before {
 #banner input[type=url]:focus,
 #banner select:focus,
 #banner textarea:focus {
-  border-color: DarkBlue;
-  box-shadow: 0 0 0 1px DarkBlue;
+  border-color: MediumBlue;
+  box-shadow: 0 0 0 1px MediumBlue;
 }
 #banner select {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' preserveAspectRatio='none' viewBox='0 0 40 40'%3E%3Cpath d='M9.4,12.3l10.4,10.4l10.4-10.4c0.2-0.2,0.5-0.4,0.9-0.4c0.3,0,0.6,0.1,0.9,0.4l3.3,3.3c0.2,0.2,0.4,0.5,0.4,0.9 c0,0.4-0.1,0.6-0.4,0.9L20.7,31.9c-0.2,0.2-0.5,0.4-0.9,0.4c-0.3,0-0.6-0.1-0.9-0.4L4.3,17.3c-0.2-0.2-0.4-0.5-0.4-0.9 c0-0.4,0.1-0.6,0.4-0.9l3.3-3.3c0.2-0.2,0.5-0.4,0.9-0.4S9.1,12.1,9.4,12.3z' fill='rgba(255, 255, 255, 0.25)' /%3E%3C/svg%3E");
@@ -2547,14 +2554,14 @@ ul.icons li .icon:before {
 }
 #banner input[type=checkbox]:checked + label:before,
 #banner input[type=radio]:checked + label:before {
-  background-color: DarkBlue;
-  border-color: DarkBlue;
+  background-color: MediumBlue;
+  border-color: MediumBlue;
   color: #ffffff;
 }
 #banner input[type=checkbox]:focus + label:before,
 #banner input[type=radio]:focus + label:before {
-  border-color: DarkBlue;
-  box-shadow: 0 0 0 1px DarkBlue;
+  border-color: MediumBlue;
+  box-shadow: 0 0 0 1px MediumBlue;
 }
 #banner ::-webkit-input-placeholder {
   color: rgba(255, 255, 255, 0.4) !important;
@@ -2598,7 +2605,7 @@ ul.icons li .icon:before {
   box-shadow: 0px 0px 4px 1px rgba(255, 255, 255, 0.025);
 }
 #banner .testimonials .content .credit strong {
-  color: DarkBlue;
+  color: MediumBlue;
 }
 #banner > .inner {
   -moz-transform: scale(1.0);
@@ -2789,10 +2796,10 @@ body.is-preload #banner:before {
 
 /* CTA */
 #cta {
-  background-color: DarkBlue;
+  background-color: MediumBlue;
   color: rgba(255, 255, 255, 0.75);
   background-attachment: fixed;
-  background-image: linear-gradient(rgba(0, 0, 139, 0.25), rgba(0, 0, 139, 0.25)), url(../../images/cta01.jpg);
+  background-image: linear-gradient(rgba(0, 0, 205, 0.25), rgba(0, 0, 205, 0.25)), url(../../images/cta01.jpg);
   background-position: bottom;
   background-repeat: no-repeat;
   background-size: cover;
@@ -2852,7 +2859,7 @@ body.is-preload #banner:before {
 #cta .button.primary {
   box-shadow: none;
   background-color: #ffffff;
-  color: DarkBlue !important;
+  color: MediumBlue !important;
 }
 #cta input[type=submit].primary:hover,
 #cta input[type=reset].primary:hover,
@@ -2899,7 +2906,7 @@ body.is-preload #banner:before {
 }
 #cta select option {
   color: rgba(255, 255, 255, 0.75);
-  background-color: DarkBlue;
+  background-color: MediumBlue;
 }
 #cta input[type=checkbox] + label,
 #cta input[type=radio] + label {
@@ -2914,7 +2921,7 @@ body.is-preload #banner:before {
 #cta input[type=radio]:checked + label:before {
   background-color: #ffffff;
   border-color: #ffffff;
-  color: DarkBlue;
+  color: MediumBlue;
 }
 #cta input[type=checkbox]:focus + label:before,
 #cta input[type=radio]:focus + label:before {
@@ -2955,15 +2962,15 @@ body.is-preload #banner:before {
   border-color: rgba(255, 255, 255, 0.25);
 }
 #cta .highlights .content {
-  background: DarkBlue;
+  background: MediumBlue;
   box-shadow: 0px 0px 4px 1px rgba(255, 255, 255, 0.025);
 }
 #cta .testimonials .content {
-  background: DarkBlue;
+  background: MediumBlue;
   box-shadow: 0px 0px 4px 1px rgba(255, 255, 255, 0.025);
 }
 #cta .testimonials .content .credit strong {
-  color: DarkBlue;
+  color: MediumBlue;
 }
 #cta .inner {
   position: relative;
@@ -2985,7 +2992,7 @@ body.is-preload #banner:before {
   color: #ffffff;
 }
 #footer a {
-  color: DarkBlue;
+  color: MediumBlue;
 }
 #footer strong, #footer b {
   color: #ffffff;
@@ -3017,15 +3024,15 @@ body.is-preload #banner:before {
 #footer input[type=button]:hover,
 #footer button:hover,
 #footer .button:hover {
-  box-shadow: inset 0 0 0 1px DarkBlue;
-  color: DarkBlue !important;
+  box-shadow: inset 0 0 0 1px MediumBlue;
+  color: MediumBlue !important;
 }
 #footer input[type=submit]:hover:active,
 #footer input[type=reset]:hover:active,
 #footer input[type=button]:hover:active,
 #footer button:hover:active,
 #footer .button:hover:active {
-  background-color: rgba(0, 0, 139, 0.25);
+  background-color: rgba(0, 0, 205, 0.25);
 }
 #footer input[type=submit].primary,
 #footer input[type=reset].primary,
@@ -3033,7 +3040,7 @@ body.is-preload #banner:before {
 #footer button.primary,
 #footer .button.primary {
   box-shadow: none;
-  background-color: DarkBlue;
+  background-color: MediumBlue;
   color: #ffffff !important;
 }
 #footer input[type=submit].primary:hover,
@@ -3041,7 +3048,7 @@ body.is-preload #banner:before {
 #footer input[type=button].primary:hover,
 #footer button.primary:hover,
 #footer .button.primary:hover {
-  background-color: #0000a5;
+  background-color: #0000e7;
   box-shadow: none;
 }
 #footer input[type=submit].primary:hover:active,
@@ -3049,7 +3056,7 @@ body.is-preload #banner:before {
 #footer input[type=button].primary:hover:active,
 #footer button.primary:hover:active,
 #footer .button.primary:hover:active {
-  background-color: #000072;
+  background-color: #0000b4;
 }
 #footer label {
   color: #ffffff;
@@ -3073,8 +3080,8 @@ body.is-preload #banner:before {
 #footer input[type=url]:focus,
 #footer select:focus,
 #footer textarea:focus {
-  border-color: DarkBlue;
-  box-shadow: 0 0 0 1px DarkBlue;
+  border-color: MediumBlue;
+  box-shadow: 0 0 0 1px MediumBlue;
 }
 #footer select {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' preserveAspectRatio='none' viewBox='0 0 40 40'%3E%3Cpath d='M9.4,12.3l10.4,10.4l10.4-10.4c0.2-0.2,0.5-0.4,0.9-0.4c0.3,0,0.6,0.1,0.9,0.4l3.3,3.3c0.2,0.2,0.4,0.5,0.4,0.9 c0,0.4-0.1,0.6-0.4,0.9L20.7,31.9c-0.2,0.2-0.5,0.4-0.9,0.4c-0.3,0-0.6-0.1-0.9-0.4L4.3,17.3c-0.2-0.2-0.4-0.5-0.4-0.9 c0-0.4,0.1-0.6,0.4-0.9l3.3-3.3c0.2-0.2,0.5-0.4,0.9-0.4S9.1,12.1,9.4,12.3z' fill='rgba(255, 255, 255, 0.25)' /%3E%3C/svg%3E");
@@ -3094,14 +3101,14 @@ body.is-preload #banner:before {
 }
 #footer input[type=checkbox]:checked + label:before,
 #footer input[type=radio]:checked + label:before {
-  background-color: DarkBlue;
-  border-color: DarkBlue;
+  background-color: MediumBlue;
+  border-color: MediumBlue;
   color: #ffffff;
 }
 #footer input[type=checkbox]:focus + label:before,
 #footer input[type=radio]:focus + label:before {
-  border-color: DarkBlue;
-  box-shadow: 0 0 0 1px DarkBlue;
+  border-color: MediumBlue;
+  box-shadow: 0 0 0 1px MediumBlue;
 }
 #footer ::-webkit-input-placeholder {
   color: rgba(255, 255, 255, 0.4) !important;
@@ -3145,14 +3152,14 @@ body.is-preload #banner:before {
   box-shadow: 0px 0px 4px 1px rgba(255, 255, 255, 0.025);
 }
 #footer .testimonials .content .credit strong {
-  color: DarkBlue;
+  color: MediumBlue;
 }
 #footer a {
   color: rgba(255, 255, 255, 0.5);
   text-decoration: none;
 }
 #footer a:hover {
-  color: DarkBlue;
+  color: MediumBlue;
 }
 #footer .content {
   display: -moz-flex;
@@ -3363,7 +3370,7 @@ body:before {
   color: #ffffff;
 }
 #heading a {
-  color: DarkBlue;
+  color: MediumBlue;
 }
 #heading strong, #heading b {
   color: #ffffff;
@@ -3395,15 +3402,15 @@ body:before {
 #heading input[type=button]:hover,
 #heading button:hover,
 #heading .button:hover {
-  box-shadow: inset 0 0 0 1px DarkBlue;
-  color: DarkBlue !important;
+  box-shadow: inset 0 0 0 1px MediumBlue;
+  color: MediumBlue !important;
 }
 #heading input[type=submit]:hover:active,
 #heading input[type=reset]:hover:active,
 #heading input[type=button]:hover:active,
 #heading button:hover:active,
 #heading .button:hover:active {
-  background-color: rgba(0, 0, 139, 0.25);
+  background-color: rgba(0, 0, 205, 0.25);
 }
 #heading input[type=submit].primary,
 #heading input[type=reset].primary,
@@ -3411,7 +3418,7 @@ body:before {
 #heading button.primary,
 #heading .button.primary {
   box-shadow: none;
-  background-color: DarkBlue;
+  background-color: MediumBlue;
   color: #ffffff !important;
 }
 #heading input[type=submit].primary:hover,
@@ -3419,7 +3426,7 @@ body:before {
 #heading input[type=button].primary:hover,
 #heading button.primary:hover,
 #heading .button.primary:hover {
-  background-color: #0000a5;
+  background-color: #0000e7;
   box-shadow: none;
 }
 #heading input[type=submit].primary:hover:active,
@@ -3427,7 +3434,7 @@ body:before {
 #heading input[type=button].primary:hover:active,
 #heading button.primary:hover:active,
 #heading .button.primary:hover:active {
-  background-color: #000072;
+  background-color: #0000b4;
 }
 #heading label {
   color: #ffffff;
@@ -3451,8 +3458,8 @@ body:before {
 #heading input[type=url]:focus,
 #heading select:focus,
 #heading textarea:focus {
-  border-color: DarkBlue;
-  box-shadow: 0 0 0 1px DarkBlue;
+  border-color: MediumBlue;
+  box-shadow: 0 0 0 1px MediumBlue;
 }
 #heading select {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' preserveAspectRatio='none' viewBox='0 0 40 40'%3E%3Cpath d='M9.4,12.3l10.4,10.4l10.4-10.4c0.2-0.2,0.5-0.4,0.9-0.4c0.3,0,0.6,0.1,0.9,0.4l3.3,3.3c0.2,0.2,0.4,0.5,0.4,0.9 c0,0.4-0.1,0.6-0.4,0.9L20.7,31.9c-0.2,0.2-0.5,0.4-0.9,0.4c-0.3,0-0.6-0.1-0.9-0.4L4.3,17.3c-0.2-0.2-0.4-0.5-0.4-0.9 c0-0.4,0.1-0.6,0.4-0.9l3.3-3.3c0.2-0.2,0.5-0.4,0.9-0.4S9.1,12.1,9.4,12.3z' fill='rgba(255, 255, 255, 0.25)' /%3E%3C/svg%3E");
@@ -3472,14 +3479,14 @@ body:before {
 }
 #heading input[type=checkbox]:checked + label:before,
 #heading input[type=radio]:checked + label:before {
-  background-color: DarkBlue;
-  border-color: DarkBlue;
+  background-color: MediumBlue;
+  border-color: MediumBlue;
   color: #ffffff;
 }
 #heading input[type=checkbox]:focus + label:before,
 #heading input[type=radio]:focus + label:before {
-  border-color: DarkBlue;
-  box-shadow: 0 0 0 1px DarkBlue;
+  border-color: MediumBlue;
+  box-shadow: 0 0 0 1px MediumBlue;
 }
 #heading ::-webkit-input-placeholder {
   color: rgba(255, 255, 255, 0.4) !important;
@@ -3523,10 +3530,10 @@ body:before {
   box-shadow: 0px 0px 4px 1px rgba(255, 255, 255, 0.025);
 }
 #heading .testimonials .content .credit strong {
-  color: DarkBlue;
+  color: MediumBlue;
 }
 #heading:before {
-  background: linear-gradient(135deg, DarkBlue 0%, #111111 74%);
+  background: linear-gradient(135deg, MediumBlue 0%, #111111 74%);
   content: " ";
   display: block;
   height: 100%;
@@ -3596,7 +3603,7 @@ body:before {
   color: #ffffff;
 }
 #menu a {
-  color: DarkBlue;
+  color: MediumBlue;
 }
 #menu strong, #menu b {
   color: #ffffff;
@@ -3628,15 +3635,15 @@ body:before {
 #menu input[type=button]:hover,
 #menu button:hover,
 #menu .button:hover {
-  box-shadow: inset 0 0 0 1px DarkBlue;
-  color: DarkBlue !important;
+  box-shadow: inset 0 0 0 1px MediumBlue;
+  color: MediumBlue !important;
 }
 #menu input[type=submit]:hover:active,
 #menu input[type=reset]:hover:active,
 #menu input[type=button]:hover:active,
 #menu button:hover:active,
 #menu .button:hover:active {
-  background-color: rgba(0, 0, 139, 0.25);
+  background-color: rgba(0, 0, 205, 0.25);
 }
 #menu input[type=submit].primary,
 #menu input[type=reset].primary,
@@ -3644,7 +3651,7 @@ body:before {
 #menu button.primary,
 #menu .button.primary {
   box-shadow: none;
-  background-color: DarkBlue;
+  background-color: MediumBlue;
   color: #ffffff !important;
 }
 #menu input[type=submit].primary:hover,
@@ -3652,7 +3659,7 @@ body:before {
 #menu input[type=button].primary:hover,
 #menu button.primary:hover,
 #menu .button.primary:hover {
-  background-color: #0000a5;
+  background-color: #0000e7;
   box-shadow: none;
 }
 #menu input[type=submit].primary:hover:active,
@@ -3660,7 +3667,7 @@ body:before {
 #menu input[type=button].primary:hover:active,
 #menu button.primary:hover:active,
 #menu .button.primary:hover:active {
-  background-color: #000072;
+  background-color: #0000b4;
 }
 #menu > ul {
   margin: 0 0 1rem 0;
@@ -3826,7 +3833,7 @@ body {
 }
 .card .icon {
   font-size: 4rem;
-  color: DarkBlue;
+  color: MediumBlue;
 }
 .card .button {
   transform: translateZ(80px);
