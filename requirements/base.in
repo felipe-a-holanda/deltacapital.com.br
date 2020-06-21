@@ -7,7 +7,6 @@ django-compressor  # https://github.com/django-compressor/django-compressor
 django-extensions  # https://github.com/django-extensions/django-extensions
 django-webpack-loader  # https://github.com/owais/django-webpack-loader
 markdown  # https://github.com/Python-Markdown/markdown/
-django-fobi  # https://github.com/barseghyanartur/django-fobi
 django-admin-tools  # https://github.com/django-admin-tools/django-admin-tools
 django-crispy-forms
 

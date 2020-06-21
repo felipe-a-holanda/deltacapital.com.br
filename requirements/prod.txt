@@ -7,42 +7,23 @@
 --no-binary psycopg2
 
 asgiref==3.2.7            # via django
-bleach==3.1.5             # via django-fobi
-certifi==2020.4.5.2       # via requests
-chardet==3.0.4            # via requests
 django-admin-tools==0.9.0  # via -r requirements/base.in
 django-appconf==1.0.4     # via django-compressor
-django-autoslug==1.9.7    # via django-fobi
 django-compressor==2.4    # via -r requirements/base.in
 django-crispy-forms==1.9.1  # via -r requirements/base.in
 django-environ==0.4.5     # via -r requirements/base.in
 django-extensions==2.2.8  # via -r requirements/base.in
 django-filter==2.2.0      # via -r requirements/base.in
-django-fobi==0.16.4       # via -r requirements/base.in
-django-formtools==2.2     # via django-fobi
-django-nine==0.2.3        # via django-fobi, django-nonefield
-django-nonefield==0.4     # via django-fobi
 django-webpack-loader==0.7.0  # via -r requirements/base.in
-django==3.0.6             # via -r requirements/base.in, django-appconf, django-filter, django-formtools, easy-thumbnails
-easy-thumbnails==2.7      # via django-fobi
+django==3.0.6             # via -r requirements/base.in, django-filter
 gunicorn==20.0.4          # via -r requirements/prod.in
-idna==2.9                 # via requests
 markdown==3.2.1           # via -r requirements/base.in
-packaging==20.4           # via bleach
-pillow==7.1.2             # via django-fobi, easy-thumbnails
 psycopg2==2.8.5           # via -r requirements/base.in
-pyparsing==2.4.7          # via packaging
 pytz==2020.1              # via django
 rcssmin==1.0.6            # via django-compressor
-requests==2.23.0          # via django-fobi
 rjsmin==1.1.0             # via django-compressor
-simplejson==3.17.0        # via django-fobi
-six==1.15.0               # via bleach, django-compressor, django-extensions, django-fobi, packaging, vishap
+six==1.15.0               # via django-compressor, django-extensions
 sqlparse==0.3.1           # via django
-unidecode==1.1.1          # via django-fobi
-urllib3==1.25.9           # via requests
-vishap==0.1.5             # via django-fobi
-webencodings==0.5.1       # via bleach
 whitenoise==5.0.1         # via -r requirements/base.in
 
 # The following packages are considered to be unsafe in a requirements file:
