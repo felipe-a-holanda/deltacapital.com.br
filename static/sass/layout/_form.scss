@@ -1,0 +1,16 @@
+/* Heading */
+
+	body.form {
+		padding-top: _size(header-height);
+		background-color: white;
+
+		&:before {
+			content: ' ';
+			background-image: none;
+		        }
+	}
+
+
+div.button-row{
+    text-align: center;
+}

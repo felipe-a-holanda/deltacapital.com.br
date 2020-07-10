@@ -17,7 +17,7 @@ def create_session_hash():
 class Proposta(models.Model):
     FIELDS = {
         constants.STAGE_1: ["valor_do_veiculo", "valor_de_entrada", "cpf"],
-        constants.STAGE_2: ["prazo"],
+        constants.STAGE_2: ["prazo", ],
         constants.STAGE_3: [
             "nome",
             "data_de_nascimento",
@@ -33,6 +33,7 @@ class Proposta(models.Model):
             "endereco",
             "numero",
             "complemento",
+            "bairro",
             "cidade",
             "uf",
             "telefone_fixo",
@@ -47,7 +48,7 @@ class Proposta(models.Model):
             "endereco_comercial",
             "numero_empresa",
             "complemento_empresa",
-            "bairro",
+            "bairro_empresa",
             "cidade_empresa",
             "uf_empresa",
             "inicio_da_atividade",
@@ -112,6 +113,37 @@ class Proposta(models.Model):
         ("TO", "TO"),
     ]
 
+    TIPO_RENDA2 = [
+        ("assalariado", "Assalariado"),
+        ("autonomo", "Profissional liberal/Autônomo"),
+        ("empresario", "Empresário"),
+        ("aposentado", "Aposentado"),
+    ]
+
+    TIPO_RENDA = [
+        ("assalariado", "assalariado"),
+        ("autonomo", "autonomo"),
+        ("empresario", "empresario"),
+        ("aposentado", "aposentado"),
+    ]
+
+    PROFISSAO = [
+        ("ADMINISTRADORES / ECONOMISTAS", "ADMINISTRADORES / ECONOMISTAS"),
+        ("ANALISTAS", "ANALISTAS"),
+        ("CONSULTOR", "CONSULTOR"),
+        ("DIRETOR DE EMPRESA", "DIRETOR DE EMPRESA"),
+        ("FUNCIONÁRIO DE EMPRESAS PUBLICAS", "FUNCIONÁRIO DE EMPRESAS PUBLICAS"),
+        ("GERENTE", "GERENTE"),
+        ("OPERADOR EM GERAL", "OPERADOR EM GERAL"),
+        ("OUTRAS PROFISSÕES DA INDUSTRIA", "OUTRAS PROFISSÕES DA INDUSTRIA"),
+        ("OUTRAS PROFISSÕES NO COMÉRCIO", "OUTRAS PROFISSÕES NO COMÉRCIO"),
+        ("PROFESSORES", "PROFESSORES"),
+        ("PROMOTOR", "PROMOTOR"),
+        ("VENDEDORES / REPRESENTANTES / INTERMEDIÁRIOS", "VENDEDORES / REPRESENTANTES / INTERMEDIÁRIOS"),
+        ("OUTROS", "OUTROS"),
+
+    ]
+
     # operational fields
     criado_em = models.DateTimeField(auto_now_add=True)
     enviado_em = models.DateTimeField(auto_now=True)
@@ -119,12 +151,12 @@ class Proposta(models.Model):
     stage = models.CharField("Estágio", max_length=10, default="1")
 
     # stage 1 fields
-    valor_do_veiculo = models.CharField("Valor do Veículo", max_length=20, blank=True)
+    valor_do_veiculo = models.CharField("Valor do Veículo", max_length=20, blank=True, help_text="<h2>Veículo</h2><h3>Preencha os dados do financiamento</h3>")
     valor_de_entrada = models.CharField("Valor de Entrada", max_length=20, blank=True)
-    cpf = models.CharField("CPF", max_length=20, blank=True)
+    cpf = models.CharField("CPF", max_length=20, blank=True, help_text="<h2>Cliente</h2><h3>Preencha com o CPF do seu Cliente</h3>")
 
     # stage 2 fields
-    prazo = models.CharField("Prazo", max_length=3, choices=PRAZO, blank=True)
+    prazo = models.CharField("Prazo", max_length=3, choices=PRAZO, blank=False)
 
     # stage 3 fields
     nome = models.CharField("Nome", max_length=100, blank=True)
@@ -147,9 +179,10 @@ class Proposta(models.Model):
 
     # stage 4 fields
     cep = models.CharField("CEP", max_length=100, blank=True)
-    endereco = models.CharField("Endereço", max_length=100, blank=True)
+    endereco = models.CharField("Endereço (Rua/Avenida/Alameda)", max_length=100, blank=True)
     numero = models.CharField("Número", max_length=100, blank=True)
     complemento = models.CharField("Complemento", max_length=100, blank=True)
+    bairro = models.CharField("Bairro", max_length=100, blank=True)
     cidade = models.CharField("Cidade", max_length=100, blank=True)
     uf = models.CharField("UF", max_length=2, choices=UFS, blank=True)
     telefone_fixo = models.CharField("Telefone Fixo", max_length=100, blank=True)
@@ -157,18 +190,18 @@ class Proposta(models.Model):
     email = models.CharField("Email", max_length=100, blank=True)
 
     # stage 5 fields
-    tipo_de_renda = models.CharField("Tipo de Renda", max_length=100, blank=True)
+    tipo_de_renda = models.CharField("Tipo de Renda", choices=TIPO_RENDA, max_length=100, blank=True)
     renda_mensal_pessoal = models.CharField(
         "Renda Mensal Pessoal", max_length=100, blank=True
     )
-    profissao = models.CharField("Profissão", max_length=100, blank=True)
+    profissao = models.CharField("Profissão", choices=PROFISSAO, max_length=100, blank=True)
     cep_da_empresa = models.CharField("CEP da Empresa", max_length=100, blank=True)
     endereco_comercial = models.CharField(
         "Endereço Comercial", max_length=100, blank=True
     )
     numero_empresa = models.CharField("Número", max_length=100, blank=True)
     complemento_empresa = models.CharField("Complemento", max_length=100, blank=True)
-    bairro = models.CharField("Bairro", max_length=100, blank=True)
+    bairro_empresa = models.CharField("Bairro", max_length=100, blank=True)
     cidade_empresa = models.CharField("Cidade", max_length=100, blank=True)
     uf_empresa = models.CharField("UF", max_length=2, choices=UFS, blank=True)
     inicio_da_atividade = models.CharField(
@@ -210,6 +243,7 @@ class Proposta(models.Model):
 
     # Config
     hidden_fields = ["stage", "session_hash"]
+    radio_fields = ["prazo", "sexo", "tipo_de_renda"]
     required_fields = [
         "valor_do_veiculo",
         "valor_de_entrada",
@@ -227,6 +261,7 @@ class Proposta(models.Model):
         "endereco",
         "numero",
         # 'complemento',
+        "bairro",
         "cidade",
         "uf",
         # 'telefone_fixo',
@@ -239,7 +274,7 @@ class Proposta(models.Model):
         "endereco_comercial",
         "numero_empresa",
         # 'complemento_empresa',
-        "bairro",
+        "bairro_empresa",
         "cidade_empresa",
         "uf_empresa",
         "inicio_da_atividade",
@@ -266,7 +301,7 @@ class Proposta(models.Model):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.create_hash()
-        print([n.name for n in self._meta.fields])
+        #print([n.name for n in self._meta.fields])
 
     def __str__(self):
         return f"{self.nome} - {self.cpf}"

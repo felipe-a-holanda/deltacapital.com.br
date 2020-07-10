@@ -21,7 +21,7 @@
   {% block headmedia %}{% endblock headmedia %}
 
 </head>
-<body class="is-preload">
+<body class="{% block bodyclass %}is-preload index{% endblock bodyclass %}">
 
 <!-- Header -->
 <header id="header"><a class="logo" href="{% url 'delta:home' %}">Delta Capital</a>

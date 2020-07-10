@@ -45,6 +45,7 @@ DJANGO_APPS = [
     "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.forms",
 ]
 
 THIRD_PARTY_APPS = [
@@ -56,6 +57,7 @@ THIRD_PARTY_APPS = [
     "constance",  # https://github.com/jazzband/django-constance
     "constance.backends.database",
     "crispy_forms",
+    'widget_tweaks',
 ]
 
 
@@ -102,7 +104,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 # ------------------------------------------------------------------------------

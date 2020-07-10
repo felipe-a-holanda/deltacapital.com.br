@@ -5,6 +5,8 @@
 */
 import '../sass/main.scss';
 import './masks.js';
+import './cep-fill.js';
+import './conditionize.js';
 
 (function($) {
 
