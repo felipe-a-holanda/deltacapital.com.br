@@ -27,13 +27,6 @@ urlpatterns = [
     path("porto/", porto_view, name="porto"),
 
 
-    # View URLs
-    path('fobi/', include('fobi.urls.view')),
-
-    # Edit URLs
-    path('fobi/', include('fobi.urls.edit')),
-    path('fobi/plugins/form-handlers/db-store/', include('fobi.contrib.plugins.form_handlers.db_store.urls')),
-
     path("", include("apps.delta.urls", namespace="delta")),
 ]
 
