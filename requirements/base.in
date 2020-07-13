@@ -9,6 +9,7 @@ django-webpack-loader  # https://github.com/owais/django-webpack-loader
 markdown  # https://github.com/Python-Markdown/markdown/
 django-admin-tools  # https://github.com/django-admin-tools/django-admin-tools
 django-crispy-forms
+django-widget-tweaks
 
 # Databases and Static files
 # ------------------------------------------------------------------------------

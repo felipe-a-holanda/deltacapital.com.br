@@ -14,7 +14,7 @@ from django.views.generic import FormView
 from django.views.generic import RedirectView
 from django.views.generic import TemplateView
 
-from IPython import embed
+
 
 from . import constants
 from .forms import BaseApplicationForm

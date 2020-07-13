@@ -28,6 +28,7 @@ django-extensions==2.2.8  # via -r requirements/base.in, -r requirements/dev.in
 django-filter==2.2.0      # via -r requirements/base.in
 django-stubs==1.5.0       # via -r requirements/dev.in
 django-webpack-loader==0.7.0  # via -r requirements/base.in
+django-widget-tweaks==1.4.8  # via -r requirements/base.in
 django==3.0.6             # via -r requirements/base.in, django-appconf, django-debug-toolbar, django-filter, django-stubs
 entrypoints==0.3          # via flake8
 factory-boy==2.12.0       # via -r requirements/dev.in

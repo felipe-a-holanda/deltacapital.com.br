@@ -4,12 +4,7 @@ from django.core.exceptions import ValidationError
 from django.forms import HiddenInput
 from django.forms.models import ModelForm
 from django import forms
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit
 
-from IPython import embed
-from . import constants
-from .models import Proposta
 
 class DeltaRadioSelect(forms.widgets.RadioSelect):
     template_name = 'project/widgets/filter.html'
