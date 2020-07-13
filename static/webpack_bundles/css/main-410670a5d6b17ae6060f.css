@@ -319,6 +319,18 @@ hr {
   }
 }
 
+.inner-form {
+  margin: 0 auto;
+  width: 50%;
+  max-width: 50%;
+}
+@media screen and (max-width: 736px) {
+  .inner-form {
+    width: 80%;
+    max-width: calc(100% - 3rem);
+  }
+}
+
 /* Button */
 input[type=submit],
 input[type=reset],
@@ -413,7 +425,7 @@ button,
 .button {
   background-color: transparent;
   box-shadow: inset 0 0 0 1px #555555;
-  color: #555555 !important;
+  color: #555555;
 }
 input[type=submit]:hover,
 input[type=reset]:hover,
@@ -459,6 +471,18 @@ button.primary:hover:active,
 form {
   margin: 0 0 2rem 0;
 }
+form button.button-submit {
+  margin: 2rem 1rem 1rem 1rem;
+  text-transform: uppercase;
+  color: white;
+  background-color: #7198bb;
+  box-shadow: none;
+  height: 2.2rem;
+  line-height: 1rem;
+  border-radius: 0px;
+  font-weight: bolder;
+  font-size: 1rem;
+}
 
 input[type=text],
 input[type=password],
@@ -475,6 +499,7 @@ textarea {
   border-radius: 4px;
   border: none;
   border: solid 1px;
+  border-width: 0px 0px 1px 0px;
   color: inherit;
   display: block;
   outline: 0;
@@ -497,6 +522,7 @@ label {
   display: block;
   font-size: 1rem;
   font-weight: 600;
+  text-transform: uppercase;
   margin: 1rem 0 0 0;
 }
 
@@ -528,6 +554,24 @@ textarea {
   padding: 0.75rem 1rem;
 }
 
+div.radio-toolbar-vertical label {
+  text-align: center;
+}
+
+ul.radio-toolbar-vertical {
+  list-style: none;
+}
+ul.radio-toolbar-vertical label {
+  background-color: white;
+  width: -webkit-fill-available;
+  text-align: center;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+ul.radio-toolbar-vertical label:hover {
+  background-color: #ddf;
+}
+
 input[type=checkbox],
 input[type=radio] {
   -moz-appearance: none;
@@ -546,6 +590,8 @@ input[type=radio] + label {
   text-decoration: none;
   cursor: pointer;
   display: inline-block;
+  border: 1px solid #aaa;
+  line-height: 250%;
   font-size: 1rem;
   font-weight: 400;
   padding-left: 2.825rem;
@@ -561,25 +607,6 @@ input[type=radio] + label:before {
   font-weight: normal;
   text-transform: none !important;
 }
-input[type=checkbox] + label:before,
-input[type=radio] + label:before {
-  border-radius: 4px;
-  border: solid 1px;
-  content: "";
-  display: inline-block;
-  height: 1.95rem;
-  left: 0;
-  line-height: 1.86875rem;
-  position: absolute;
-  text-align: center;
-  top: -0.1625rem;
-  width: 1.95rem;
-}
-input[type=checkbox]:checked + label:before,
-input[type=radio]:checked + label:before {
-  content: "";
-}
-
 input[type=checkbox] + label:before {
   border-radius: 4px;
 }
@@ -605,7 +632,7 @@ input[type=radio] + label:before {
 }
 
 label {
-  color: #555555;
+  color: black;
 }
 
 input[type=text],
@@ -616,7 +643,7 @@ input[type=search],
 input[type=url],
 select,
 textarea {
-  background-color: rgba(0, 0, 0, 0.075);
+  background-color: transparent;
   border-color: rgba(0, 0, 0, 0.25);
 }
 input[type=text]:focus,
@@ -627,7 +654,7 @@ input[type=search]:focus,
 input[type=url]:focus,
 select:focus,
 textarea:focus {
-  border-color: MediumBlue;
+  border-color: transparent;
   box-shadow: 0 0 0 1px MediumBlue;
 }
 
@@ -641,18 +668,14 @@ select option {
 
 input[type=checkbox] + label,
 input[type=radio] + label {
-  color: #444444;
+  color: #88f;
+  border-radius: 4px;
+  font-weight: bold;
 }
-input[type=checkbox] + label:before,
-input[type=radio] + label:before {
-  background: rgba(0, 0, 0, 0.075);
-  border-color: rgba(0, 0, 0, 0.25);
-}
-input[type=checkbox]:checked + label:before,
-input[type=radio]:checked + label:before {
-  background-color: MediumBlue;
-  border-color: MediumBlue;
-  color: #ffffff;
+input[type=checkbox]:checked + label,
+input[type=radio]:checked + label {
+  background-color: #effbff;
+  border-color: #44c;
 }
 input[type=checkbox]:focus + label:before,
 input[type=radio]:focus + label:before {
@@ -674,6 +697,24 @@ input[type=radio]:focus + label:before {
 
 :-ms-input-placeholder {
   color: #bbbbbb !important;
+}
+
+div.help-text {
+  padding: 2rem 0rem 0rem 0rem;
+}
+div.help-text h2 {
+  color: #064f93;
+  font-family: "Open Sans", sans-serif;
+  font-size: 22px;
+  font-weight: 300 !important;
+  text-align: center;
+}
+div.help-text h3 {
+  text-align: center;
+  font-family: "Open Sans", sans-serif !important;
+  font-weight: 300 !important;
+  color: #272727;
+  font-size: 14px;
 }
 
 /* List */
@@ -2470,7 +2511,7 @@ ul.icons li .icon:before {
 #banner .button {
   background-color: transparent;
   box-shadow: inset 0 0 0 1px #ffffff;
-  color: #ffffff !important;
+  color: #ffffff;
 }
 #banner input[type=submit]:hover,
 #banner input[type=reset]:hover,
@@ -2512,7 +2553,7 @@ ul.icons li .icon:before {
   background-color: #0000b4;
 }
 #banner label {
-  color: #ffffff;
+  color: black;
 }
 #banner input[type=text],
 #banner input[type=password],
@@ -2522,7 +2563,7 @@ ul.icons li .icon:before {
 #banner input[type=url],
 #banner select,
 #banner textarea {
-  background-color: rgba(255, 255, 255, 0.075);
+  background-color: transparent;
   border-color: rgba(255, 255, 255, 0.25);
 }
 #banner input[type=text]:focus,
@@ -2533,7 +2574,7 @@ ul.icons li .icon:before {
 #banner input[type=url]:focus,
 #banner select:focus,
 #banner textarea:focus {
-  border-color: MediumBlue;
+  border-color: transparent;
   box-shadow: 0 0 0 1px MediumBlue;
 }
 #banner select {
@@ -2545,18 +2586,14 @@ ul.icons li .icon:before {
 }
 #banner input[type=checkbox] + label,
 #banner input[type=radio] + label {
-  color: rgba(255, 255, 255, 0.5);
+  color: #88f;
+  border-radius: 4px;
+  font-weight: bold;
 }
-#banner input[type=checkbox] + label:before,
-#banner input[type=radio] + label:before {
-  background: rgba(255, 255, 255, 0.075);
-  border-color: rgba(255, 255, 255, 0.25);
-}
-#banner input[type=checkbox]:checked + label:before,
-#banner input[type=radio]:checked + label:before {
-  background-color: MediumBlue;
-  border-color: MediumBlue;
-  color: #ffffff;
+#banner input[type=checkbox]:checked + label,
+#banner input[type=radio]:checked + label {
+  background-color: #effbff;
+  border-color: #44c;
 }
 #banner input[type=checkbox]:focus + label:before,
 #banner input[type=radio]:focus + label:before {
@@ -2836,7 +2873,7 @@ body.is-preload #banner:before {
 #cta .button {
   background-color: transparent;
   box-shadow: inset 0 0 0 1px #ffffff;
-  color: #ffffff !important;
+  color: #ffffff;
 }
 #cta input[type=submit]:hover,
 #cta input[type=reset]:hover,
@@ -2877,7 +2914,7 @@ body.is-preload #banner:before {
   background-color: rgba(255, 255, 255, 0.5);
 }
 #cta label {
-  color: #ffffff;
+  color: black;
 }
 #cta input[type=text],
 #cta input[type=password],
@@ -2887,7 +2924,7 @@ body.is-preload #banner:before {
 #cta input[type=url],
 #cta select,
 #cta textarea {
-  background-color: rgba(255, 255, 255, 0.075);
+  background-color: transparent;
   border-color: rgba(255, 255, 255, 0.25);
 }
 #cta input[type=text]:focus,
@@ -2898,7 +2935,7 @@ body.is-preload #banner:before {
 #cta input[type=url]:focus,
 #cta select:focus,
 #cta textarea:focus {
-  border-color: #ffffff;
+  border-color: transparent;
   box-shadow: 0 0 0 1px #ffffff;
 }
 #cta select {
@@ -2910,18 +2947,14 @@ body.is-preload #banner:before {
 }
 #cta input[type=checkbox] + label,
 #cta input[type=radio] + label {
-  color: rgba(255, 255, 255, 0.75);
+  color: #88f;
+  border-radius: 4px;
+  font-weight: bold;
 }
-#cta input[type=checkbox] + label:before,
-#cta input[type=radio] + label:before {
-  background: rgba(255, 255, 255, 0.075);
-  border-color: rgba(255, 255, 255, 0.25);
-}
-#cta input[type=checkbox]:checked + label:before,
-#cta input[type=radio]:checked + label:before {
-  background-color: #ffffff;
-  border-color: #ffffff;
-  color: MediumBlue;
+#cta input[type=checkbox]:checked + label,
+#cta input[type=radio]:checked + label {
+  background-color: #effbff;
+  border-color: #44c;
 }
 #cta input[type=checkbox]:focus + label:before,
 #cta input[type=radio]:focus + label:before {
@@ -3017,7 +3050,7 @@ body.is-preload #banner:before {
 #footer .button {
   background-color: transparent;
   box-shadow: inset 0 0 0 1px #ffffff;
-  color: #ffffff !important;
+  color: #ffffff;
 }
 #footer input[type=submit]:hover,
 #footer input[type=reset]:hover,
@@ -3059,7 +3092,7 @@ body.is-preload #banner:before {
   background-color: #0000b4;
 }
 #footer label {
-  color: #ffffff;
+  color: black;
 }
 #footer input[type=text],
 #footer input[type=password],
@@ -3069,7 +3102,7 @@ body.is-preload #banner:before {
 #footer input[type=url],
 #footer select,
 #footer textarea {
-  background-color: rgba(255, 255, 255, 0.075);
+  background-color: transparent;
   border-color: rgba(255, 255, 255, 0.25);
 }
 #footer input[type=text]:focus,
@@ -3080,7 +3113,7 @@ body.is-preload #banner:before {
 #footer input[type=url]:focus,
 #footer select:focus,
 #footer textarea:focus {
-  border-color: MediumBlue;
+  border-color: transparent;
   box-shadow: 0 0 0 1px MediumBlue;
 }
 #footer select {
@@ -3092,18 +3125,14 @@ body.is-preload #banner:before {
 }
 #footer input[type=checkbox] + label,
 #footer input[type=radio] + label {
-  color: rgba(255, 255, 255, 0.5);
+  color: #88f;
+  border-radius: 4px;
+  font-weight: bold;
 }
-#footer input[type=checkbox] + label:before,
-#footer input[type=radio] + label:before {
-  background: rgba(255, 255, 255, 0.075);
-  border-color: rgba(255, 255, 255, 0.25);
-}
-#footer input[type=checkbox]:checked + label:before,
-#footer input[type=radio]:checked + label:before {
-  background-color: MediumBlue;
-  border-color: MediumBlue;
-  color: #ffffff;
+#footer input[type=checkbox]:checked + label,
+#footer input[type=radio]:checked + label {
+  background-color: #effbff;
+  border-color: #44c;
 }
 #footer input[type=checkbox]:focus + label:before,
 #footer input[type=radio]:focus + label:before {
@@ -3395,7 +3424,7 @@ body:before {
 #heading .button {
   background-color: transparent;
   box-shadow: inset 0 0 0 1px #ffffff;
-  color: #ffffff !important;
+  color: #ffffff;
 }
 #heading input[type=submit]:hover,
 #heading input[type=reset]:hover,
@@ -3437,7 +3466,7 @@ body:before {
   background-color: #0000b4;
 }
 #heading label {
-  color: #ffffff;
+  color: black;
 }
 #heading input[type=text],
 #heading input[type=password],
@@ -3447,7 +3476,7 @@ body:before {
 #heading input[type=url],
 #heading select,
 #heading textarea {
-  background-color: rgba(255, 255, 255, 0.075);
+  background-color: transparent;
   border-color: rgba(255, 255, 255, 0.25);
 }
 #heading input[type=text]:focus,
@@ -3458,7 +3487,7 @@ body:before {
 #heading input[type=url]:focus,
 #heading select:focus,
 #heading textarea:focus {
-  border-color: MediumBlue;
+  border-color: transparent;
   box-shadow: 0 0 0 1px MediumBlue;
 }
 #heading select {
@@ -3470,18 +3499,14 @@ body:before {
 }
 #heading input[type=checkbox] + label,
 #heading input[type=radio] + label {
-  color: rgba(255, 255, 255, 0.5);
+  color: #88f;
+  border-radius: 4px;
+  font-weight: bold;
 }
-#heading input[type=checkbox] + label:before,
-#heading input[type=radio] + label:before {
-  background: rgba(255, 255, 255, 0.075);
-  border-color: rgba(255, 255, 255, 0.25);
-}
-#heading input[type=checkbox]:checked + label:before,
-#heading input[type=radio]:checked + label:before {
-  background-color: MediumBlue;
-  border-color: MediumBlue;
-  color: #ffffff;
+#heading input[type=checkbox]:checked + label,
+#heading input[type=radio]:checked + label {
+  background-color: #effbff;
+  border-color: #44c;
 }
 #heading input[type=checkbox]:focus + label:before,
 #heading input[type=radio]:focus + label:before {
@@ -3628,7 +3653,7 @@ body:before {
 #menu .button {
   background-color: transparent;
   box-shadow: inset 0 0 0 1px #ffffff;
-  color: #ffffff !important;
+  color: #ffffff;
 }
 #menu input[type=submit]:hover,
 #menu input[type=reset]:hover,
@@ -3748,6 +3773,20 @@ body.is-menu-visible #menu {
   transform: translateX(0);
   box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.2);
   visibility: visible;
+}
+
+/* Heading */
+body.form {
+  padding-top: 3.25rem;
+  background-color: white;
+}
+body.form:before {
+  content: " ";
+  background-image: none;
+}
+
+div.button-row {
+  text-align: center;
 }
 
 *,

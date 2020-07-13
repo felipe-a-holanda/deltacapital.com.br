@@ -43,7 +43,6 @@ class Proposta(models.Model):
         constants.STAGE_5: [
             "tipo_de_renda",
             "renda_mensal_pessoal",
-            "profissao",
             "cep_da_empresa",
             "endereco_comercial",
             "numero_empresa",
@@ -56,7 +55,8 @@ class Proposta(models.Model):
             "tempo_de_empresa",
             "razao_social_da_empresa",
             "cnpj_da_empresa",
-            "profissao",
+            "profissao_liberal",
+            "profissao_assalariado",
             "tempo_de_atividade",
             "tempo_de_aposentadoria",
             "outras_rendas",
@@ -70,6 +70,7 @@ class Proposta(models.Model):
             "combustivel",
             "cambio",
             "motor",
+            "dados_placa",
             "placa",
             "renavam",
             "chassi",
@@ -127,7 +128,7 @@ class Proposta(models.Model):
         ("aposentado", "aposentado"),
     ]
 
-    PROFISSAO = [
+    PROFISSAO_ASSALARIADO = [
         ("ADMINISTRADORES / ECONOMISTAS", "ADMINISTRADORES / ECONOMISTAS"),
         ("ANALISTAS", "ANALISTAS"),
         ("CONSULTOR", "CONSULTOR"),
@@ -141,7 +142,16 @@ class Proposta(models.Model):
         ("PROMOTOR", "PROMOTOR"),
         ("VENDEDORES / REPRESENTANTES / INTERMEDIÁRIOS", "VENDEDORES / REPRESENTANTES / INTERMEDIÁRIOS"),
         ("OUTROS", "OUTROS"),
+    ]
 
+
+    PROFISSAO_LIBERAL = [
+        ("ADVOGADOS", "ADVOGADOS"),
+        ("ARQUITETOS", "ARQUITETOS"),
+        ("ENGENHEIROS", "ENGENHEIROS"),
+        ("MÉDICOS E CIRURGIÕES DENTISTAS", "MÉDICOS E CIRURGIÕES DENTISTAS"),
+        ("PROFESSORES", "PROFESSORES"),
+        ("OUTROS", "OUTROS"),
     ]
 
     # operational fields
@@ -190,11 +200,12 @@ class Proposta(models.Model):
     email = models.CharField("Email", max_length=100, blank=True)
 
     # stage 5 fields
-    tipo_de_renda = models.CharField("Tipo de Renda", choices=TIPO_RENDA, max_length=100, blank=True)
+    tipo_de_renda = models.CharField("Tipo de Renda", choices=TIPO_RENDA, max_length=100, blank=True, help_text="<h2>Informe a renda do seu cliente</h2><h3>Essas informações são essenciais para análise de crédito do financiamento</h3>")
     renda_mensal_pessoal = models.CharField(
         "Renda Mensal Pessoal", max_length=100, blank=True
     )
-    profissao = models.CharField("Profissão", choices=PROFISSAO, max_length=100, blank=True)
+    profissao_assalariado = models.CharField("Profissão", choices=PROFISSAO_ASSALARIADO, max_length=100, blank=True)
+    profissao_liberal = models.CharField("Profissão", choices=PROFISSAO_LIBERAL, max_length=100, blank=True)
     cep_da_empresa = models.CharField("CEP da Empresa", max_length=100, blank=True)
     endereco_comercial = models.CharField(
         "Endereço Comercial", max_length=100, blank=True
@@ -228,7 +239,7 @@ class Proposta(models.Model):
 
     # stage 6 fields
     ano_de_fabricacao = models.CharField(
-        "Ano de Fabricação", max_length=100, blank=True
+        "Ano de Fabricação", max_length=100, blank=True, help_text="Veículo"
     )
     ano_do_modelo = models.CharField("Ano do Modelo", max_length=100, blank=True)
     marca = models.CharField("Marca", max_length=100, blank=True)
@@ -237,13 +248,15 @@ class Proposta(models.Model):
     combustivel = models.CharField("Combustível", max_length=100, blank=True)
     cambio = models.CharField("Câmbio", max_length=100, blank=True)
     motor = models.CharField("Motor", max_length=100, blank=True)
+    dados_placa = models.CharField("VOCÊ POSSUI OS DADOS DE PLACA / CHASSI / RENAVAM DESTE VEÍCULO?", choices=(("Sim", "Sim"), ("Não", "Não")), max_length=100, blank=True)
+
     placa = models.CharField("Placa", max_length=100, blank=True)
     renavam = models.CharField("Renavam", max_length=100, blank=True)
     chassi = models.CharField("Chassi", max_length=100, blank=True)
 
     # Config
     hidden_fields = ["stage", "session_hash"]
-    radio_fields = ["prazo", "sexo", "tipo_de_renda"]
+    radio_fields = ["prazo", "sexo", "tipo_de_renda", "dados_placa"]
     required_fields = [
         "valor_do_veiculo",
         "valor_de_entrada",
@@ -269,22 +282,25 @@ class Proposta(models.Model):
         "email",
         "tipo_de_renda",
         "renda_mensal_pessoal",
-        "profissao",
-        "cep_da_empresa",
-        "endereco_comercial",
-        "numero_empresa",
-        # 'complemento_empresa',
-        "bairro_empresa",
-        "cidade_empresa",
-        "uf_empresa",
-        "inicio_da_atividade",
-        "telefone_fixo_da_empresa",
-        "tempo_de_empresa",
-        "razao_social_da_empresa",
-        "cnpj_da_empresa",
-        "tempo_de_atividade",
-        "tempo_de_aposentadoria",
-        "outras_rendas",
+
+
+        # "profissao",
+        # "cep_da_empresa",
+        # "endereco_comercial",
+        # "numero_empresa",
+        # # 'complemento_empresa',
+        # "bairro_empresa",
+        # "cidade_empresa",
+        # "uf_empresa",
+        # "inicio_da_atividade",
+        # "telefone_fixo_da_empresa",
+        # "tempo_de_empresa",
+        # "razao_social_da_empresa",
+        # "cnpj_da_empresa",
+        # "tempo_de_atividade",
+        # "tempo_de_aposentadoria",
+        # "outras_rendas",
+
         "ano_de_fabricacao",
         "ano_do_modelo",
         "marca",

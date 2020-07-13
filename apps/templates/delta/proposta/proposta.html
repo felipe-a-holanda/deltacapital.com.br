@@ -38,7 +38,13 @@
 
 
         <div class="form-group {{field.klass}}">
+          {% if field.data_cond %}
+          <label data-cond="{{field.data_cond}}" for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {% else %}
           <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {% endif %}
+
+
 
           {{ field|add_class:'form-control' }}
 

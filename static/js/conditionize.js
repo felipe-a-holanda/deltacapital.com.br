@@ -35,6 +35,7 @@
       //Set up event listener
       listenForList.forEach(function(listenFor, index, array){
         console.log("listenFor:",listenFor);
+        console.log(listenTo, listenFor, $section);
         $(listenTo).on('change', function() {
             $.fn.showOrHide(listenTo, listenFor, $section);
           });
@@ -54,7 +55,7 @@
       //$.fn.showOrHide(listenTo, listenFor, $section);
 
 
-
+      console.log("listenForList",listenForList);
 
       listenForList.forEach(function(listenFor, index, array){
         $.fn.showOrHide(listenTo, listenFor, $section);

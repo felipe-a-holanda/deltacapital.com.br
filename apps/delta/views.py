@@ -28,6 +28,12 @@ class HomeView(TemplateView):
 home_view = HomeView.as_view()
 
 
+class PortoView(TemplateView):
+    template_name = f"delta/porto.html"
+
+porto_view = PortoView.as_view()
+
+
 class ProductView(TemplateView):
     def get_template_names(self):
         slug = self.kwargs["slug"]

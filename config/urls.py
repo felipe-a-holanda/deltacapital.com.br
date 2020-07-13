@@ -16,12 +16,24 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include
-from django.urls import path
+from django.urls import path, re_path
 from django.views import defaults as default_views
+
+from apps.delta.views import porto_view
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("users/", include("apps.users.urls", namespace="users")),
+    path("porto/", porto_view, name="porto"),
+
+
+    # View URLs
+    path('fobi/', include('fobi.urls.view')),
+
+    # Edit URLs
+    path('fobi/', include('fobi.urls.edit')),
+    path('fobi/plugins/form-handlers/db-store/', include('fobi.contrib.plugins.form_handlers.db_store.urls')),
+
     path("", include("apps.delta.urls", namespace="delta")),
 ]
 

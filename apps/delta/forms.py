@@ -36,7 +36,10 @@ class BaseApplicationForm(ModelForm):
 
         self.change_widgets()
         self.add_css_classes()
-        #self.add_groups()
+
+        self.config_conditional_fields()
+
+
 
 
     def add_css_classes(self):
@@ -94,27 +97,6 @@ class BaseApplicationForm(ModelForm):
                             "tempo_de_aposentadoria",
                             ]
             }
-        conditional_fields = {
-                "tipo_de_renda": {
-                    "assalariado": ["profissao"],
-                    "autonomo": ["profissao"],
-                    "empresario": ["cep_da_empresa", "endereco_comercial"],
-                    "aposentado": [],
-
-                }
-            }
-
-
-        data_cond_value_list = defaultdict(list)
-        data_cond_option = {}
-        for option in conditional_fields:
-            for value in conditional_fields[option]:
-                for field in conditional_fields[option][value]:
-                    data_cond_value_list[field].append(value)
-                    data_cond_option[field] = option
-        data_cond_value = {field: " ".join(values) for field, values in data_cond_value_list.items()}
-
-
 
 
         for field in self.visible_fields():
@@ -125,16 +107,38 @@ class BaseApplicationForm(ModelForm):
             field.field.widget.attrs['class'] = " ".join(klasses)
             field.klass = field.field.widget.attrs['class']
 
-            if field.name in data_cond_option:
-                field.field.widget.attrs['data-cond-option'] = data_cond_option[field.name]
-                field.field.widget.attrs['data-cond-value'] = data_cond_value[field.name]
 
-    def add_groups(self):
-        visible_fields = {field.name: field for field in self.visible_fields()}
-        field_stage = {field:stage for stage, stage_fields in Proposta.FIELDS.items() for field in stage_fields}
+    def config_conditional_fields(self):
+        endereco_comercial = ["cep_da_empresa", "endereco_comercial", "numero_empresa", "complemento_empresa", "bairro_empresa", "cidade_empresa", "uf_empresa", "telefone_fixo_da_empresa", "razao_social_da_empresa"]
 
-        for field_name, field in visible_fields.items():
-            field.group = field_stage[field_name]
+        conditional_fields = {
+            "tipo_de_renda": {
+                "assalariado": ["profissao_assalariado"] + endereco_comercial + ["tempo_de_empresa"],
+                "autonomo": ["profissao_liberal", "tempo_de_atividade"],
+                "empresario": ["inicio_da_atividade"] + endereco_comercial +["cnpj_da_empresa"],
+                "aposentado": ["tempo_de_aposentadoria"],
+            },
+            "dados_placa": {
+                "Sim": ["placa", "renavam", "chassi"]
+            }
+        }
+        field_types = defaultdict(set)
+        source_fields = {}
+        for source_field in conditional_fields:
+            for tipo_de_renda, fields in conditional_fields[source_field].items():
+                for field in fields:
+                    field_types[field].add(tipo_de_renda)
+                    source_fields[field] = source_field
+
+        for field in self.visible_fields():
+            if field.name in field_types:
+                types = field_types[field.name]
+                source = source_fields[field.name]
+                cond = " || ".join([f"[name={source}] == {type}" for type in types])
+                field.field.widget.attrs['data-cond'] = cond
+                field.data_cond = cond
+
+
 
 
     def change_widgets(self):
