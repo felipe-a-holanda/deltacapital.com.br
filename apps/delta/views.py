@@ -160,7 +160,6 @@ class PropostaView(FormView):
 
     def form_valid(self, form):
         # This data is valid, so set this form's session hash in the session.
-        # embed()
         self.request.session["session_hash"] = form.instance.session_hash
         # current_stage = form.cleaned_data.get("stage")
         current_stage = self._get_stage()

@@ -1,6 +1,5 @@
 from django import template
 register = template.Library()
-from IPython import embed
 
 @register.inclusion_tag('delta/emails/model_table.html', takes_context=True)
 def model_as_table(context, model_key=None):

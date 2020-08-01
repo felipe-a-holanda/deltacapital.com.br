@@ -5,7 +5,6 @@ from selenium import webdriver
 from splinter import Browser
 from config import celery_app
 from selenium.webdriver.common.keys import Keys
-from IPython import embed
 import time
 
 
