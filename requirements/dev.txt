@@ -28,6 +28,7 @@ django-allauth==0.42.0    # via -r requirements/base.in
 django-anymail[mailgun]==7.2  # via -r requirements/base.in
 django-appconf==1.0.4     # via django-compressor
 django-compressor==2.4    # via -r requirements/base.in
+django-constance==2.7.0   # via -r requirements/base.in
 django-coverage-plugin==1.8.0  # via -r requirements/dev.in
 django-crispy-forms==1.9.1  # via -r requirements/base.in
 django-debug-toolbar==2.2  # via -r requirements/dev.in
