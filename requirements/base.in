@@ -2,6 +2,7 @@
 # ------------------------------------------------------------------------------
 Django  # https://www.djangoproject.com/
 django-admin-tools  # https://github.com/django-admin-tools/django-admin-tools
+django-allauth  # https://github.com/pennersr/django-allauth
 django-anymail[mailgun]  # https://github.com/anymail/django-anymail
 django-compressor  # https://github.com/django-compressor/django-compressor
 django-crispy-forms  # https://github.com/django-crispy-forms/django-crispy-forms
@@ -11,6 +12,7 @@ django-filter  # https://github.com/carltongibson/django-filter
 django-webpack-loader  # https://github.com/owais/django-webpack-loader
 django-widget-tweaks  # https://github.com/jazzband/django-widget-tweaks
 markdown  # https://github.com/Python-Markdown/markdown/
+
 
 # Databases and Static files
 # ------------------------------------------------------------------------------

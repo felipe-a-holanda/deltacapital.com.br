@@ -12,7 +12,9 @@ billiard==3.6.3.0         # via celery
 celery==4.4.6             # via -r requirements/base.in
 certifi==2020.6.20        # via requests
 chardet==3.0.4            # via requests
+defusedxml==0.6.0         # via python3-openid
 django-admin-tools==0.9.0  # via -r requirements/base.in
+django-allauth==0.42.0    # via -r requirements/base.in
 django-anymail[mailgun]==7.2  # via -r requirements/base.in
 django-appconf==1.0.4     # via django-compressor
 django-compressor==2.4    # via -r requirements/base.in
@@ -22,16 +24,19 @@ django-extensions==2.2.8  # via -r requirements/base.in
 django-filter==2.2.0      # via -r requirements/base.in
 django-webpack-loader==0.7.0  # via -r requirements/base.in
 django-widget-tweaks==1.4.8  # via -r requirements/base.in
-django==3.0.6             # via -r requirements/base.in, django-anymail, django-appconf, django-filter
+django==3.0.6             # via -r requirements/base.in, django-allauth, django-anymail, django-appconf, django-filter
 future==0.18.2            # via celery
 gunicorn==20.0.4          # via -r requirements/prod.in
 idna==2.10                # via requests
 kombu==4.6.11             # via celery
 markdown==3.2.1           # via -r requirements/base.in
+oauthlib==3.1.0           # via requests-oauthlib
 psycopg2==2.8.5           # via -r requirements/base.in
+python3-openid==3.2.0     # via django-allauth
 pytz==2020.1              # via celery, django
 rcssmin==1.0.6            # via django-compressor
-requests==2.24.0          # via django-anymail
+requests-oauthlib==1.3.0  # via django-allauth
+requests==2.24.0          # via django-allauth, django-anymail, requests-oauthlib
 rjsmin==1.1.0             # via django-compressor
 selenium==3.141.0         # via -r requirements/base.in, splinter
 six==1.15.0               # via django-anymail, django-compressor, django-extensions, splinter
