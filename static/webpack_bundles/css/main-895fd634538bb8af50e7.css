@@ -554,22 +554,32 @@ textarea {
   padding: 0.75rem 1rem;
 }
 
-div.radio-toolbar-vertical label {
+div.radio-toolbar label {
   text-align: center;
 }
 
-ul.radio-toolbar-vertical {
+ul.radio-toolbar {
   list-style: none;
 }
-ul.radio-toolbar-vertical label {
+ul.radio-toolbar label {
   background-color: white;
   width: -webkit-fill-available;
   text-align: center;
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
-ul.radio-toolbar-vertical label:hover {
+ul.radio-toolbar label:hover {
   background-color: #ddf;
+}
+
+.radio-toolbar-horizontal li {
+  width: 100%;
+}
+.radio-toolbar-horizontal div {
+  width: 100%;
+}
+.radio-toolbar-horizontal ul {
+  display: flex;
 }
 
 input[type=checkbox],

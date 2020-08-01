@@ -1,0 +1,15 @@
+{% extends 'delta/produtos/base_produto.html' %}
+{% load static compress %}
+
+
+{% block product %}
+<h1>Financiamento de Veículos</h1>
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Enviar" />
+</form>
+
+
+{% endblock product %}

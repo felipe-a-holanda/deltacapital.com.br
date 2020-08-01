@@ -82,14 +82,17 @@
 		padding: 0.75rem 1rem;
 	}
 
-	div.radio-toolbar-vertical{
+
+
+
+	div.radio-toolbar{
 	    label{
 	    text-align: center;
 	    }
 
 	}
 
-	ul.radio-toolbar-vertical{
+	ul.radio-toolbar{
 	    list-style: none;
 	    label{
 	        background-color: white;
@@ -101,9 +104,26 @@
 	            background-color: #ddf;
 	        }
 	    }
-
-
 	}
+
+	.radio-toolbar-horizontal
+	{
+	    li{
+            width: 100%;
+        }
+        div{
+        width: 100%;
+        }
+        ul{
+            display: flex;
+
+        }
+	}
+
+
+
+
+
 
 	input[type="checkbox"],
 	input[type="radio"], {

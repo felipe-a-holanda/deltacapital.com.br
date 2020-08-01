@@ -65,4 +65,22 @@
     </form>
   </div>
 </section>
+
+<div id="progressBar">
+  <div class="bar"></div>
+</div>
+
 {% endblock content %}
+
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/progress-bar.css' %}" />
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/progress-bar.js' %}"></script>
+<script>
+  progress(590, 590, $('#progressBar'));
+
+</script>
+{% endblock js %}

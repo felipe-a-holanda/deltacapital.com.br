@@ -4,6 +4,7 @@ import random
 import sys
 
 from django.db import models
+from django.utils import timezone
 
 from . import constants
 
@@ -17,7 +18,7 @@ def create_session_hash():
 class Proposta(models.Model):
     FIELDS = {
         constants.STAGE_1: ["valor_do_veiculo", "valor_de_entrada", "cpf"],
-        constants.STAGE_2: ["prazo", ],
+        constants.STAGE_2: ["prazo"],
         constants.STAGE_3: [
             "nome",
             "data_de_nascimento",
@@ -76,13 +77,7 @@ class Proposta(models.Model):
             "chassi",
         ],
     }
-    PRAZO = (
-        ("12x", "12x"),
-        ("24x", "24x"),
-        ("36x", "36x"),
-        ("48x", "48x"),
-        ("60x", "60x"),
-    )
+    PRAZO = (("12", "12x"), ("24", "24x"), ("36", "36x"), ("48", "48x"), ("60", "60x"))
 
     UFS = [
         ("AC", "AC"),
@@ -140,10 +135,12 @@ class Proposta(models.Model):
         ("OUTRAS PROFISSÕES NO COMÉRCIO", "OUTRAS PROFISSÕES NO COMÉRCIO"),
         ("PROFESSORES", "PROFESSORES"),
         ("PROMOTOR", "PROMOTOR"),
-        ("VENDEDORES / REPRESENTANTES / INTERMEDIÁRIOS", "VENDEDORES / REPRESENTANTES / INTERMEDIÁRIOS"),
+        (
+            "VENDEDORES / REPRESENTANTES / INTERMEDIÁRIOS",
+            "VENDEDORES / REPRESENTANTES / INTERMEDIÁRIOS",
+        ),
         ("OUTROS", "OUTROS"),
     ]
-
 
     PROFISSAO_LIBERAL = [
         ("ADVOGADOS", "ADVOGADOS"),
@@ -156,14 +153,28 @@ class Proposta(models.Model):
 
     # operational fields
     criado_em = models.DateTimeField(auto_now_add=True)
+    simulado_em = models.DateTimeField(null=True)
     enviado_em = models.DateTimeField(auto_now=True)
     session_hash = models.CharField("Código Interno", max_length=40, unique=True)
     stage = models.CharField("Estágio", max_length=10, default="1")
+    valores_parcelas = models.CharField(
+        "Valores das parcelas", max_length=1000, null=True, blank=True
+    )
 
     # stage 1 fields
-    valor_do_veiculo = models.CharField("Valor do Veículo", max_length=20, blank=True, help_text="<h2>Veículo</h2><h3>Preencha os dados do financiamento</h3>")
+    valor_do_veiculo = models.CharField(
+        "Valor do Veículo",
+        max_length=20,
+        blank=True,
+        help_text="<h2>Veículo</h2><h3>Preencha os dados do financiamento</h3>",
+    )
     valor_de_entrada = models.CharField("Valor de Entrada", max_length=20, blank=True)
-    cpf = models.CharField("CPF", max_length=20, blank=True, help_text="<h2>Cliente</h2><h3>Preencha com o CPF do seu Cliente</h3>")
+    cpf = models.CharField(
+        "CPF",
+        max_length=20,
+        blank=True,
+        help_text="<h2>Cliente</h2><h3>Preencha com o CPF do seu Cliente</h3>",
+    )
 
     # stage 2 fields
     prazo = models.CharField("Prazo", max_length=3, choices=PRAZO, blank=False)
@@ -189,7 +200,9 @@ class Proposta(models.Model):
 
     # stage 4 fields
     cep = models.CharField("CEP", max_length=100, blank=True)
-    endereco = models.CharField("Endereço (Rua/Avenida/Alameda)", max_length=100, blank=True)
+    endereco = models.CharField(
+        "Endereço (Rua/Avenida/Alameda)", max_length=100, blank=True
+    )
     numero = models.CharField("Número", max_length=100, blank=True)
     complemento = models.CharField("Complemento", max_length=100, blank=True)
     bairro = models.CharField("Bairro", max_length=100, blank=True)
@@ -200,12 +213,24 @@ class Proposta(models.Model):
     email = models.CharField("Email", max_length=100, blank=True)
 
     # stage 5 fields
-    tipo_de_renda = models.CharField("Tipo de Renda", choices=TIPO_RENDA, max_length=100, blank=True, help_text="<h2>Informe a renda do seu cliente</h2><h3>Essas informações são essenciais para análise de crédito do financiamento</h3>")
+    tipo_de_renda = models.CharField(
+        "Tipo de Renda",
+        choices=TIPO_RENDA,
+        max_length=100,
+        blank=True,
+        help_text="<h2>Informe a renda do seu cliente</h2>"
+        "<h3>Essas informações são essenciais para análise de crédito do "
+        "financiamento</h3>",
+    )
     renda_mensal_pessoal = models.CharField(
         "Renda Mensal Pessoal", max_length=100, blank=True
     )
-    profissao_assalariado = models.CharField("Profissão", choices=PROFISSAO_ASSALARIADO, max_length=100, blank=True)
-    profissao_liberal = models.CharField("Profissão", choices=PROFISSAO_LIBERAL, max_length=100, blank=True)
+    profissao_assalariado = models.CharField(
+        "Profissão", choices=PROFISSAO_ASSALARIADO, max_length=100, blank=True
+    )
+    profissao_liberal = models.CharField(
+        "Profissão", choices=PROFISSAO_LIBERAL, max_length=100, blank=True
+    )
     cep_da_empresa = models.CharField("CEP da Empresa", max_length=100, blank=True)
     endereco_comercial = models.CharField(
         "Endereço Comercial", max_length=100, blank=True
@@ -248,7 +273,12 @@ class Proposta(models.Model):
     combustivel = models.CharField("Combustível", max_length=100, blank=True)
     cambio = models.CharField("Câmbio", max_length=100, blank=True)
     motor = models.CharField("Motor", max_length=100, blank=True)
-    dados_placa = models.CharField("VOCÊ POSSUI OS DADOS DE PLACA / CHASSI / RENAVAM DESTE VEÍCULO?", choices=(("Sim", "Sim"), ("Não", "Não")), max_length=100, blank=True)
+    dados_placa = models.CharField(
+        "VOCÊ POSSUI OS DADOS DE PLACA / CHASSI / RENAVAM DESTE VEÍCULO?",
+        choices=(("Sim", "Sim"), ("Não", "Não")),
+        max_length=100,
+        blank=True,
+    )
 
     placa = models.CharField("Placa", max_length=100, blank=True)
     renavam = models.CharField("Renavam", max_length=100, blank=True)
@@ -282,8 +312,6 @@ class Proposta(models.Model):
         "email",
         "tipo_de_renda",
         "renda_mensal_pessoal",
-
-
         # "profissao",
         # "cep_da_empresa",
         # "endereco_comercial",
@@ -300,7 +328,6 @@ class Proposta(models.Model):
         # "tempo_de_atividade",
         # "tempo_de_aposentadoria",
         # "outras_rendas",
-
         "ano_de_fabricacao",
         "ano_do_modelo",
         "marca",
@@ -317,10 +344,29 @@ class Proposta(models.Model):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.create_hash()
-        #print([n.name for n in self._meta.fields])
+        # print([n.name for n in self._meta.fields])
 
     def __str__(self):
         return f"{self.nome} - {self.cpf}"
+
+    def salvar_simulacao(self, valores_parcelas):
+        self.valores_parcelas = valores_parcelas
+        self.simulado_em = timezone.now()
+        self.save()
+
+    @property
+    def time_simulated(self):
+        if self.criado_em and self.simulado_em:
+            return self.simulado_em.replace(microsecond=0) - self.criado_em.replace(
+                microsecond=0
+            )
+
+    @property
+    def time_total(self):
+        if self.enviado_em and self.simulado_em:
+            return self.enviado_em.replace(microsecond=0) - self.criado_em.replace(
+                microsecond=0
+            )
 
     def create_hash(self):
         if not self.session_hash:
@@ -335,3 +381,16 @@ class Proposta(models.Model):
         fields = ["stage"]  # Must always be present
         fields.extend(Proposta.FIELDS[stage])
         return fields
+
+    def save(self, *args, **kwargs):
+        super(Proposta, self).save(*args, **kwargs)
+
+
+class FinanciamentoVeiculo(models.Model):
+    valor_do_veiculo = models.CharField("Valor do Veículo", max_length=100, blank=True)
+    entrada = models.CharField("Valor de Entrada", max_length=100, blank=True)
+    cpf = models.CharField("CPF", max_length=100, blank=True)
+    telefone = models.CharField("Telefone", max_length=100, blank=True)
+
+    def __str__(self):
+        return f"Financiamento de Veículo: {self.cpf} - {self.valor_do_veiculo}"

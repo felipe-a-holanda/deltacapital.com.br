@@ -1,30 +1,31 @@
 from collections import defaultdict
 
+from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import HiddenInput
 from django.forms.models import ModelForm
-from django import forms
+
+from .models import FinanciamentoVeiculo
 
 
 class DeltaRadioSelect(forms.widgets.RadioSelect):
-    template_name = 'project/widgets/filter.html'
+    template_name = "project/widgets/filter.html"
 
 
 class ReadOnlyText(forms.TextInput):
-    input_type = 'text'
+    input_type = "text"
 
     def render(self, name, value, attrs=None, renderer=None):
         if value is None:
-            value = ''
+            value = ""
         return value
 
 
-
 class BaseApplicationForm(ModelForm):
-    required_css_class = 'required'
+    required_css_class = "required"
 
-    #sexo = forms.ChoiceField(widget=forms.RadioSelect, choices=(("Masculino", "Masculino"), ("Feminino", "Feminino")))
-    #comment = forms.CharField(widget=ReadOnlyText, label='comment', help_text="<p>beleza</p>")
+    # sexo = forms.ChoiceField(widget=forms.RadioSelect, choices=(("Masculino", "Masculino"), ("Feminino", "Feminino")))
+    # comment = forms.CharField(widget=ReadOnlyText, label='comment', help_text="<p>beleza</p>")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -34,13 +35,14 @@ class BaseApplicationForm(ModelForm):
 
         self.config_conditional_fields()
 
-
-
-
     def add_css_classes(self):
         field_classes = {
-            "moeda": ["valor_do_veiculo", "valor_de_entrada", "renda_mensal_pessoal",
-                      "outras_rendas"],
+            "moeda": [
+                "valor_do_veiculo",
+                "valor_de_entrada",
+                "renda_mensal_pessoal",
+                "outras_rendas",
+            ],
             "cpf": ["cpf"],
             "cnpj": ["cnpj_da_empresa"],
             "data": ["data_de_nascimento"],
@@ -48,74 +50,82 @@ class BaseApplicationForm(ModelForm):
             "celular": ["celular"],
             "telefone": ["telefone_fixo", "telefone_fixo_da_empresa"],
             "email": ["email"],
-            "numero": ["numero",
-                       "numero_empresa",
-                       "inicio_da_atividade",
-                       "tempo_de_empresa",
-                       "tempo_de_atividade",
-                       "tempo_de_aposentadoria",
-                       "ano_de_fabricacao",
-                       "ano_do_modelo"],
-
-
+            "numero": [
+                "numero",
+                "numero_empresa",
+                "inicio_da_atividade",
+                "tempo_de_empresa",
+                "tempo_de_atividade",
+                "tempo_de_aposentadoria",
+                "ano_de_fabricacao",
+                "ano_do_modelo",
+            ],
             "radio-toolbar": ["prazo", "sexo", "tipo_de_renda"],
             "radio-toolbar-vertical": ["prazo", "tipo_de_renda"],
             "radio-toolbar-horizontal": ["sexo"],
-
             "autofill__cep_1": ["cep"],
             "autofill__rua_1": ["endereco"],
             "autofill__bairro_1": ["bairro"],
             "autofill__cidade_1": ["cidade"],
             "autofill__uf_1": ["uf"],
-
             "autofill__cep_2": ["cep_da_empresa"],
             "autofill__rua_2": ["endereco_comercial"],
             "autofill__bairro_2": ["bairro_empresa"],
             "autofill__cidade_2": ["cidade_empresa"],
             "autofill__uf_2": ["uf_empresa"],
-
-            "conditional": ["profissao",
-                            "cep_da_empresa",
-                            "endereco_comercial",
-                            "numero_empresa",
-                            "numero_empresa",
-                            "complemento_empresa",
-                            "bairro_empresa",
-                            "cidade_empresa",
-                            "uf_empresa",
-                            "inicio_da_atividade",
-                            "telefone_fixo_da_empresa",
-                            "tempo_de_empresa",
-                            "razao_social_da_empresa",
-                            "cnpj_da_empresa",
-                            "tempo_de_atividade",
-                            "tempo_de_aposentadoria",
-                            ]
-            }
-
+            "conditional": [
+                "profissao",
+                "cep_da_empresa",
+                "endereco_comercial",
+                "numero_empresa",
+                "numero_empresa",
+                "complemento_empresa",
+                "bairro_empresa",
+                "cidade_empresa",
+                "uf_empresa",
+                "inicio_da_atividade",
+                "telefone_fixo_da_empresa",
+                "tempo_de_empresa",
+                "razao_social_da_empresa",
+                "cnpj_da_empresa",
+                "tempo_de_atividade",
+                "tempo_de_aposentadoria",
+            ],
+        }
 
         for field in self.visible_fields():
             klasses = []
             for k in field_classes:
                 if field.name in field_classes[k]:
                     klasses.append(k)
-            field.field.widget.attrs['class'] = " ".join(klasses)
-            field.klass = field.field.widget.attrs['class']
-
+            field.field.widget.attrs["class"] = " ".join(klasses)
+            field.klass = field.field.widget.attrs["class"]
 
     def config_conditional_fields(self):
-        endereco_comercial = ["cep_da_empresa", "endereco_comercial", "numero_empresa", "complemento_empresa", "bairro_empresa", "cidade_empresa", "uf_empresa", "telefone_fixo_da_empresa", "razao_social_da_empresa"]
+        endereco_comercial = [
+            "cep_da_empresa",
+            "endereco_comercial",
+            "numero_empresa",
+            "complemento_empresa",
+            "bairro_empresa",
+            "cidade_empresa",
+            "uf_empresa",
+            "telefone_fixo_da_empresa",
+            "razao_social_da_empresa",
+        ]
 
         conditional_fields = {
             "tipo_de_renda": {
-                "assalariado": ["profissao_assalariado"] + endereco_comercial + ["tempo_de_empresa"],
+                "assalariado": ["profissao_assalariado"]
+                + endereco_comercial
+                + ["tempo_de_empresa"],
                 "autonomo": ["profissao_liberal", "tempo_de_atividade"],
-                "empresario": ["inicio_da_atividade"] + endereco_comercial +["cnpj_da_empresa"],
+                "empresario": ["inicio_da_atividade"]
+                + endereco_comercial
+                + ["cnpj_da_empresa"],
                 "aposentado": ["tempo_de_aposentadoria"],
             },
-            "dados_placa": {
-                "Sim": ["placa", "renavam", "chassi"]
-            }
+            "dados_placa": {"Sim": ["placa", "renavam", "chassi"]},
         }
         field_types = defaultdict(set)
         source_fields = {}
@@ -126,15 +136,12 @@ class BaseApplicationForm(ModelForm):
                     source_fields[field] = source_field
 
         for field in self.visible_fields():
-            if field.name in field_types:
-                types = field_types[field.name]
-                source = source_fields[field.name]
+            if field.name in field_types:  # type: ignore
+                types = field_types[field.name]  # type: ignore
+                source = source_fields[field.name]  # type: ignore
                 cond = " || ".join([f"[name={source}] == {type}" for type in types])
-                field.field.widget.attrs['data-cond'] = cond
-                field.data_cond = cond
-
-
-
+                field.field.widget.attrs["data-cond"] = cond  # type: ignore
+                field.data_cond = cond  # type: ignore
 
     def change_widgets(self):
         required_fields = self.instance.required_fields
@@ -146,9 +153,9 @@ class BaseApplicationForm(ModelForm):
             if field in hidden_fields:
                 self.fields.get(field).widget = HiddenInput()  # type:ignore
             if field in radio_fields:
-                #embed()
+                # embed()
                 f = self.fields.get(field)
-                f.widget = forms.RadioSelect(choices=f._choices)
+                f.widget = forms.RadioSelect(choices=f._choices)  # type: ignore
 
     def clean_cpf(self):
         cpf = self.cleaned_data.get("cpf", "")
@@ -157,6 +164,12 @@ class BaseApplicationForm(ModelForm):
         return cpf
 
     # class Media:
-        # css = {
-        #     "all": ("job_application/css/job_application.css",)
-        # }
+    # css = {
+    #     "all": ("job_application/css/job_application.css",)
+    # }
+
+
+class FinanciamentoVeiculoForm(ModelForm):
+    class Meta:
+        model = FinanciamentoVeiculo
+        fields = "__all__"

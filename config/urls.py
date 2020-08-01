@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include
-from django.urls import path, re_path
+from django.urls import path
 from django.views import defaults as default_views
 
 from apps.delta.views import porto_view
@@ -25,8 +25,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("users/", include("apps.users.urls", namespace="users")),
     path("porto/", porto_view, name="porto"),
-
-
     path("", include("apps.delta.urls", namespace="delta")),
 ]
 

@@ -57,9 +57,7 @@ THIRD_PARTY_APPS = [
     "constance",  # https://github.com/jazzband/django-constance
     "constance.backends.database",
     "crispy_forms",
-    'widget_tweaks',
-
-
+    "widget_tweaks",
 ]
 
 
@@ -71,7 +69,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
+    # "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
@@ -104,7 +102,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
+FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 # ------------------------------------------------------------------------------
@@ -168,6 +166,39 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = str(ROOT_DIR / "media")
 
+
+# EMAIL
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email
+DEFAULT_FROM_EMAIL = env(
+    "DJANGO_DEFAULT_FROM_EMAIL", default="Delta Capital <contato@deltacapital.com.br>"
+)
+DEFAULT_TO_EMAIL = env("DJANGO_DEFAULT_TO_EMAIL", default=DEFAULT_FROM_EMAIL)
+# https://docs.djangoproject.com/en/dev/ref/settings/#server-email
+SERVER_EMAIL = env("DJANGO_SERVER_EMAIL", default=DEFAULT_FROM_EMAIL)
+
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-subject-prefix
+EMAIL_SUBJECT_PREFIX = env("DJANGO_EMAIL_SUBJECT_PREFIX", default="[Delta Capital]")
+
+
+# CELERY SETTINGS
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_BROKER_URL = env.str("REDIS_URL", default="")
+CELERY_TASK_ALWAYS_EAGER = not CELERY_BROKER_URL
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_RESULT_BACKEND = env.str("REDIS_URL", default=None)
+
+# OTHER
+
+
+GOOGLE_CHROME_PATH = env.str(
+    "GOOGLE_CHROME_PATH", default="/app/.apt/usr/bin/google_chrome"
+)
+CHROMEDRIVER_PATH = env.str(
+    "CHROMEDRIVER_PATH", default="/app/.chromedriver/bin/chromedriver"
+)
 
 WEBPACK_LOADER = {
     "DEFAULT": {
