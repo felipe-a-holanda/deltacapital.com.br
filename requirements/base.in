@@ -10,6 +10,7 @@ django-crispy-forms  # https://github.com/django-crispy-forms/django-crispy-form
 django-environ  # https://github.com/joke2k/django-environ
 django-extensions  # https://github.com/django-extensions/django-extensions
 django-filter  # https://github.com/carltongibson/django-filter
+django-redis  # https://github.com/jazzband/django-redis
 django-webpack-loader  # https://github.com/owais/django-webpack-loader
 django-widget-tweaks  # https://github.com/jazzband/django-widget-tweaks
 

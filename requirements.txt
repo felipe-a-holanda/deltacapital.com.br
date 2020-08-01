@@ -24,9 +24,10 @@ django-environ==0.4.5     # via -r requirements/base.in
 django-extensions==2.2.8  # via -r requirements/base.in
 django-filter==2.2.0      # via -r requirements/base.in
 django-picklefield==3.0.1  # via django-constance
+django-redis==4.12.1      # via -r requirements/base.in
 django-webpack-loader==0.7.0  # via -r requirements/base.in
 django-widget-tweaks==1.4.8  # via -r requirements/base.in
-django==3.0.6             # via -r requirements/base.in, django-allauth, django-anymail, django-appconf, django-filter, django-picklefield
+django==3.0.6             # via -r requirements/base.in, django-allauth, django-anymail, django-appconf, django-filter, django-picklefield, django-redis
 future==0.18.2            # via celery
 gunicorn==20.0.4          # via -r requirements/prod.in
 idna==2.10                # via requests
@@ -37,6 +38,7 @@ psycopg2==2.8.5           # via -r requirements/base.in
 python3-openid==3.2.0     # via django-allauth
 pytz==2020.1              # via celery, django
 rcssmin==1.0.6            # via django-compressor
+redis==3.5.3              # via django-redis
 requests-oauthlib==1.3.0  # via django-allauth
 requests==2.24.0          # via django-allauth, django-anymail, requests-oauthlib
 rjsmin==1.1.0             # via django-compressor
