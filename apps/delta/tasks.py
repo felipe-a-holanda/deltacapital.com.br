@@ -45,7 +45,8 @@ def send_default_email(object, subject="", to_email=None):
         to_email = settings.DEFAULT_TO_EMAIL
     prefix = settings.EMAIL_SUBJECT_PREFIX
 
-    nome = object.get("nome", "")
+    nome = object.get("Nome", "")
+
     subject_email = f"{prefix} {subject} {nome}"
 
     send_mail(
