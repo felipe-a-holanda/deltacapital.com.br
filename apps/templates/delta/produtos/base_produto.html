@@ -1,16 +1,66 @@
 
 {% extends 'delta/base.html' %}
 {% load static compress %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
 
 
 {% block content %}
 
 <section class="wrapper">
-  <div class="inner" data-depth="0.10">
-    {% block product %}
-    <h1>Financiamento de Veículos</h1>
+  <div class="inner-form form">
+  {% block header %}
+  {% endblock header %}
+
+  {% block product %}
+   <form action="" method="post">
+  {% csrf_token %}
+
+
+
+
+      {% for hidden in form.hidden_fields %}
+        {{ hidden }}
+      {% endfor %}
+
+
+      {% for field in form.visible_fields %}
+
+        {% if field.help_text %}
+        <div class="help-text">
+          {{ field.help_text|safe }}
+        </div>
+          {% endif %}
+
+
+        <div class="form-group {{field.klass}}">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field|add_class:'form-control' }}
+
+          {% for error in field.errors %}
+            <span class="help-block">{{ error }}</span>
+          {% endfor %}
+        </div>
+      {% endfor %}
+
+
+
+
+
+           <div class="button-row">
+
+        <button class="button-submit" type="submit" value="Enviar">Enviar</button>
+      </div>
+
+
+
+    </form>
     {% endblock product %}
-  </div>
+      </div>
+
 </section>
 
 {% endblock content %}
+
+
+ %}

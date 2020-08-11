@@ -6,9 +6,7 @@
 import '../sass/main.scss';
 import './masks.js';
 import './cep-fill.js';
-
-import 'conditionize';
-//import './config-conditionize.js';
+import './util.js';
 
 (function($) {
 
@@ -53,4 +51,3 @@ import 'conditionize';
 
 })(jQuery);
 
-$('#proposta-financiamento').conditionize();

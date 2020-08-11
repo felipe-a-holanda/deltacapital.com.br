@@ -1,2 +1,2 @@
 {% load model_helpers %}
-{{object}}
+{{object|dic_as_text}}

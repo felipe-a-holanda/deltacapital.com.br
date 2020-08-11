@@ -30,5 +30,3 @@ jQuery('.autofill__cep_2').blur(function(){
   get_cep(cep, 2);
 
 });
-
-console.log("CEP-autofill");

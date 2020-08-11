@@ -145,6 +145,7 @@ USE_TZ = True
 LOCALE_PATHS = [str(ROOT_DIR / "locale")]
 
 
+ADMIN_URL = env("DJANGO_ADMIN_URL", default="admin/")
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
@@ -181,6 +182,9 @@ SERVER_EMAIL = env("DJANGO_SERVER_EMAIL", default=DEFAULT_FROM_EMAIL)
 EMAIL_SUBJECT_PREFIX = env("DJANGO_EMAIL_SUBJECT_PREFIX", default="[Delta Capital]")
 
 
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+DATE_FORMAT = "%d/%m/%Y"
 # CELERY SETTINGS
 CELERY_TIMEZONE = TIME_ZONE
 CELERY_BROKER_URL = env.str("REDIS_URL", default="")

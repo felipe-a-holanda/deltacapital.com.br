@@ -24,13 +24,26 @@
 </head>
 <body class="{% block bodyclass %}is-preload index{% endblock bodyclass %}">
 
-<!-- Header -->
-<header id="header"><a class="logo" href="{% url 'delta:home' %}">Delta Capital</a>
-  <nav><a href="#menu">Menu</a></nav>
-</header>
+		<!-- Headereeee -->
+			<header id="header">
+			  <a class="logo" href="index.html">Delta Capital</a>
+			  <nav>
+					<a href="#menu">Menu</a>
+				</nav>
+			</header>
 
-<!-- Nav -->
-{% include 'delta/navbar.html' %}
+		<!-- Nava -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="index.html">Início</a></li>
+					<li><a href="elements.html">Sobre</a></li>
+					<li><a href="generic.html">Serviços</a></li>
+					<li><a href="generic.html">Contato</a></li>
+				</ul>
+			</nav>
+    <!-- Navaaa -->
+
+
 
 {% block content %}{% endblock content %}
 
@@ -89,12 +102,11 @@
 <script src="{% static 'js/browser.min.js' %}"></script>
 <script src="{% static 'js/breakpoints.min.js' %}"></script>
 <script src="{% static 'js/util.js' %}"></script>
+{% endcompress %}
 
 
 {% block js %}
 {% endblock js %}
-
-{% endcompress %}
 
 
 {% render_bundle 'main' 'js' %}

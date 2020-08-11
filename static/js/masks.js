@@ -24,7 +24,8 @@ $(document).ready(function(){
   var mask_cep ={"mask":"99999-999", 'placeholder': ''}
   var mask_celular ={ "mask":"(99) [9]9999-9999", 'placeholder': ''}
   var mask_telefone ={ "mask":"(99) 9999-9999", 'placeholder': ''}
-  var mask_email ={ "alias": "email"}
+  // var mask_email ={ "alias": "email"}
+  var mask_email ={ "mask": ".*@.*"}
   var mask_numero ={ "alias": "numeric", "rightAlign": false,}
 
 

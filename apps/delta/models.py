@@ -3,10 +3,14 @@ import hashlib
 import random
 import sys
 
+from django.conf import settings
+from django.core.validators import MaxValueValidator
 from django.db import models
 from django.utils import timezone
 
 from . import constants
+from .helpers import model_to_dict_verbose
+from apps.users.models import User
 
 
 def create_session_hash():
@@ -17,7 +21,12 @@ def create_session_hash():
 
 class Proposta(models.Model):
     FIELDS = {
-        constants.STAGE_1: ["valor_do_veiculo", "valor_de_entrada", "cpf"],
+        constants.STAGE_1: [
+            "valor_do_veiculo",
+            "valor_de_entrada",
+            "cpf",
+            "nome_operador",
+        ],
         constants.STAGE_2: ["prazo"],
         constants.STAGE_3: [
             "nome",
@@ -153,8 +162,9 @@ class Proposta(models.Model):
 
     # operational fields
     criado_em = models.DateTimeField(auto_now_add=True)
-    simulado_em = models.DateTimeField(null=True)
-    enviado_em = models.DateTimeField(auto_now=True)
+    simulado_em = models.DateTimeField(null=True, blank=True)
+    enviado_em = models.DateTimeField(null=True, blank=True)
+    modificado_em = models.DateTimeField(auto_now=True)
     session_hash = models.CharField("Código Interno", max_length=40, unique=True)
     stage = models.CharField("Estágio", max_length=10, default="1")
     valores_parcelas = models.CharField(
@@ -284,8 +294,11 @@ class Proposta(models.Model):
     renavam = models.CharField("Renavam", max_length=100, blank=True)
     chassi = models.CharField("Chassi", max_length=100, blank=True)
 
+    nome_operador = models.CharField("Nome do Operador", max_length=100, blank=True)
+
     # Config
-    hidden_fields = ["stage", "session_hash"]
+    # hidden_fields = ["stage", "session_hash", "operador"]
+    hidden_fields = ["stage", "session_hash", "nome_operador"]
     radio_fields = ["prazo", "sexo", "tipo_de_renda", "dados_placa"]
     required_fields = [
         "valor_do_veiculo",
@@ -385,12 +398,105 @@ class Proposta(models.Model):
     def save(self, *args, **kwargs):
         super(Proposta, self).save(*args, **kwargs)
 
+    def get_to_email(self):
+        user = User.objects.filter(username=self.nome_operador).first()
+        if user:
+            return user.email
+        return settings.DEFAULT_TO_EMAIL
+
+    def send_mail(self):
+        from .tasks import send_default_email
+
+        self.enviado_em = timezone.now()
+        self.save()
+
+        dic = model_to_dict_verbose(self, exclude=["id"] + self.hidden_fields)
+
+        to_email = self.get_to_email()
+        send_default_email.delay(dic, "Proposta", to_email)
+
 
 class FinanciamentoVeiculo(models.Model):
-    valor_do_veiculo = models.CharField("Valor do Veículo", max_length=100, blank=True)
-    entrada = models.CharField("Valor de Entrada", max_length=100, blank=True)
-    cpf = models.CharField("CPF", max_length=100, blank=True)
-    telefone = models.CharField("Telefone", max_length=100, blank=True)
+    valor_do_veiculo = models.CharField("Valor do Veículo", max_length=100)
+    entrada = models.CharField("Valor de Entrada", max_length=100)
+    cpf = models.CharField("CPF", max_length=100)
+    telefone = models.CharField("Telefone", max_length=100)
+
+    class Meta:
+        verbose_name = "Financiamento de Veículo"
+        verbose_name_plural = "Financiamentos de Veículos"
 
     def __str__(self):
         return f"Financiamento de Veículo: {self.cpf} - {self.valor_do_veiculo}"
+
+
+class CartaoCredito(models.Model):
+    OPCOES_PESSOA = (("fisica", "Pessoa Física"), ("juridica", "Pessoa Jurídica"))
+    OPCOES_BANDEIRA = (("visa", "Visa"), ("master", "Master"))
+    OPCOES_SEXO = (("masculino", "Masculino"), ("feminino", "Feminino"))
+    OPCOES_VENCIMENTO = (
+        ("1", "1"),
+        ("5", "5"),
+        ("10", "10"),
+        ("15", "15"),
+        ("20", "20"),
+        ("25", "25"),
+        ("30", "30"),
+    )
+
+    nome = models.CharField("Nome completo", max_length=254)
+    email = models.EmailField("E-mail")
+    telefone = models.CharField("Telefone", max_length=50)
+    cpf = models.CharField("CPF", max_length=100)
+    pessoa = models.CharField("Pessoa", choices=OPCOES_PESSOA, max_length=100)
+    bandeira = models.CharField("Bandeira", choices=OPCOES_BANDEIRA, max_length=100)
+    sexo = models.CharField("Sexo", choices=OPCOES_SEXO, max_length=100)
+    data_de_nascimento = models.DateField("Data de Nascimento")
+    nome_mae = models.CharField("Nome da mãe", max_length=254)
+    endereco = models.CharField("Endereço Residencial", max_length=254)
+    cep = models.CharField("CEP", max_length=12)
+    vencimento = models.CharField(
+        "Dia do Vencimento", choices=OPCOES_VENCIMENTO, max_length=2
+    )
+
+    # Config
+    radio_fields = ["pessoa", "bandeira", "sexo", "vencimento"]
+
+    class Meta:
+        verbose_name = "Cartão de Crédito"
+        verbose_name_plural = "Cartões de Crédito"
+
+    def __str__(self):
+        return f"Cartão de Crédito: {self.cpf}"
+
+
+class CapitalGiro(models.Model):
+    OPCOES_FATURAMENTO = (
+        ("200-500", "200 mil - 500 mil"),
+        ("500-1", "500 mil - 1 milhão"),
+        ("1-2", "1 milhão - 2 milhões"),
+        ("2-5", "2 milhões - 5 milhões"),
+        ("5-10", "5 milhões - 10 milhões"),
+        ("10-20", "10 milhões - 20 milhões"),
+        ("20-30", "20 milhões - 30 milhões"),
+        ("30-50", "30 milhões - 50 milhões"),
+        ("50-", "acima de 50 milhões"),
+    )
+
+    nome = models.CharField("Nome completo", max_length=300)
+    email = models.EmailField("E-mail")
+    telefone = models.CharField("Telefone", max_length=300)
+    prazo = models.PositiveSmallIntegerField(
+        "Prazo", validators=[MaxValueValidator(24)], help_text="1x a 24x"
+    )
+    cnpj = models.CharField("CNPJ", max_length=100)
+    faturamento_anual = models.CharField(
+        "Faturamento anual da empresa", choices=OPCOES_FATURAMENTO, max_length=100
+    )
+    valor_emprestimo = models.CharField(
+        "Valor do emprestimo", max_length=100, help_text="Máximo de 800 mil"
+    )
+
+    class Meta:
+        verbose_name = "Capital de Giro"
+        verbose_name_plural = "Capitais de Giro"
