@@ -49,13 +49,7 @@ def send_default_email(object, subject="", to_email=None):
 
     subject_email = f"{prefix} {subject} {nome}"
 
-    send_mail(
-        subject_email,
-        msg_plain,
-        from_email,
-        [to_email],
-        html_message=msg_html,
-    )
+    send_mail(subject_email, msg_plain, from_email, [to_email], html_message=msg_html)
 
     logger.info(f"Email sent [{subject}]")
     logger.info(f"{msg_plain}")
