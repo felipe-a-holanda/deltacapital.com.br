@@ -9,7 +9,7 @@ def model_to_dict_verbose(instance, exclude=("id")):
     verbose_dic = {}
     for k, v in dic.items():
         field = fields[k]
-        key = field.verbose_name
+        key = field.verbose_name[:30]
         value = str(v)
         if hasattr(field, "choices") and fields[k].choices:
             value = dict(fields[k].choices).get(v, "")

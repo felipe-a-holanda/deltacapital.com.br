@@ -23,6 +23,11 @@ class ReadOnlyText(forms.TextInput):
         return value
 
 
+def get_value_prazo(prazo, valores):
+    x = [i for i in valores if prazo in i]
+    return x[0] if x else prazo
+
+
 class BaseForm(ModelForm):
     field_classes = {}  # type: ignore
 
@@ -53,6 +58,15 @@ class BaseForm(ModelForm):
             if field in radio_fields:
                 f = self.fields.get(field)
                 f.widget = forms.RadioSelect(choices=f._choices)  # type: ignore
+            if field == "prazo":
+                f = self.fields.get(field)
+                if self.instance and self.instance.valores_parcelas:
+                    valores = eval(self.instance.valores_parcelas)
+                    choices = [
+                        (x, get_value_prazo(y, valores))
+                        for x, y in f._choices  # type: ignore
+                    ]
+                    f.widget = forms.RadioSelect(choices=choices)  # type: ignore
 
 
 class BasePropostaForm(BaseForm):

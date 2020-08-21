@@ -1,4 +1,5 @@
 import time
+from decimal import Decimal
 
 from celery.utils.log import get_task_logger
 from django.conf import settings
@@ -78,7 +79,7 @@ def start_selenium_browser():
 
 
 def start_splinter_browser():
-    browser = Browser("chrome")
+    browser = Browser("chrome", headless=True)
     return browser
 
 
@@ -118,9 +119,24 @@ def porto_page_2(browser, data):
     return valores
 
 
+def format_currency(m):
+    return "{0:.2f}".format(
+        Decimal(m.replace("R", "").replace("$", "").replace(",", ""))
+    ).replace(".", "")
+
+
+def data_from_model(pk):
+    proposta = Proposta.objects.get(pk=pk)
+
+    valor = format_currency(proposta.valor_do_veiculo)
+    entrada = format_currency(proposta.valor_de_entrada)
+    data = dict(Valor=valor, EntradaOutro=entrada, CPF=proposta.cpf)
+    return data
+
+
 @celery_app.task
-def get_simulation(pk, data):
-    data = adapt_data(data)
+def get_simulation(pk):
+    data = data_from_model(pk)
 
     browser = start_splinter_browser()
     browser.visit(PORTO_URL)

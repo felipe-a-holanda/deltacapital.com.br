@@ -1,0 +1,76 @@
+{% extends 'delta/base.html' %}
+{% load static compress %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+{% block title %}Delta Capital - Proposta{% endblock %}
+
+{% block headmedia %}
+<link rel="stylesheet" href="{% static 'css/progress.css' %}">
+{% endblock headmedia %}
+
+
+{% block bodyclass %}form{% endblock bodyclass %}
+
+
+{% block content %}
+
+<section class="wrapper">
+  <div class="inner-form form" data-depth="0.10">
+    <h2>Simulando proposta</h2>
+    <div class="w3-light-grey">
+    <div id='progressbar1'></div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
+
+
+{% block js %}
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/progress.js' %}"></script>
+
+
+<script>
+  doUntilResult(function() {
+    return $.ajax("{{api_url}}").then(function(data) {
+        return data || null; // adjust as required to ensure that `null` is returned only for the "continue" condition.
+    });
+}, 1000); // 1 second delay between calls
+
+
+
+
+
+function doUntilResult(doThis, t) {
+    function delay() {
+        return $.Deferred(function(dfrd) {
+            window.setTimeout(dfrd.resolve, t);
+        });
+    }
+    function poll() {
+        return $.when(doThis()).then(function(data) { // $.when() caters for non-async functions to be passed.
+
+            if (data.simulado_em === null){
+                return delay().then(poll);
+            }else{
+                window.location.href= "{{ return_url }}";
+                return data;
+            }
+            //return (data.simulado_em === null) ?  delay().then(poll) : data ; // continue on null, otherwise return data.
+        });
+    }
+    return poll();
+}
+
+addEventListener('load', function() {
+  createProgressbar('progressbar1', '60s', function() {
+    console.log("timeout");
+    window.location.href = "{{ return_url }}";
+  });
+});
+
+
+</script>
+{% endblock js %}

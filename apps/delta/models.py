@@ -160,6 +160,8 @@ class Proposta(models.Model):
         ("OUTROS", "OUTROS"),
     ]
 
+    SIMULATION = [("N", "N"), ("R", "R"), ("O", "O"), ("R", "O")]
+
     # operational fields
     criado_em = models.DateTimeField(auto_now_add=True)
     simulado_em = models.DateTimeField(null=True, blank=True)
@@ -167,6 +169,7 @@ class Proposta(models.Model):
     modificado_em = models.DateTimeField(auto_now=True)
     session_hash = models.CharField("Código Interno", max_length=40, unique=True)
     stage = models.CharField("Estágio", max_length=10, default="1")
+    # simulation_stage = models.CharField("Estágio", max_length=10, default="1")
     valores_parcelas = models.CharField(
         "Valores das parcelas", max_length=1000, null=True, blank=True
     )
@@ -361,6 +364,11 @@ class Proposta(models.Model):
 
     def __str__(self):
         return f"{self.nome} - {self.cpf}"
+
+    def simular(self):
+        from .tasks import get_simulation
+
+        get_simulation.delay(self.pk)
 
     def salvar_simulacao(self, valores_parcelas):
         self.valores_parcelas = valores_parcelas

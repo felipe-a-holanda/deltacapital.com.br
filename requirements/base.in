@@ -20,6 +20,13 @@ psycopg2   --no-binary psycopg2  # https://github.com/psycopg/psycopg2
 whitenoise  # https://github.com/evansd/whitenoise/
 
 
+# Databases and Static files
+# ------------------------------------------------------------------------------
+djangorestframework
+markdown       # Markdown support for the browsable API.
+django-filter  # Filtering support
+
+
 # Other
 # ------------------------------------------------------------------------------
 celery  # https://github.com/celery/celery

@@ -8,6 +8,7 @@ from .views import financiamento_view
 from .views import home_view
 from .views import myview
 from .views import obrigado_view
+from .views import proposta_simulacao_view
 from .views import proposta_view
 from .views import whatsapp_view
 
@@ -28,6 +29,11 @@ urlpatterns = [
     path("emprestimo-pessoal", emprestimo_view, name="emprestimo-pessoal"),
     path("proposta/", proposta_view, name="proposta"),
     path("proposta/new/", proposta_view, {"new": True}, name="proposta"),
+    path(
+        "proposta/simulacao/<int:id>/",
+        proposta_simulacao_view,
+        name="proposta_simulacao",
+    ),
     path("proposta/<str:page>/", proposta_view, name="proposta"),
     path("obrigado/", obrigado_view, name="obrigado"),
     path("task/", current_datetime, name="task"),

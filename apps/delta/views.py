@@ -10,6 +10,7 @@ from django.forms import modelform_factory
 from django.http import Http404
 from django.http import HttpResponse
 from django.shortcuts import redirect
+from django.shortcuts import render
 from django.template import TemplateDoesNotExist
 from django.template.loader import get_template
 from django.template.loader import render_to_string
@@ -62,6 +63,7 @@ def myview(request):
     msg_plain = render_to_string("delta/emails/email.html", {"object": dic})
 
     return HttpResponse(msg_plain, charset="utf-8")
+
 
 
 class PortoView(TemplateView):
@@ -199,9 +201,15 @@ class PropostaView(FormView):
         ]
         form.instance.stage = new_stage
         form.save()  # This will save the underlying instance.
+        print("NEW_STAGE=", new_stage, constants.STAGE_2)
         if new_stage == constants.COMPLETE:
             form.instance.send_mail()
             return redirect(reverse("delta:obrigado"))
+        if new_stage == constants.STAGE_2:
+            form.instance.simular()
+            return redirect(
+                reverse("delta:proposta_simulacao", args=(form.instance.pk,))
+            )
         # elif new_stage == constants.STAGE_2:
         #    self.run_simulation(proposta, form)
         # else
@@ -244,6 +252,22 @@ class PropostaView(FormView):
 
 
 proposta_view = PropostaView.as_view()
+
+
+class PropostaSimulacaoView(TemplateView):
+    template_name = "delta/proposta/simulacao.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(PropostaSimulacaoView, self).get_context_data()
+        url = reverse("proposta-detail", args=[self.kwargs["id"]])
+        context["api_url"] = url
+        context["return_url"] = "/proposta/2/"
+        return context
+
+    pass
+
+
+proposta_simulacao_view = PropostaSimulacaoView.as_view()
 
 
 class ObrigadoView(TemplateView):

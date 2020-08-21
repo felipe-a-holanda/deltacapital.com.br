@@ -22,6 +22,8 @@ from django.views import defaults as default_views
 
 urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
+    path("api-auth/", include("rest_framework.urls")),
+    path("api/", include("config.api")),
     path("usuarios/", include("apps.users.urls", namespace="user")),
     path("", include("apps.delta.urls", namespace="delta")),
 ]
