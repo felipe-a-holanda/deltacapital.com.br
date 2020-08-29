@@ -50,12 +50,14 @@ function doUntilResult(doThis, t) {
         });
     }
     function poll() {
+        var returns = {{returns|safe }};
         return $.when(doThis()).then(function(data) { // $.when() caters for non-async functions to be passed.
 
-            if (data.simulado_em === null){
+            if (data.status <= 1 ){
                 return delay().then(poll);
             }else{
-                window.location.href= "{{ return_url }}";
+                //window.location.href= "{{ return_url }}";
+                window.location.href = returns[data.status];
                 return data;
             }
             //return (data.simulado_em === null) ?  delay().then(poll) : data ; // continue on null, otherwise return data.

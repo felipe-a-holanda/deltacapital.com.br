@@ -1,10 +1,20 @@
 from django.contrib import admin
 
-from .models import Proposta
+from .models import CapitalGiro
+from .models import CartaoCredito
+from .models import FinanciamentoVeiculo
 
 
-@admin.register(Proposta)
-class PropostaAdmin(admin.ModelAdmin):
-    list_display = ["criado_em", "nome", "cpf", "valor_do_veiculo", "enviado_em"]
+@admin.register(FinanciamentoVeiculo)
+class FinanciamentoVeiculoAdmin(admin.ModelAdmin):
+    pass
 
-    readonly_fields = ["session_hash", "stage"]
+
+@admin.register(CartaoCredito)
+class CartaoCreditoAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(CapitalGiro)
+class CapitalGiroAdmin(admin.ModelAdmin):
+    pass

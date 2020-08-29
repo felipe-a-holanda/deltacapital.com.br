@@ -1,0 +1,34 @@
+{% extends 'delta/base.html' %}
+{% load static compress %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+{% block title %}Delta Capital - Proposta{% endblock %}
+
+
+{% block content %}
+
+<section class="wrapper">
+
+  <div class="inner" data-depth="0.10">
+    <header class="special">
+
+    <p>
+      Obrigado pelo interesse, mas no momento não temos
+oferta adequada ao perfil de seu cliente.
+    </p>
+      <button class="button-submit" type="button" onclick="location.href='{% url 'porto:proposta' new=True %}';" value="Novo" />Nova Proposta</button>
+</header>
+
+
+
+
+
+  </div>
+</section>
+
+{% endblock content %}
+
+
+
+

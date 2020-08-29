@@ -580,6 +580,7 @@ ul.radio-toolbar label:hover {
 }
 .radio-toolbar-horizontal ul {
   display: flex;
+  list-style: none;
 }
 
 input[type=checkbox],
@@ -2459,6 +2460,31 @@ ul.icons li .icon:before {
   .wrapper {
     padding: 2rem 0 0.1rem 0;
   }
+}
+
+.ps-notify h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+.ps-notify .ps-notify-container {
+  padding: 30px 30px 30px 30px;
+}
+
+.ps-notify.ps-notify-alert {
+  border-radius: 4px;
+  background: url("../../images/banner-ps-notify.png") center no-repeat;
+  background-size: cover;
+  background-color: #0076ff;
+  border: solid 1px #2a67ae;
+  color: #fff;
 }
 
 /* Banner */

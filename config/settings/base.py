@@ -62,7 +62,11 @@ THIRD_PARTY_APPS = [
 ]
 
 
-LOCAL_APPS = ["apps.users.apps.UsersConfig", "apps.delta.apps.DeltaConfig"]
+LOCAL_APPS = [
+    "apps.users.apps.UsersConfig",
+    "apps.delta.apps.DeltaConfig",
+    "apps.porto.apps.PortoConfig",
+]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -125,6 +129,21 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
+
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "apps.users.auth_backends.CPFBackend",
+]
+
+
+LOGIN_REDIRECT_URL = "account_logout"
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+
 
 # Local time zone. Choices are
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name

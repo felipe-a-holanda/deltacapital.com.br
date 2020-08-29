@@ -16,8 +16,15 @@
 {% block content %}
 
 <section class="wrapper">
+
+  {% if form.instance.pre_aprovado and current_stage == '2' %}
+    {% include 'porto/proposta/pre_aprovado.html' with pre_aprovado=form.instance.pre_aprovado %}
+    {% endif %}
   <div class="inner-form form" data-depth="0.10">
-    <form id="proposta-financiamento" method="post" action=".">
+
+
+
+    <form id="proposta-financiamento" method="post" action="." data-anos-url="{% url 'porto:ajax_load_anos' %}" >
 
 
       {% csrf_token %}
@@ -56,7 +63,7 @@
 
       <div class="button-row">
         {% if back_stage %}
-        <button class="button-submit" type="button" onclick="location.href='{% url 'delta:proposta' back_stage %}';" value="Anterior" />Anterior</button>
+        <button class="button-submit" type="button" onclick="location.href='{% url 'porto:proposta' back_stage %}';" value="Anterior" />Anterior</button>
         {% endif %}
         <button class="button-submit" type="submit" value="continue">Seguinte</button>
       </div>
@@ -75,6 +82,22 @@
     $('#proposta-financiamento').conditionize();
 });
 
+
+$("#id_ano_de_fabricacao").change(function () {
+  var url = $("#proposta-financiamento").attr("data-anos-url");  // get the url of the `load_cities` view
+  var ano_fabricacao = $(this).val();  // get the selected country ID from the HTML input
+
+  $.ajax({                       // initialize an AJAX request
+    url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+    data: {
+      'ano': ano_fabricacao       // add the country id to the GET parameters
+    },
+    success: function (data) {   // `data` is the return of the `load_cities` view function
+      $("#id_ano_do_modelo").html(data);  // replace the contents of the city input with the data that came from the server
+    }
+  });
+
+});
 
 </script>
 {% endblock js %}

@@ -24,8 +24,10 @@ urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
     path("api-auth/", include("rest_framework.urls")),
     path("api/", include("config.api")),
+    path("accounts/", include("allauth.urls")),
     path("usuarios/", include("apps.users.urls", namespace="user")),
     path("", include("apps.delta.urls", namespace="delta")),
+    path("", include("apps.porto.urls", namespace="porto")),
 ]
 
 

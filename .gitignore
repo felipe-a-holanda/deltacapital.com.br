@@ -131,3 +131,4 @@ Pipfile*
 
 node_modules/
 staticfiles/
+tmp/

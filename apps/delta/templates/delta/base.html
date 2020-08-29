@@ -26,7 +26,7 @@
 
 		<!-- Headereeee -->
 			<header id="header">
-			  <a class="logo" href="index.html">Delta Capital</a>
+			  <a class="logo" href="{% url 'delta:home' %}">Delta Capital</a>
 			  <nav>
 					<a href="#menu">Menu</a>
 				</nav>
@@ -35,10 +35,13 @@
 		<!-- Nava -->
 			<nav id="menu">
 				<ul class="links">
-					<li><a href="index.html">Início</a></li>
-					<li><a href="elements.html">Sobre</a></li>
-					<li><a href="generic.html">Serviços</a></li>
-					<li><a href="generic.html">Contato</a></li>
+          <li><a href="{% url 'delta:home' %}">Início</a></li>
+          <li><a href="{% url 'delta:home' %}#sobre">Sobre</a></li>
+          <li><a href="{% url 'delta:financiamento-de-veiculos' %}">Financiamento de Veículos</a></li>
+          <li><a href="{% url 'delta:cartao-de-credito' %}">Cartão de Crédito</a></li>
+          <li><a href="{% url 'delta:capital-de-giro' %}">Capital de Giro</a></li>
+          <li><a href="{% url 'delta:emprestimo-pessoal' %}">Empréstimo Pessoal</a></li>
+          <li><a href="#contato">Contato</a></li>
 				</ul>
 			</nav>
     <!-- Navaaa -->
