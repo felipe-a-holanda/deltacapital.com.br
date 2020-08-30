@@ -9,7 +9,6 @@ from config import celery_app
 logger = get_task_logger(__name__)
 
 
-
 @celery_app.task
 def send_default_email(object, subject="", to_email=None):
 
@@ -30,4 +29,3 @@ def send_default_email(object, subject="", to_email=None):
     logger.info(f"Email sent [{subject}]")
     logger.info(f"{msg_plain}")
     logger.info(f"{msg_html}")
-

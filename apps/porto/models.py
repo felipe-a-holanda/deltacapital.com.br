@@ -1,35 +1,31 @@
-from django.db import models
 import hashlib
 import random
 import sys
-from django import forms
 
-from django.utils import timezone
 from django.conf import settings
+from django.db import models
+from django.utils import timezone
 
+from .constants import CAMBIO
+from .constants import COMBUSTIVEL
+from .constants import PRAZO
+from .constants import PROFISSAO_ASSALARIADO
+from .constants import PROFISSAO_LIBERAL
 from .constants import STAGE_1
 from .constants import STAGE_2
 from .constants import STAGE_3
 from .constants import STAGE_4
 from .constants import STAGE_5
 from .constants import STAGE_6
-from .constants import UFS
-from .constants import TIPO_RENDA
-from .constants import PRAZO
-from .constants import PROFISSAO_ASSALARIADO
-from .constants import PROFISSAO_LIBERAL
-from .constants import COMBUSTIVEL
-from .constants import CAMBIO
 from .constants import STATUS
-from .constants import STATUS_NAO_SIMULADO
 from .constants import STATUS_APROVADO
-from .constants import STATUS_RECUSADO
 from .constants import STATUS_ERRO
-
+from .constants import STATUS_NAO_SIMULADO
+from .constants import STATUS_RECUSADO
+from .constants import TIPO_RENDA
+from .constants import UFS
 from apps.delta.helpers import model_to_dict_verbose
 from apps.users.models import User
-
-
 
 
 def create_session_hash():
@@ -40,13 +36,8 @@ def create_session_hash():
 
 class PropostaPorto(models.Model):
     FIELDS = {
-        STAGE_1: [
-            "valor_do_veiculo",
-            "valor_de_entrada",
-            "cpf",
-            "nome_operador",
-        ],
-        STAGE_2: [ "prazo"],
+        STAGE_1: ["valor_do_veiculo", "valor_de_entrada", "cpf", "nome_operador"],
+        STAGE_2: ["prazo"],
         STAGE_3: [
             "nome",
             "data_de_nascimento",
@@ -107,7 +98,6 @@ class PropostaPorto(models.Model):
         ],
     }
 
-
     # operational fields
     criado_em = models.DateTimeField(auto_now_add=True)
     simulado_em = models.DateTimeField(null=True, blank=True)
@@ -115,7 +105,9 @@ class PropostaPorto(models.Model):
     modificado_em = models.DateTimeField(auto_now=True)
     session_hash = models.CharField("Código Interno", max_length=40, unique=True)
     stage = models.CharField("Estágio", max_length=10, default="1")
-    status = models.CharField("Status", choices=STATUS, max_length=10, default=STATUS_NAO_SIMULADO)
+    status = models.CharField(
+        "Status", choices=STATUS, max_length=10, default=STATUS_NAO_SIMULADO
+    )
     valores_parcelas = models.CharField(
         "Valores das parcelas", max_length=1000, null=True, blank=True
     )
@@ -139,7 +131,13 @@ class PropostaPorto(models.Model):
     )
 
     # stage 2 fields
-    prazo = models.CharField("Cotação de Financiamento", max_length=3, choices=PRAZO, blank=False, help_text="Selecione a melhor opção para seu cliente.")
+    prazo = models.CharField(
+        "Cotação de Financiamento",
+        max_length=3,
+        choices=PRAZO,
+        blank=False,
+        help_text="Selecione a melhor opção para seu cliente.",
+    )
 
     # stage 3 fields
     nome = models.CharField("Nome", max_length=100, blank=True)
@@ -224,17 +222,24 @@ class PropostaPorto(models.Model):
 
     # stage 6 fields
     ano_de_fabricacao = models.CharField(
-        "Ano de Fabricação", max_length=100, blank=True,
-    help_text = "<h2>Informações sobre o Veículo</h2><p>Caso seu cliente não saiba extamente qual veículo irá comprar, indique algum compatível em termos de preço. Fique tranquilo, você poderá mudar essa informação a qualquer momento.</p>",
+        "Ano de Fabricação",
+        max_length=100,
+        blank=True,
+        help_text="<h2>Informações sobre o Veículo</h2><p>Caso seu cliente não saiba "
+        "extamente qual veículo irá comprar, indique algum compatível em "
+        "termos de preço. Fique tranquilo, você poderá mudar essa informação "
+        "a qualquer momento.</p>",
     )
     ano_do_modelo = models.CharField("Ano do Modelo", max_length=100, blank=True)
     marca = models.CharField("Marca", max_length=100, blank=True)
     modelo = models.CharField("Modelo", max_length=100, blank=True)
     versao = models.CharField("Versão", max_length=100, blank=True)
     cor = models.CharField("Cor", max_length=100, blank=True)
-    combustivel = models.CharField("Combustível", choices=COMBUSTIVEL, max_length=100, blank=True)
+    combustivel = models.CharField(
+        "Combustível", choices=COMBUSTIVEL, max_length=100, blank=True
+    )
     cambio = models.CharField("Câmbio", choices=CAMBIO, max_length=100, blank=True)
-    motor = models.CharField("Motor", max_length=100, blank=True, )
+    motor = models.CharField("Motor", max_length=100, blank=True)
     dados_placa = models.CharField(
         "VOCÊ POSSUI OS DADOS DE PLACA / CHASSI / RENAVAM DESTE VEÍCULO?",
         choices=(("Sim", "Sim"), ("Não", "Não")),
@@ -252,7 +257,6 @@ class PropostaPorto(models.Model):
     # hidden_fields = ["stage", "session_hash", "operador"]
     hidden_fields = ["stage", "session_hash", "nome_operador"]
     radio_fields = ["prazo", "sexo", "tipo_de_renda", "dados_placa"]
-
 
     required_fields = [
         "valor_do_veiculo",
@@ -321,7 +325,8 @@ class PropostaPorto(models.Model):
 
     def simular(self):
         from .tasks import get_simulation
-        #get_simulation(self.pk)
+
+        # get_simulation(self.pk)
         get_simulation.delay(self.pk)
 
     def salvar_simulacao(self, valores_parcelas, pre_aprovado):

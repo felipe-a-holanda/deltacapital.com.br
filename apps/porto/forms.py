@@ -1,5 +1,5 @@
-from collections import defaultdict
 import datetime
+from collections import defaultdict
 
 from django import forms
 from django.core.exceptions import ValidationError
@@ -53,13 +53,14 @@ class BaseForm(ModelForm):
     def customize_widgets(self):
         for field_name in self.fields:
             field = self.fields[field_name]
-            if field_name == 'ano_de_fabricacao':
+            if field_name == "ano_de_fabricacao":
                 field.widget = forms.Select(choices=self.get_choices_ano())
-            if field_name == 'ano_do_modelo':
+            if field_name == "ano_do_modelo":
                 field.widget = forms.Select(choices=self.get_choices_ano())
-            elif field_name == 'motor':
-                field.widget = forms.TextInput(attrs={'placeholder': '1.0, 1.6, 2.0...'})
-
+            elif field_name == "motor":
+                field.widget = forms.TextInput(
+                    attrs={"placeholder": "1.0, 1.6, 2.0..."}
+                )
 
     def change_widgets(self):
         required_fields = getattr(self.instance, "required_fields", [])
@@ -70,7 +71,7 @@ class BaseForm(ModelForm):
         for field_name in self.fields:
             field = self.fields.get(field_name)
             if field and isinstance(field, forms.TypedChoiceField):
-                field.choices = field.choices[1:]
+                field.choices = field.choices[1:]  # type:ignore
             if field_name in required_fields:
                 field.required = True  # type:ignore
             if field_name in hidden_fields:
@@ -201,4 +202,3 @@ class BasePropostaForm(BaseForm):
     # css = {
     #     "all": ("job_application/css/job_application.css",)
     # }
-

@@ -1,31 +1,23 @@
-# Create your views here.
 import datetime
 import re
-from urllib.parse import quote
 
 import pytz
 import requests
-from constance import config
 from django.forms import modelform_factory
-from django.http import Http404
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
-from django.template import TemplateDoesNotExist
-from django.template.loader import get_template
 from django.template.loader import render_to_string
 from django.urls import reverse
-from django.urls import reverse_lazy
 from django.views.generic import FormView
-from django.views.generic import RedirectView
 from django.views.generic import TemplateView
-from django.views.generic.edit import CreateView
 
 from . import constants
+from .constants import STATUS_APROVADO
+from .constants import STATUS_RECUSADO
 from .forms import BasePropostaForm
-from apps.delta.helpers import model_to_dict_verbose
 from .models import PropostaPorto
-
+from apps.delta.helpers import model_to_dict_verbose
 
 
 PORTO_URL = (
@@ -52,7 +44,6 @@ def myview(request):
     return HttpResponse(msg_plain, charset="utf-8")
 
 
-
 class PortoView(TemplateView):
     template_name = f"porto/porto.html"
 
@@ -74,9 +65,6 @@ class PortoView(TemplateView):
 
 
 porto_view = PortoView.as_view()
-
-
-
 
 
 def get_obj_from_hash(session_hash):
@@ -210,8 +198,7 @@ class PropostaView(FormView):
 
 proposta_view = PropostaView.as_view()
 
-from .constants import STATUS_RECUSADO
-from .constants import STATUS_APROVADO
+
 class PropostaSimulacaoView(TemplateView):
     template_name = "porto/proposta/simulacao.html"
 
@@ -220,9 +207,10 @@ class PropostaSimulacaoView(TemplateView):
         api_url = reverse("propostaporto-detail", args=[self.kwargs["id"]])
         context["api_url"] = api_url
         context["return_url"] = "/proposta/2/"
-        context["returns"] = {STATUS_RECUSADO: reverse("porto:recusado"),
-                              STATUS_APROVADO: "/proposta/2/"
-                              }
+        context["returns"] = {
+            STATUS_RECUSADO: reverse("porto:recusado"),
+            STATUS_APROVADO: "/proposta/2/",
+        }
         return context
 
     pass
@@ -237,6 +225,7 @@ class ObrigadoView(TemplateView):
 
 obrigado_view = ObrigadoView.as_view()
 
+
 class RecusadoView(TemplateView):
     template_name = "porto/proposta/recusado.html"
 
@@ -244,10 +233,11 @@ class RecusadoView(TemplateView):
 recusado_view = RecusadoView.as_view()
 
 
-
 def load_anos(request):
-    ano_fabricacao = request.GET.get('ano')
+    ano_fabricacao = request.GET.get("ano")
     ano = int(ano_fabricacao)
-    anos_modelo = list(map(str, [ano, ano+1]))
+    anos_modelo = list(map(str, [ano, ano + 1]))
 
-    return render(request, 'porto/ano_modelo_dropdown_list_options.html', {'anos': anos_modelo})
+    return render(
+        request, "porto/ano_modelo_dropdown_list_options.html", {"anos": anos_modelo}
+    )

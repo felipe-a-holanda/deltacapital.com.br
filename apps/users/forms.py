@@ -1,4 +1,4 @@
-from django.contrib.auth import forms
+from django.contrib import auth
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
@@ -6,19 +6,26 @@ from django.utils.translation import ugettext_lazy as _
 User = get_user_model()
 
 
-class UserChangeForm(forms.UserChangeForm):
-    class Meta(forms.UserChangeForm.Meta):
+class UserChangeForm(auth.forms.UserChangeForm):
+    class Meta(auth.forms.UserChangeForm.Meta):
         model = User
 
 
-class UserCreationForm(forms.UserCreationForm):
+class UserChangeFormOwner(UserChangeForm):
+    def __init__(self, *args, **kwargs):
+        super(UserChangeForm, self).__init__(*args, **kwargs)
+        self.fields["user_type"].choices = self.fields["user_type"]._choices[1:]
 
-    error_message = forms.UserCreationForm.error_messages.update(
+
+class UserCreationForm(auth.forms.UserCreationForm):
+
+    error_message = auth.forms.UserCreationForm.error_messages.update(
         {"duplicate_username": _("This username has already been taken.")}
     )
 
-    class Meta(forms.UserCreationForm.Meta):
+    class Meta(auth.forms.UserCreationForm.Meta):
         model = User
+        fields = ("username",)
 
     def clean_username(self):
         username = self.cleaned_data["username"]
