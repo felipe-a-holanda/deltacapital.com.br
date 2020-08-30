@@ -108,8 +108,8 @@ class PropostaPorto(models.Model):
     modificado_em = models.DateTimeField(auto_now=True)
     session_hash = models.CharField("Código Interno", max_length=40, unique=True)
     stage = models.CharField("Estágio", max_length=10, default="1")
-    status = models.CharField(
-        "Status", choices=STATUS, max_length=10, default=STATUS_NAO_SIMULADO
+    status = models.PositiveSmallIntegerField(
+        "Status", choices=STATUS, default=STATUS_NAO_SIMULADO
     )
     valores_parcelas = models.CharField(
         "Valores das parcelas", max_length=1000, null=True, blank=True

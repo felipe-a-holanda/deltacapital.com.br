@@ -11,6 +11,8 @@ from django.views.generic import TemplateView
 
 from . import constants
 from .constants import STATUS_APROVADO
+from .constants import STATUS_ERRO
+from .constants import STATUS_NAO_SIMULADO
 from .constants import STATUS_RECUSADO
 from .forms import BasePropostaForm
 from .models import PropostaPorto
@@ -169,6 +171,8 @@ class PropostaSimulacaoView(TemplateView):
         context["api_url"] = api_url
         context["return_url"] = "/proposta/2/"
         context["returns"] = {
+            STATUS_NAO_SIMULADO: "/proposta/2/",
+            STATUS_ERRO: "/proposta/2/",
             STATUS_RECUSADO: reverse("porto:recusado"),
             STATUS_APROVADO: "/proposta/2/",
         }
