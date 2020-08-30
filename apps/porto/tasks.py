@@ -1,3 +1,4 @@
+import decimal
 import time
 from decimal import Decimal
 
@@ -12,6 +13,8 @@ from .constants import STATUS_ERRO
 from .constants import STATUS_PRE_RECUSADO
 from .models import PropostaPorto
 from config import celery_app
+
+
 logger = get_task_logger(__name__)
 
 
@@ -57,7 +60,7 @@ def start_selenium_browser():
 
 
 def start_splinter_browser():
-    #browser = Browser("chrome")
+    # browser = Browser("chrome")
     browser = Browser("chrome", headless=True)
     return browser
 
@@ -80,40 +83,53 @@ def porto_page_1(browser, data):
     ).last.click()
 
 
-
 def clean_currency(text):
 
-    new_text = text.replace("R","").replace("$","").replace(".","").replace(",",".").strip()
+    new_text = (
+        text.replace("R", "")
+        .replace("$", "")
+        .replace(".", "")
+        .replace(",", ".")
+        .strip()
+    )
     print("Converting:", text, new_text)
-
-    return Decimal(new_text)
+    try:
+        d = Decimal(new_text)
+    except decimal.InvalidOperation:
+        d = Decimal(0)
+        logger.info("Erro no decimal: " + new_text)
+    return d
 
 
 def find_parcelas(browser):
-    parcelas_c = [browser.find_by_css("#parcelas-c-%d > label" % i).text for i in range(5)]
-    parcelas = [browser.find_by_css("#parcelas-%d > label" % i).text for i in range(5)]
-    if parcelas[0]:
-        return parcelas
+    parcelas_c = [
+        browser.find_by_css("#parcelas-c-%d > label" % i).text for i in range(5)
+    ]
+    parcelas_1 = [
+        browser.find_by_css("#parcelas-%d > label" % i).text for i in range(5)
+    ]
+    if parcelas_1[0]:
+        parcelas = parcelas_1
     else:
-        return parcelas_c
-
-
+        parcelas = parcelas_c
+    logger.info(parcelas)
+    return parcelas
 
 
 def porto_page_2(browser, data):
-    is_aprovado = browser.is_element_present_by_id("prestamista", wait_time=20)
+    is_aprovado = browser.is_element_present_by_id("prestamista", wait_time=30)
     if is_aprovado:
         prestamista = browser.find_by_css("span.ps-frm-onOff-switch").first
         prestamista.click()
         time.sleep(4)
-        browser.is_element_present_by_name("Parcelas", wait_time=20)
+        browser.is_element_present_by_name("Parcelas", wait_time=30)
 
         valores = find_parcelas(browser)
 
         pre_aprovado_box = browser.find_by_css(".valor-aprovado-box").first
         pre_aprovado = browser.find_by_css(".valor-aprovado").first
 
-        valor_pre_aprovado = clean_currency(pre_aprovado.html)
+        valor_pre_aprovado = clean_currency(pre_aprovado.text)
 
         if valor_pre_aprovado > 0:
             print("Proposta aprovada com valor pre aprovado")
@@ -156,7 +172,6 @@ def get_simulation(pk):
     porto_page_1(browser, data)
 
     status, valores_parcelas, pre_aprovado = porto_page_2(browser, data)
-
 
     proposta = PropostaPorto.objects.get(pk=pk)
 
