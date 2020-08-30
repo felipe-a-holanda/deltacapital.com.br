@@ -57,8 +57,8 @@ def start_selenium_browser():
 
 
 def start_splinter_browser():
-    browser = Browser("chrome")
-    # browser = Browser("chrome", headless=True)
+    #browser = Browser("chrome")
+    browser = Browser("chrome", headless=True)
     return browser
 
 
