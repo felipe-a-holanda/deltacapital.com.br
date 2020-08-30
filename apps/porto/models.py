@@ -329,8 +329,8 @@ class PropostaPorto(models.Model):
     def simular(self):
         from .tasks import get_simulation
 
-        get_simulation(self.pk)
-        # get_simulation.delay(self.pk)
+        #get_simulation(self.pk)
+        get_simulation.delay(self.pk)
 
     def salvar_simulacao(self, valores_parcelas, pre_aprovado):
         self.valores_parcelas = valores_parcelas
