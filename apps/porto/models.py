@@ -99,6 +99,9 @@ class PropostaPorto(models.Model):
     }
 
     # operational fields
+    user = models.ForeignKey(
+        User, null=True, blank=True, verbose_name="Usuário", on_delete=models.SET_NULL
+    )
     criado_em = models.DateTimeField(auto_now_add=True)
     simulado_em = models.DateTimeField(null=True, blank=True)
     enviado_em = models.DateTimeField(null=True, blank=True)

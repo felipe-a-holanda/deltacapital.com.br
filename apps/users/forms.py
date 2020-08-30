@@ -6,15 +6,18 @@ from django.utils.translation import ugettext_lazy as _
 User = get_user_model()
 
 
-class UserChangeForm(auth.forms.UserChangeForm):
+class UserChangeFormSuper(auth.forms.UserChangeForm):
     class Meta(auth.forms.UserChangeForm.Meta):
         model = User
 
 
-class UserChangeFormOwner(UserChangeForm):
+class UserChangeFormOwner(UserChangeFormSuper):
     def __init__(self, *args, **kwargs):
-        super(UserChangeForm, self).__init__(*args, **kwargs)
+        super(UserChangeFormSuper, self).__init__(*args, **kwargs)
         self.fields["user_type"].choices = self.fields["user_type"]._choices[1:]
+
+    def validate(self):
+        return False
 
 
 class UserCreationForm(auth.forms.UserCreationForm):
@@ -25,7 +28,7 @@ class UserCreationForm(auth.forms.UserCreationForm):
 
     class Meta(auth.forms.UserCreationForm.Meta):
         model = User
-        fields = ("username",)
+        fields = ("username", "email")
 
     def clean_username(self):
         username = self.cleaned_data["username"]

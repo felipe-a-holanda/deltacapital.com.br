@@ -3,9 +3,13 @@ from django.contrib.auth.backends import ModelBackend
 from apps.users.models import User
 
 
+def only_digits(s):
+    return "".join([i for i in s if i.isdigit()])
+
+
 class CPFBackend(ModelBackend):
     def authenticate(self, request, **kwargs):
-        cpf = kwargs["username"]
+        cpf = only_digits(kwargs["username"])
         password = kwargs["password"]
         try:
             user = User.objects.get(cpf=cpf)

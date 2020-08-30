@@ -7,8 +7,8 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from .constants import VENDEDOR
-from .forms import UserChangeForm
 from .forms import UserChangeFormOwner
+from .forms import UserChangeFormSuper
 from .forms import UserCreationForm
 from .models import Loja
 
@@ -42,56 +42,75 @@ class LojaAdmin(admin.ModelAdmin):
 
 @admin.register(User)
 class UserAdmin(auth_admin.UserAdmin):
-    form = UserChangeForm
-    form_super = UserChangeForm
-    form_owner = UserChangeFormOwner
+    form = UserChangeFormSuper
+    form_change_super = UserChangeFormSuper
+    form_change_owner = UserChangeFormOwner
     add_form = UserCreationForm
 
-    list_display = ["username", "name", "user_type"]
+    list_display = ["username", "cpf", "name", "user_type"]
     list_filter = ("is_staff", "user_type", "is_active", "groups")
     search_fields = ["name"]
 
     readonly_fields = ["date_joined", "last_login"]
 
+    add_fieldsets = (
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": ("username", "user_type", "password1", "password2"),
+            },
+        ),
+    )
+
     def get_fieldsets(self, request, obj):
-        if obj.user_type == VENDEDOR:
-            personal = {"fields": ("name", "loja")}
+        if obj:
+            personal = {"fields": ("name",)}
+            if obj.user_type == VENDEDOR:
+                personal = {"fields": ("name", "loja")}  # type: ignore
+
+            super_fieldsets = (
+                (
+                    None,
+                    {"fields": ("user_type", "username", "cpf", "email", "password")},
+                ),
+                (_("Personal info"), personal),
+                (
+                    _("Permissions"),
+                    {
+                        "fields": (
+                            "is_active",
+                            "is_staff",
+                            "is_superuser",
+                            "groups",
+                            "user_permissions",
+                        )
+                    },
+                ),
+                (_("Important dates"), {"fields": ("last_login", "date_joined")}),
+            )
+            owner_fieldsets = (
+                (
+                    None,
+                    {"fields": ("user_type", "username", "cpf", "email", "password")},
+                ),
+                (_("Personal info"), personal),
+                (_("Permissions"), {"fields": ("is_active",)}),
+                (_("Important dates"), {"fields": ("last_login", "date_joined")}),
+            )
+
+            if request.user.is_superuser:
+                return super_fieldsets
+            return owner_fieldsets
         else:
-            personal = {"fields": ("name",)}  # type: ignore
-
-        super_fieldsets = (
-            (None, {"fields": ("user_type", "username", "cpf", "email", "password")}),
-            (_("Personal info"), personal),
-            (
-                _("Permissions"),
-                {
-                    "fields": (
-                        "is_active",
-                        "is_staff",
-                        "is_superuser",
-                        "groups",
-                        "user_permissions",
-                    )
-                },
-            ),
-            (_("Important dates"), {"fields": ("last_login", "date_joined")}),
-        )
-        owner_fieldsets = (
-            (None, {"fields": ("user_type", "username", "cpf", "email", "password")}),
-            (_("Personal info"), personal),
-            (_("Permissions"), {"fields": ("is_active",)}),
-            (_("Important dates"), {"fields": ("last_login", "date_joined")}),
-        )
-
-        if request.user.is_superuser:
-            return super_fieldsets
-        return owner_fieldsets
+            return super(UserAdmin, self).get_fieldsets(request, obj)
 
     def get_form(self, request, obj=None, **kwargs):
-        if request.user.is_superuser:
-            self.form = self.form_super
-        else:
-            self.form = self.form_owner
+        if obj is not None:
+            if request.user.is_superuser:
+                self.form = self.form_change_super
+            else:
+                self.form = self.form_change_owner
 
         form = super().get_form(request, obj, **kwargs)
         is_superuser = request.user.is_superuser
@@ -100,7 +119,6 @@ class UserAdmin(auth_admin.UserAdmin):
 
         if not is_superuser:
             disabled_fields |= {
-                "username",
                 "is_superuser",
                 "is_staff",
                 "groups",

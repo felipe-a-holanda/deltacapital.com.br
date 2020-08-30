@@ -1,13 +1,10 @@
 import datetime
-import re
 
 import pytz
-import requests
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import modelform_factory
-from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
-from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views.generic import FormView
 from django.views.generic import TemplateView
@@ -17,7 +14,6 @@ from .constants import STATUS_APROVADO
 from .constants import STATUS_RECUSADO
 from .forms import BasePropostaForm
 from .models import PropostaPorto
-from apps.delta.helpers import model_to_dict_verbose
 
 
 PORTO_URL = (
@@ -30,41 +26,6 @@ PORTO_URL = (
     "sesnum=99124634%23%23"
     "cpf=82721351320"
 )
-
-
-def myview(request):
-    obj = PropostaPorto.objects.first()
-    dic = model_to_dict_verbose(obj, exclude=("id", "stage", "session_hash"))
-
-    # dic = model_to_dict_verbose(self, exclude=("id", "codigo_interno"))
-    # send_default_email.delay(dic, "Proposta")
-    # msg_plain = render_to_string("delta/emails/email.txt", {"object": dic})
-    msg_plain = render_to_string("delta/emails/email.html", {"object": dic})
-
-    return HttpResponse(msg_plain, charset="utf-8")
-
-
-class PortoView(TemplateView):
-    template_name = f"porto/porto.html"
-
-    def rewrite_src(self, text):
-        text = re.sub(
-            r'script src="(.*)"',
-            r'script src="https://financeiraportoseguro.com.br\1"',
-            text,
-        )
-        return text
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        headers = {"Accept-Encoding": "identity"}
-        response = requests.get(PORTO_URL, headers=headers)
-        porto = self.rewrite_src(response.text)
-        context.update({"porto": porto})
-        return context
-
-
-porto_view = PortoView.as_view()
 
 
 def get_obj_from_hash(session_hash):
@@ -82,7 +43,7 @@ def get_obj_from_hash(session_hash):
     )
 
 
-class PropostaView(FormView):
+class PropostaView(LoginRequiredMixin, FormView):
     template_name = "porto/proposta/proposta.html"
     proposta = None
     form_class = None
@@ -146,7 +107,7 @@ class PropostaView(FormView):
             constants.STAGE_ORDER.index(current_stage) + 1
         ]
         form.instance.stage = new_stage
-        form.save()  # This will save the underlying instance.
+        form.save(request=self.request)  # This will save the underlying instance.
         if new_stage == constants.COMPLETE:
             form.instance.send_mail()
             return redirect(reverse("delta:obrigado"))

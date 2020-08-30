@@ -150,6 +150,10 @@ class BasePropostaForm(BaseForm):
         super().__init__(*args, **kwargs)
         self.config_conditional_fields()
 
+    def save(self, commit=True, request=None):
+        self.instance.user = request.user
+        return super().save(commit=commit)
+
     def config_conditional_fields(self):
         endereco_comercial = [
             "cep_da_empresa",

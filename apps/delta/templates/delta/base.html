@@ -28,7 +28,11 @@
 			<header id="header">
 			  <a class="logo" href="{% url 'delta:home' %}">Delta Capital</a>
 			  <nav>
+          {% if request.user.is_authenticated %}
+          <a href="{% url 'account_logout' %}">{{request.user}}</a>
+          {% endif %}
 					<a href="#menu">Menu</a>
+
 				</nav>
 			</header>
 
@@ -49,6 +53,7 @@
 
 
 {% block content %}{% endblock content %}
+
 
 <!-- Footer -->
 <footer id="footer">

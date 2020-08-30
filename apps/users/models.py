@@ -47,8 +47,9 @@ class User(AbstractUser):
         return reverse("users:detail", kwargs={"username": self.username})
 
     def change_user_by_type(self):
-        if self.user_type == WEBMASTER:
-            self.is_staff = True
+        if self.is_superuser:
+            self.user_type = WEBMASTER
+
         if self.user_type == PROPRIETARIO:
             self.is_staff = True
         elif self.user_type == OPERADOR:
