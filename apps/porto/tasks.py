@@ -12,7 +12,6 @@ from .constants import STATUS_ERRO
 from .constants import STATUS_PRE_RECUSADO
 from .models import PropostaPorto
 from config import celery_app
-
 logger = get_task_logger(__name__)
 
 
@@ -81,6 +80,26 @@ def porto_page_1(browser, data):
     ).last.click()
 
 
+
+def clean_currency(text):
+
+    new_text = text.replace("R","").replace("$","").replace(".","").replace(",",".").strip()
+    print("Converting:", text, new_text)
+
+    return Decimal(new_text)
+
+
+def find_parcelas(browser):
+    parcelas_c = [browser.find_by_css("#parcelas-c-%d > label" % i).text for i in range(5)]
+    parcelas = [browser.find_by_css("#parcelas-%d > label" % i).text for i in range(5)]
+    if parcelas[0]:
+        return parcelas
+    else:
+        return parcelas_c
+
+
+
+
 def porto_page_2(browser, data):
     is_aprovado = browser.is_element_present_by_id("prestamista", wait_time=20)
     if is_aprovado:
@@ -88,16 +107,18 @@ def porto_page_2(browser, data):
         prestamista.click()
         time.sleep(4)
         browser.is_element_present_by_name("Parcelas", wait_time=20)
-        parcelas = [browser.find_by_css("#parcelas-c-%d > label" % i) for i in range(5)]
 
-        valores = [parcela.text for parcela in parcelas]
-        # valores = {parcela._element.get_attribute('value'): parcela.text for parcela in parcelas}
+        valores = find_parcelas(browser)
 
-        try:
-            pre_aprovado = browser.find_by_css(".valor-aprovado-box").first
+        pre_aprovado_box = browser.find_by_css(".valor-aprovado-box").first
+        pre_aprovado = browser.find_by_css(".valor-aprovado").first
+
+        valor_pre_aprovado = clean_currency(pre_aprovado.html)
+
+        if valor_pre_aprovado > 0:
             print("Proposta aprovada com valor pre aprovado")
-            return STATUS_EM_DIGITACAO, valores, pre_aprovado.text
-        except:  # noqa: E722
+            return STATUS_EM_DIGITACAO, valores, pre_aprovado_box.text
+        else:
             print("Proposta aprovada")
             return STATUS_EM_DIGITACAO, valores, ""
     else:
@@ -135,6 +156,7 @@ def get_simulation(pk):
     porto_page_1(browser, data)
 
     status, valores_parcelas, pre_aprovado = porto_page_2(browser, data)
+
 
     proposta = PropostaPorto.objects.get(pk=pk)
 
