@@ -62,6 +62,18 @@ class User(AbstractUser):
         self.change_user_by_type()
         super().save(*args, **kwargs)
 
+    @property
+    def is_operador(self):
+        return self.user_type == OPERADOR
+
+    @property
+    def is_vendedor(self):
+        return self.user_type == VENDEDOR
+
+    @property
+    def is_proprietario(self):
+        return self.user_type == PROPRIETARIO
+
 
 def save_groups(sender, instance, **kwargs):
     instance.groups.clear()

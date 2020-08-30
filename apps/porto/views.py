@@ -10,10 +10,10 @@ from django.views.generic import FormView
 from django.views.generic import TemplateView
 
 from . import constants
-from .constants import STATUS_APROVADO
+from .constants import STATUS_EM_DIGITACAO
 from .constants import STATUS_ERRO
 from .constants import STATUS_NAO_SIMULADO
-from .constants import STATUS_RECUSADO
+from .constants import STATUS_PRE_RECUSADO
 from .forms import BasePropostaForm
 from .models import PropostaPorto
 
@@ -173,8 +173,8 @@ class PropostaSimulacaoView(TemplateView):
         context["returns"] = {
             STATUS_NAO_SIMULADO: "/proposta/2/",
             STATUS_ERRO: "/proposta/2/",
-            STATUS_RECUSADO: reverse("porto:recusado"),
-            STATUS_APROVADO: "/proposta/2/",
+            STATUS_PRE_RECUSADO: reverse("porto:recusado"),
+            STATUS_EM_DIGITACAO: "/proposta/2/",
         }
         return context
 

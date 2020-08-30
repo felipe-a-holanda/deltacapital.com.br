@@ -89,12 +89,12 @@ CAMBIO = [("Manual", "Manual"), ("Automatico", "Automático")]
 
 STATUS_NAO_SIMULADO = 1
 STATUS_ERRO = 2
-STATUS_RECUSADO = 3
-STATUS_APROVADO = 4
+STATUS_PRE_RECUSADO = 3
+STATUS_EM_DIGITACAO = 4
 
 STATUS = [
     (STATUS_NAO_SIMULADO, "Não simulado"),
     (STATUS_ERRO, "Erro"),
-    (STATUS_RECUSADO, "Recusado"),
-    (STATUS_APROVADO, "Aprovado"),
+    (STATUS_PRE_RECUSADO, "Pre Recusado"),
+    (STATUS_EM_DIGITACAO, "Em Digitação"),
 ]

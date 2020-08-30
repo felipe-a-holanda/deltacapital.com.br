@@ -7,9 +7,9 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from splinter import Browser
 
-from .constants import STATUS_APROVADO
+from .constants import STATUS_EM_DIGITACAO
 from .constants import STATUS_ERRO
-from .constants import STATUS_RECUSADO
+from .constants import STATUS_PRE_RECUSADO
 from .models import PropostaPorto
 from config import celery_app
 
@@ -58,8 +58,8 @@ def start_selenium_browser():
 
 
 def start_splinter_browser():
-    # browser = Browser("chrome")
-    browser = Browser("chrome", headless=True)
+    browser = Browser("chrome")
+    # browser = Browser("chrome", headless=True)
     return browser
 
 
@@ -96,15 +96,15 @@ def porto_page_2(browser, data):
         try:
             pre_aprovado = browser.find_by_css(".valor-aprovado-box").first
             print("Proposta aprovada com valor pre aprovado")
-            return STATUS_APROVADO, valores, pre_aprovado.text
+            return STATUS_EM_DIGITACAO, valores, pre_aprovado.text
         except:  # noqa: E722
             print("Proposta aprovada")
-            return STATUS_APROVADO, valores, ""
+            return STATUS_EM_DIGITACAO, valores, ""
     else:
         header = browser.find_by_css(".title-widget").first.text
         if "pelo interesse" in header:
             print("Proposta RECUSADA")
-            return STATUS_RECUSADO, None, None
+            return STATUS_PRE_RECUSADO, None, None
 
     print("ERRO NA SIMULACAO")
     return STATUS_ERRO, None, None
@@ -138,10 +138,10 @@ def get_simulation(pk):
 
     proposta = PropostaPorto.objects.get(pk=pk)
 
-    if status == STATUS_APROVADO:
+    if status == STATUS_EM_DIGITACAO:
         proposta.salvar_simulacao(valores_parcelas, pre_aprovado)
         return valores_parcelas, pre_aprovado
-    elif status == STATUS_RECUSADO:
+    elif status == STATUS_PRE_RECUSADO:
         proposta.recusar()
     else:
         proposta.erro()

@@ -17,7 +17,10 @@ class PropostaAdmin(admin.ModelAdmin):
 
     list_filter = ["status"]
 
-    def estado(self, obj):
-        return obj.get_status_display()
-
     readonly_fields = ["session_hash", "stage"]
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_operador:
+            return qs.filter(user=request.user)
+        return qs

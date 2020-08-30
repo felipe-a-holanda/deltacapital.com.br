@@ -18,10 +18,10 @@ from .constants import STAGE_4
 from .constants import STAGE_5
 from .constants import STAGE_6
 from .constants import STATUS
-from .constants import STATUS_APROVADO
+from .constants import STATUS_EM_DIGITACAO
 from .constants import STATUS_ERRO
 from .constants import STATUS_NAO_SIMULADO
-from .constants import STATUS_RECUSADO
+from .constants import STATUS_PRE_RECUSADO
 from .constants import TIPO_RENDA
 from .constants import UFS
 from apps.delta.helpers import model_to_dict_verbose
@@ -336,12 +336,12 @@ class PropostaPorto(models.Model):
         self.valores_parcelas = valores_parcelas
         self.pre_aprovado = pre_aprovado
         self.simulado_em = timezone.now()
-        self.status = STATUS_APROVADO
+        self.status = STATUS_EM_DIGITACAO
         self.save()
 
     def recusar(self,):
         self.simulado_em = timezone.now()
-        self.status = STATUS_RECUSADO
+        self.status = STATUS_PRE_RECUSADO
         self.save()
 
     def erro(self,):
