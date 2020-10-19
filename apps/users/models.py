@@ -43,6 +43,7 @@ class User(AbstractUser):
         on_delete=models.CASCADE,
     )
 
+
     def get_absolute_url(self):
         return reverse("users:detail", kwargs={"username": self.username})
 

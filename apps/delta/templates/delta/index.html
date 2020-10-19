@@ -39,65 +39,15 @@
 <section class="cards">
   <div class="card-columns">
     <div class="content">
-      <a class="card" href="{% url 'delta:financiamento-de-veiculos' %}">
-      <div class="front">
-        <div>
-          <p><span class="icon fa-car"><span class="label">Icon</span></span></p>
-          <p>Financiamento de Veículos</p>
-        </div>
-      </div>
-      <div class="back">
-        <div>
-          <p>Condições especiais para você comprar seu veículo com taxas
-            diferenciadas.</p>
 
-          <button class="button">Saiba Mais</button>
-        </div>
-      </div>
-    </a> <a class="card" href="{% url 'delta:cartao-de-credito' %}">
-      <div class="front">
-        <div>
-          <p><span class="icon fa-credit-card"><span class="label">Icon</span></span>
-          </p>
-          <p>Cartão de Crédito</p>
-        </div>
-      </div>
-      <div class="back">
-        <div>
-          <p>Solicite agora um cartão de crédito VISA ou MASTERCARD para você ou sua
-            empresa.</p>
-          <button class="button">Solicite agora</button>
-        </div>
-      </div>
-    </a> <a class="card" href="{% url 'delta:capital-de-giro' %}">
-      <div class="front">
-        <div>
-          <p><span class="icon fa-dollar"><span class="label">Icon</span></span></p>
-          <p>Capital de Giro</p>
-        </div>
-      </div>
-      <div class="back">
-        <div>
-          <p>Melhores taxas de juros do mercado em um empréstimo totalmente online e
-            seguro</p>
-          <button class="button">Simule aqui</button>
-        </div>
-      </div>
-    </a> <a class="card" href="{% url 'delta:emprestimo-pessoal' %}">
-      <div class="front">
-        <div>
-          <p><span class="icon fa-sun-o"><span class="label">Icon</span></span></p>
-          <p>Empréstimo Pessoal</p>
-        </div>
-      </div>
-      <div class="back">
-        <div>
-          <p>Crédito para aquisição de sistemas para a geração de energia solar.</p>
-          <button class="button">Simule aqui</button>
+      {% include 'delta/cards/financiamento-veiculos.html' %}
+      {% include 'delta/cards/credito-imovel.html' %}
+      {% include 'delta/cards/consignado-privado.html' %}
+      {% include 'delta/cards/emprestimo-pessoal.html' %}
+      {% include 'delta/cards/cartao-credito.html' %}
+      {% include 'delta/cards/capital-de-giro.html' %}
 
-        </div>
-      </div>
-    </a></div>
+    </div>
   </div>
 </section>
 

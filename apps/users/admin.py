@@ -46,6 +46,7 @@ class UserAdmin(auth_admin.UserAdmin):
     form_change_super = UserChangeFormSuper
     form_change_owner = UserChangeFormOwner
     add_form = UserCreationForm
+    ordering = ["user_type", "username"]
 
     list_display = ["username", "cpf", "name", "user_type"]
     list_filter = ("is_staff", "user_type", "is_active", "groups")

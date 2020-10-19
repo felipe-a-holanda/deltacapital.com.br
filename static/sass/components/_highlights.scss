@@ -5,7 +5,7 @@
 		margin: (_size(element-margin) * 1.25) 0;
 
 		@include flexgrid((
-			columns:			2,
+			columns:			3,
 			gutters:			3rem,
 			vertical-align:		stretch
 		));

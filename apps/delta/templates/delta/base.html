@@ -23,9 +23,12 @@
 </head>
 <body class="{% block bodyclass %}is-preload index{% endblock bodyclass %}">
 
-		<!-- Headereeee -->
+		<!-- Headereeee
 			<header id="header">
 			  <a class="logo" href="{% url 'delta:home' %}">Delta Capital</a>
+        {% block menu %}
+        {% endblock menu %}
+
 			  <nav>
           {% if request.user.is_authenticated %}
           <a href="{% url 'account_logout' %}">{{request.user}}</a>
@@ -35,7 +38,6 @@
 				</nav>
 			</header>
 
-		<!-- Nava -->
 			<nav id="menu">
 				<ul class="links">
           <li><a href="{% url 'delta:home' %}">Início</a></li>
@@ -47,7 +49,47 @@
           <li><a href="#contato">Contato</a></li>
 				</ul>
 			</nav>
+
+    -->
     <!-- Navaaa -->
+
+    <div class="topnav sticky" id="myTopnav">
+  <a href="{% url 'delta:home' %}">Delta Capital</a>
+  <a href="#Sobre">Sobre</a>
+  <div class="dropdown">
+    <button class="dropbtn">Para Mim
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="{% url 'delta:financiamento-de-veiculos' %}">Financiamento de Veículos</a>
+      <a href="{% url 'delta:cartao-de-credito' %}">Cartão de Crédito</a>
+      <a href="https://www.geru.com.br/?utm_source=DeltaCapital&utm_medium=DeltaCapital&utm_content=DeltaCapital">Crédito Pessoal ↗</a>
+      <a href="https://app.creditas.com/auto-refi/solicitacao/informacoes-pessoais?utm_source=AF097&utm_medium=parcerias&utm_expid=.9hh6elqoQ5uBoqQ9HavH0g.0&utm_referrer=">Refinanciamento de Veículos ↗</a>
+
+      <a href="https://app.pipefy.com/public/form/7gtqACaP">Seguros</a>
+      <a href="#">Conta Digital</a>
+    </div>
+  </div>
+
+      <div class="dropdown">
+    <button class="dropbtn">Para Meu Negócio
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="{% url 'delta:financiamento-de-veiculos' %}">Financiamento de Veículos</a>
+      <a href="#">Cartão de Crédito</a>
+      <a href="https://bizcapital.com.br/direto/#/?utm_medium=partner&utm_source=delta-capital ">Capital de Giro ↗</a>
+      <a href="https://app.creditas.com/auto-refi/solicitacao/informacoes-pessoais?utm_source=AF097&utm_medium=parcerias&utm_expid=.9hh6elqoQ5uBoqQ9HavH0g.0&utm_referrer=">Refinanciamento de Veículos ↗</a>
+      <a href="#">Refinanciamento de Imóveis</a>
+      <a href="https://app.pipefy.com/public/form/7gtqACaP">Seguros ↗</a>
+      <a href="#">Conta Digital</a>
+      <a href="#">Crédito Lastreado em Recebíveis</a>
+      <a href="#">Consignado Privado</a>
+    </div>
+  </div>
+      <a href="#contato">Contato</a>
+  <a href="javascript:void(0);" class="icon" onclick="show_menu()">&#9776;</a>
+</div>
 
 
 
