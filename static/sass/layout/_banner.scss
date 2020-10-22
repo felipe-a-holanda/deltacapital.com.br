@@ -3,7 +3,7 @@
 	#banner {
 		-ms-flex-align: center;
 		-ms-flex-pack: center;
-		@include color(accent2);
+		@include color(accent1);
 		@include vendor('align-items', 'center');
 		@include vendor('display', 'flex');
 		@include vendor('justify-content', 'center');
@@ -93,7 +93,7 @@
 			display: block;
 			height: 100%;
 			left: 0;
-			opacity: 0.5;
+			opacity: 0.9;
 			position: absolute;
 			top: 0;
 			width: 100%;
