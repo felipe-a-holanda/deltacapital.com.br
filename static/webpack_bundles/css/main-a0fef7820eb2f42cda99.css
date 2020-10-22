@@ -2845,7 +2845,6 @@ body.is-preload #banner:before {
   height: 300px;
   top: -20px;
   z-index: 10;
-  background-image: url(../../images/bg.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -3292,7 +3291,6 @@ body {
 }
 body:before {
   content: " ";
-  background-image: url(../../images/bg.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -3813,9 +3811,9 @@ body.is-menu-visible #menu {
 
 /* Add a black background color to the top navigation */
 .topnav {
-  background-color: #333;
-  overflow: hidden;
+  background-color: transparent;
   z-index: 100;
+  position: absolute;
 }
 
 /* Style the links inside the navigation bar */
@@ -3843,7 +3841,6 @@ body.is-menu-visible #menu {
 /* Dropdown container - needed to position the dropdown content */
 .dropdown {
   float: left;
-  overflow: hidden;
 }
 
 /* Style the dropdown button to fit inside the topnav */
@@ -3941,6 +3938,7 @@ body.is-menu-visible #menu {
 /* The sticky class is added to the navbar with JS when it reaches its scroll position */
 .sticky {
   position: fixed;
+  background-color: #333;
   top: 0;
   width: 100%;
 }

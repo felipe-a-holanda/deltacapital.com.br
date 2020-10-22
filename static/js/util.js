@@ -601,7 +601,7 @@ function show_menu() {
 
 
 // When the user scrolls the page, execute myFunction
-//window.onscroll = function() {sticky_navbar(); console.log("sticky");};
+window.onscroll = function() {sticky_navbar(); console.log("sticky");};
 
 // Get the navbar
 var navbar = document.getElementById("myTopnav");

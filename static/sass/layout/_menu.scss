@@ -108,9 +108,9 @@
 
 /* Add a black background color to the top navigation */
 .topnav {
-  background-color: #333;
-  overflow: hidden;
+  background-color: transparent;
   z-index: 100;
+  position: absolute;
 }
 
 /* Style the links inside the navigation bar */
@@ -138,7 +138,6 @@
 /* Dropdown container - needed to position the dropdown content */
 .dropdown {
   float: left;
-  overflow: hidden;
 }
 
 /* Style the dropdown button to fit inside the topnav */
@@ -227,6 +226,7 @@
 /* The sticky class is added to the navbar with JS when it reaches its scroll position */
 .sticky {
   position: fixed;
+  background-color: #333;
   top: 0;
   width: 100%;
 }
