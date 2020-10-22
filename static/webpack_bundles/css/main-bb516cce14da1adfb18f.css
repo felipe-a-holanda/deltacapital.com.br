@@ -2505,7 +2505,7 @@ ul.icons li .icon:before {
   -webkit-justify-content: center;
   -ms-justify-content: center;
   justify-content: center;
-  background-image: url("../images/pattern.webp");
+  background-image: url("../images/bg_color.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -2862,7 +2862,7 @@ body.is-preload #banner:before {
   position: absolute;
   width: 100%;
   height: 300px;
-  background-color: rgba(236, 240, 249, 0.95);
+  background-color: #ecf0f9;
   z-index: 20;
 }
 
@@ -3814,6 +3814,7 @@ body.is-menu-visible #menu {
   background-color: transparent;
   z-index: 100;
   position: absolute;
+  width: 100%;
 }
 
 /* Style the links inside the navigation bar */
@@ -3853,6 +3854,7 @@ body.is-menu-visible #menu {
   background-color: inherit;
   font-family: inherit;
   margin: 0;
+  box-shadow: none;
 }
 
 /* Style the dropdown content (hidden by default) */
@@ -3907,6 +3909,7 @@ body.is-menu-visible #menu {
 @media screen and (max-width: 600px) {
   .topnav.responsive {
     position: relative;
+    background-color: #333;
   }
 
   .topnav.responsive a.icon {
