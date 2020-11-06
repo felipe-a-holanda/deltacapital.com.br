@@ -92,6 +92,7 @@ class PropostaUpdateView(LoginRequiredMixin, UpdateView):
         page = self.kwargs.get("page", 1)
         back_stage = page - 1
         if back_stage > 0:
+            context['current_stage'] = page
             context['back_stage'] = back_stage
         return context
 
