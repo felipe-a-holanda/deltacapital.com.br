@@ -18,17 +18,14 @@ from config import celery_app
 logger = get_task_logger(__name__)
 
 
-PORTO_URL = (
-    "https://financeiraportoseguro.com.br/?"
-    "menuid=COL-02U75%23%23"
-    "portal=1%23%23"
-    "corsus=3B501J%23%23"
-    "webusrcod=2527707%23%23"
-    "usrtip=S%23%23"
-    "sesnum=99124634%23%23"
-    "cpf=82721351320"
-)
+HEADLESS = True
 
+
+
+
+PORTO_URL = "https://financeiraportoseguro.com.br/auto/?usrtip=S12345&webusrcod=108558&portal=2"
+
+SUSEP = "3B501J"
 
 fields_dic = {
     "valor_do_veiculo": "Valor",
@@ -60,14 +57,19 @@ def start_selenium_browser():
 
 
 def start_splinter_browser():
-    # browser = Browser("chrome")
-    browser = Browser("chrome", headless=True)
+    browser = Browser("chrome", headless=HEADLESS, executable_path=settings.CHROMEDRIVER_PATH)
     return browser
 
 
+
+def porto_page_0(browser, data):
+    time.sleep(1)
+    browser.fill("SUSEP", SUSEP)
+    browser.find_by_text("Continuar").last.click()
+
 def porto_page_1(browser, data):
     data = adapt_data(data)
-
+    time.sleep(4)
     browser.fill("Valor", data["Valor"])
     browser.fill("EntradaOutro", data["EntradaOutro"])
     for key in browser.type("CPF", data["CPF"], slowly=True):
@@ -77,14 +79,10 @@ def porto_page_1(browser, data):
         slider.type(Keys.RIGHT)
         time.sleep(0.2)
 
-    # browser.find_by_css("button[type='submit']").last.click()
-    browser.find_by_css(
-        "#propostaCorretor > div:nth-child(9) > div > button"
-    ).last.click()
+    browser.find_by_text("Ver parcelas").last.click()
 
 
 def clean_currency(text):
-
     new_text = (
         text.replace("R", "")
         .replace("$", "")
@@ -168,6 +166,8 @@ def get_simulation(pk):
 
     browser = start_splinter_browser()
     browser.visit(PORTO_URL)
+
+    porto_page_0(browser, data)
 
     porto_page_1(browser, data)
 

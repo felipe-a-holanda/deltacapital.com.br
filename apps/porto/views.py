@@ -6,10 +6,18 @@ from django.forms import modelform_factory
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.views.generic import DetailView
 from django.views.generic import FormView
+from django.views.generic import CreateView
+from django.views.generic import UpdateView
 from django.views.generic import TemplateView
-
+from django.http import HttpResponseRedirect
+from django.http import HttpResponseForbidden
+from django.core.exceptions import PermissionDenied
 from . import constants
+from .constants import STAGE_1
+from .constants import STAGE_2
+from .constants import COMPLETE
 from .constants import STATUS_EM_DIGITACAO
 from .constants import STATUS_ERRO
 from .constants import STATUS_NAO_SIMULADO
@@ -18,16 +26,6 @@ from .forms import BasePropostaForm
 from .models import PropostaPorto
 
 
-PORTO_URL = (
-    "https://financeiraportoseguro.com.br/?"
-    "menuid=COL-02U75%23%23"
-    "portal=1%23%23"
-    "corsus=3B501J%23%23"
-    "webusrcod=2527707%23%23"
-    "usrtip=S%23%23"
-    "sesnum=99124634%23%23"
-    "cpf=82721351320"
-)
 
 
 def get_obj_from_hash(session_hash):
@@ -43,6 +41,66 @@ def get_obj_from_hash(session_hash):
         .exclude(stage=constants.COMPLETE)
         .first()
     )
+
+
+
+
+class PropostaCreateView(LoginRequiredMixin, CreateView):
+    template_name = "porto/proposta/proposta.html"
+    model = PropostaPorto
+    fields = PropostaPorto.FIELDS[STAGE_1]
+
+    def form_valid(self, form):
+        response = super(PropostaCreateView, self).form_valid(form)
+        self.object.user = self.request.user
+        self.object.save()
+        return response
+
+    def get_form_class(self):
+        fields = PropostaPorto.get_fields_by_stage(STAGE_1)
+        form = modelform_factory(PropostaPorto, BasePropostaForm, fields)
+        return form
+
+    def get_success_url(self):
+        return reverse("porto:proposta-simulacao", kwargs={"pk": self.object.pk})
+        #return reverse('porto:proposta-update', kwargs={'pk': self.object.pk, 'page':'2'})
+
+
+class PropostaUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = "porto/proposta/proposta.html"
+    model = PropostaPorto
+    fields = PropostaPorto.FIELDS[STAGE_1]
+
+    def get_form_class(self):
+        page = self.kwargs.get("page", STAGE_1)
+        fields = PropostaPorto.get_fields_by_stage(page)
+        form = modelform_factory(PropostaPorto, BasePropostaForm, fields)
+        return form
+
+    def dispatch(self, request, *args, **kwargs):
+        # Check permissions for the request.user here
+        self.object = self.get_object()
+        if self.object.user != request.user:
+            raise PermissionDenied()
+
+        page = kwargs.get("page", 1)
+        self.fields = PropostaPorto.FIELDS[page]
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(PropostaUpdateView, self).get_context_data(**kwargs)
+        page = self.kwargs.get("page", 1)
+        back_stage = page - 1
+        if back_stage > 0:
+            context['back_stage'] = back_stage
+        return context
+
+    def get_success_url(self):
+        page = self.kwargs.get("page", 1)
+        next = page + 1
+        if next == COMPLETE:
+            return reverse("porto:proposta-fim")
+        return reverse('porto:proposta-update', kwargs={'pk': self.object.pk, 'page':next})
 
 
 class PropostaView(LoginRequiredMixin, FormView):
@@ -162,30 +220,39 @@ class PropostaView(LoginRequiredMixin, FormView):
 proposta_view = PropostaView.as_view()
 
 
-class PropostaSimulacaoView(TemplateView):
+class PropostaSimulacaoView(DetailView):
     template_name = "porto/proposta/simulacao.html"
+    model = PropostaPorto
+
+    def get(self, request, *args, **kwargs):
+        response = super(PropostaSimulacaoView, self).get(request, *args, **kwargs)
+        self.object.simular()
+        return response
 
     def get_context_data(self, **kwargs):
+        pk = self.kwargs["pk"]
         context = super(PropostaSimulacaoView, self).get_context_data()
-        api_url = reverse("propostaporto-detail", args=[self.kwargs["id"]])
+        api_url = reverse("propostaporto-detail", args=[pk])
+        next_url = reverse("porto:proposta-update", args=[pk, STAGE_2])
+        recusado_url = reverse("porto:proposta-recusada")
+
+
         context["api_url"] = api_url
-        context["return_url"] = "/proposta/2/"
+        context["return_url"] = next_url
         context["returns"] = {
-            STATUS_NAO_SIMULADO: "/proposta/2/",
-            STATUS_ERRO: "/proposta/2/",
-            STATUS_PRE_RECUSADO: reverse("porto:recusado"),
-            STATUS_EM_DIGITACAO: "/proposta/2/",
+            STATUS_NAO_SIMULADO: next_url,
+            STATUS_ERRO: next_url,
+            STATUS_PRE_RECUSADO: recusado_url,
+            STATUS_EM_DIGITACAO: next_url,
         }
         return context
-
-    pass
 
 
 proposta_simulacao_view = PropostaSimulacaoView.as_view()
 
 
 class ObrigadoView(TemplateView):
-    template_name = "delta/obrigado.html"
+    template_name = "porto/obrigado.html"
 
 
 obrigado_view = ObrigadoView.as_view()

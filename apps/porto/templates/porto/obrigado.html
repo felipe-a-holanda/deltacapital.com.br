@@ -1,0 +1,8 @@
+{% extends 'delta/produtos/base_produto.html' %}
+{% load static compress %}
+
+
+{% block product %}
+<h1>Obrigado!</h1>
+<a class="button btn" href="{% url 'porto:proposta-create' %}">Nova Proposta</a>
+{% endblock product %}

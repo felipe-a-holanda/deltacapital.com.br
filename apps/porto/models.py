@@ -36,7 +36,7 @@ def create_session_hash():
 
 class PropostaPorto(models.Model):
     FIELDS = {
-        STAGE_1: ["valor_do_veiculo", "valor_de_entrada", "cpf", "nome_operador"],
+        STAGE_1: ["valor_do_veiculo", "valor_de_entrada", "cpf",],
         STAGE_2: ["prazo"],
         STAGE_3: [
             "nome",
@@ -328,10 +328,12 @@ class PropostaPorto(models.Model):
 
     def simular(self):
         from .tasks import get_simulation
-        if settings.DEBUG:
-            get_simulation(self.pk)
-        else:
-            get_simulation.delay(self.pk)
+        #get_simulation(self.pk)
+        get_simulation.delay(self.pk)
+        #if settings.DEBUG:
+        #    get_simulation(self.pk)
+        #else:
+        #    get_simulation.delay(self.pk)
 
     def salvar_simulacao(self, valores_parcelas, pre_aprovado):
         self.valores_parcelas = valores_parcelas

@@ -12,6 +12,10 @@
 
 {% block bodyclass %}form{% endblock bodyclass %}
 
+{% block menu %}
+
+<a class="logo" href="{% url 'porto:proposta-create' %}">Nova proposta</a>
+{% endblock menu %}
 
 {% block content %}
 
@@ -63,7 +67,7 @@
 
       <div class="button-row">
         {% if back_stage %}
-        <button class="button-submit" type="button" onclick="location.href='{% url 'porto:proposta' back_stage %}';" value="Anterior" />Anterior</button>
+        <button class="button-submit" type="button" onclick="location.href='{% url 'porto:proposta-update' form.instance.id back_stage %}';" value="Anterior" />Anterior</button>
         {% endif %}
         <button class="button-submit" type="submit" value="continue">Seguinte</button>
       </div>
