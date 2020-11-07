@@ -384,10 +384,12 @@ class PropostaPorto(models.Model):
         super(PropostaPorto, self).save(*args, **kwargs)
 
     def get_to_email(self):
-        user = User.objects.filter(username=self.nome_operador).first()
-        if user:
-            return user.email
+        if self.user:
+            email = self.user.get_email()
+            if email:
+                return email
         return settings.DEFAULT_TO_EMAIL
+
 
     def send_mail(self):
         from apps.delta.tasks import send_default_email

@@ -75,6 +75,11 @@ class User(AbstractUser):
     def is_proprietario(self):
         return self.user_type == PROPRIETARIO
 
+    def get_email(self):
+        if self.is_vendedor:
+            return self.loja.operador.email
+        return self.email
+
 
 def save_groups(sender, instance, **kwargs):
     instance.groups.clear()
