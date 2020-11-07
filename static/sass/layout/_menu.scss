@@ -109,6 +109,8 @@
 /* Add a black background color to the top navigation */
 .topnav {
   background-color: #333;
+  position: fixed;
+  top: 0;
   z-index: 100;
   position: absolute;
   width: 100%;

@@ -21,6 +21,6 @@ urlpatterns = [
     ),
    # path("proposta/<str:page>/", proposta_view, name="proposta"),
     path("obrigado-pelo-interesse/", recusado_view, name="proposta-recusada"),
-    path("proposta/obrigado/", obrigado_view, name="proposta-fim"),
+    path("proposta/<int:pk>/obrigado/", obrigado_view, name="proposta-fim"),
     path("ajax/load_anos/", load_anos, name="ajax_load_anos"),
 ]

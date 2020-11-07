@@ -17,7 +17,7 @@ class PropostaAdmin(admin.ModelAdmin):
 
     list_filter = ["status"]
 
-    readonly_fields = ["session_hash", "stage"]
+    readonly_fields = ["session_hash", "pagina"]
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)

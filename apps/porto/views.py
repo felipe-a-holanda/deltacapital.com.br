@@ -79,11 +79,13 @@ class PropostaUpdateView(LoginRequiredMixin, UpdateView):
 
     def dispatch(self, request, *args, **kwargs):
         # Check permissions for the request.user here
+        page = kwargs.get("page", 1)
         self.object = self.get_object()
+        self.object.pagina = page
+        self.object.save()
         if self.object.user != request.user:
             raise PermissionDenied()
 
-        page = kwargs.get("page", 1)
         self.fields = PropostaPorto.FIELDS[page]
         return super().dispatch(request, *args, **kwargs)
 
@@ -96,11 +98,13 @@ class PropostaUpdateView(LoginRequiredMixin, UpdateView):
             context['back_stage'] = back_stage
         return context
 
+
     def get_success_url(self):
         page = self.kwargs.get("page", 1)
         next = page + 1
         if next == COMPLETE:
-            return reverse("porto:proposta-fim")
+
+            return reverse("porto:proposta-fim", kwargs={'pk': self.object.pk})
         return reverse('porto:proposta-update', kwargs={'pk': self.object.pk, 'page':next})
 
 
@@ -113,9 +117,10 @@ class PropostaView(LoginRequiredMixin, FormView):
         if self.page:
             stage = self.page
         elif self.proposta:
-            stage = self.proposta.stage
+            stage = self.proposta.pagina
         else:
             stage = constants.STAGE_1
+        print("pagina=",stage)
         return stage
 
     def _get_back_stage(self):
@@ -167,7 +172,7 @@ class PropostaView(LoginRequiredMixin, FormView):
         new_stage = constants.STAGE_ORDER[
             constants.STAGE_ORDER.index(current_stage) + 1
         ]
-        form.instance.stage = new_stage
+        form.instance.pagina = new_stage
         form.save(request=self.request)  # This will save the underlying instance.
         if new_stage == constants.COMPLETE:
             form.instance.send_mail()
@@ -252,8 +257,15 @@ class PropostaSimulacaoView(DetailView):
 proposta_simulacao_view = PropostaSimulacaoView.as_view()
 
 
-class ObrigadoView(TemplateView):
+class ObrigadoView(DetailView):
     template_name = "porto/obrigado.html"
+    model = PropostaPorto
+
+    def get(self, request, *args, **kwargs):
+        response = super(ObrigadoView, self).get(request, *args, **kwargs)
+        self.object.send_mail()
+        return response
+
 
 
 obrigado_view = ObrigadoView.as_view()

@@ -107,7 +107,7 @@ class PropostaPorto(models.Model):
     enviado_em = models.DateTimeField(null=True, blank=True)
     modificado_em = models.DateTimeField(auto_now=True)
     session_hash = models.CharField("Código Interno", max_length=40, unique=True)
-    stage = models.CharField("Estágio", max_length=10, default="1")
+    pagina = models.PositiveSmallIntegerField("Página", default=1)
     status = models.PositiveSmallIntegerField(
         "Status", choices=STATUS, default=STATUS_NAO_SIMULADO
     )
@@ -258,7 +258,7 @@ class PropostaPorto(models.Model):
 
     # Config
     # hidden_fields = ["stage", "session_hash", "operador"]
-    hidden_fields = ["stage", "session_hash", "nome_operador"]
+    hidden_fields = ["pagina", "session_hash", "nome_operador"]
     radio_fields = ["prazo", "sexo", "tipo_de_renda", "dados_placa"]
 
     required_fields = [
@@ -376,7 +376,7 @@ class PropostaPorto(models.Model):
 
     @staticmethod
     def get_fields_by_stage(stage):
-        fields = ["stage"]  # Must always be present
+        fields = ["pagina"]  # Must always be present
         fields.extend(PropostaPorto.FIELDS[stage])
         return fields
 
