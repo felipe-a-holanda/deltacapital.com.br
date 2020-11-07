@@ -108,10 +108,14 @@
 
 /* Add a black background color to the top navigation */
 .topnav {
-  background-color: transparent;
+  background-color: #333;
   z-index: 100;
   position: absolute;
   width: 100%;
+}
+
+.topnavhome {
+  background-color: transparent;
 }
 
 /* Style the links inside the navigation bar */

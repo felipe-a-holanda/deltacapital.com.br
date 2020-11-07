@@ -23,7 +23,7 @@
 </head>
 <body class="{% block bodyclass %}is-preload index{% endblock bodyclass %}">
 
-<div class="topnav" id="myTopnav">
+<div class="topnav{% if request.resolver_match.url_name == 'home' %} topnavhome{% endif %}" id="myTopnav">
   <a href="{% url 'delta:home' %}">Delta Capital</a>
   <a href="#Sobre">Sobre</a>
   <div class="dropdown">

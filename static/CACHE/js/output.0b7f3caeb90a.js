@@ -69,4 +69,5 @@ return;if(!$e.data(key)){if(!condition)
 return;$p=$e.prev();if($p.length==0)
 return;$e.prependTo($parent);$e.data(key,$p);}
 else{if(condition)
-return;$p=$e.data(key);$e.insertAfter($p);$e.removeData(key);}});};})(jQuery);;
+return;$p=$e.data(key);$e.insertAfter($p);$e.removeData(key);}});};})(jQuery);function show_menu(){var x=document.getElementById("myTopnav");if(x.className==="topnav"){x.className+=" responsive";}else{x.className="topnav";}}
+window.onscroll=function(){sticky_navbar();};var navbar=document.getElementById("myTopnav");var sticky=navbar.offsetTop;function sticky_navbar(){if(window.pageYOffset>sticky){navbar.classList.add("sticky")}else{navbar.classList.remove("sticky");}};
