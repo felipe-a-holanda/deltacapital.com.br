@@ -68,8 +68,10 @@ def porto_page_0(browser, data):
     browser.find_by_text("Continuar").last.click()
 
 def porto_page_1(browser, data):
+    slider = browser.is_element_present_by_id("slider", wait_time=10)
+    time.sleep(10)
     data = adapt_data(data)
-    time.sleep(4)
+
     browser.fill("Valor", data["Valor"])
     browser.fill("EntradaOutro", data["EntradaOutro"])
     for key in browser.type("CPF", data["CPF"], slowly=True):
