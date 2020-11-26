@@ -1,8 +1,8 @@
 import pytz
 from django.forms.models import model_to_dict
 from django.utils import timezone
-
-
+import string
+from decimal import Decimal
 def model_to_dict_verbose(instance, exclude=("id")):
     dic = model_to_dict(instance, exclude=exclude)
     fields = {f.name: f for f in instance._meta.fields}
@@ -11,6 +11,7 @@ def model_to_dict_verbose(instance, exclude=("id")):
         field = fields[k]
         key = field.verbose_name[:30]
         value = str(v)
+        print(field, field.get_internal_type())
         if hasattr(field, "choices") and fields[k].choices:
             value = dict(fields[k].choices).get(v, "")
 
@@ -22,6 +23,9 @@ def model_to_dict_verbose(instance, exclude=("id")):
             if v:
                 v = timezone.localtime(v, pytz.timezone("America/Fortaleza"))
                 value = v.strftime("%d/%m/%Y %H:%M")
+        if field.get_internal_type() in ["ForeignKey"]:
+            value = str(getattr(instance, k))
+            print(value)
 
         if v is None:
             value = "-"
@@ -29,3 +33,16 @@ def model_to_dict_verbose(instance, exclude=("id")):
         verbose_dic[key] = value
 
     return verbose_dic
+
+
+
+def currency_to_decimal(value, currency='BRL'):
+    if currency == 'BRL':
+        group, radix = '.', ','
+    else:
+        group, radix = ',', '.'
+
+    allowed = string.digits + radix
+    cleaned = "".join([i for i in value if i in allowed])
+    cleaned = cleaned.replace(',', '.')
+    return Decimal(cleaned)

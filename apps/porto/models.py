@@ -26,7 +26,7 @@ from .constants import TIPO_RENDA
 from .constants import UFS
 from apps.delta.helpers import model_to_dict_verbose
 from apps.users.models import User
-
+from decimal import Decimal
 
 def create_session_hash():
     hash = hashlib.sha1()
@@ -326,6 +326,37 @@ class PropostaPorto(models.Model):
     def __str__(self):
         return f"{self.nome} - {self.cpf}"
 
+
+    def to_numeric(self, value):
+        n = value.strip(). \
+                replace("R", ""). \
+                replace("$", ""). \
+                replace(" ", ""). \
+                replace(".", "").replace(",", ".")
+        return Decimal(n)
+
+    @property
+    def numero_valor_do_veiculo(self):
+        return  self.to_numeric(self.valor_do_veiculo)
+
+    @property
+    def numero_valor_de_entrada(self):
+        return self.to_numeric(self.valor_de_entrada)
+
+    def get_veiculo(self):
+        veiculo = [
+            self.marca,
+            self.modelo,
+            self.versao,
+            self.ano_de_fabricacao,
+            self.ano_do_modelo,
+            self.cor,
+            self.motor,
+            self.cambio,
+        ]
+        return ' '.join(filter(None, veiculo))
+
+
     def simular(self):
         from .tasks import get_simulation
         #get_simulation(self.pk)
@@ -381,6 +412,7 @@ class PropostaPorto(models.Model):
         return fields
 
     def save(self, *args, **kwargs):
+
         super(PropostaPorto, self).save(*args, **kwargs)
 
     def get_to_email(self):

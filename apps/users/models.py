@@ -15,6 +15,7 @@ from .utils import create_groups
 
 class Loja(models.Model):
     name = models.CharField("Nome", max_length=100)
+    cadastrada = models.BooleanField(default=False)
     operador = models.ForeignKey(
         "users.User", related_name="operador", on_delete=models.CASCADE
     )

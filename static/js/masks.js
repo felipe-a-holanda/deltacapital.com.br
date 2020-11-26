@@ -6,10 +6,10 @@ $(document).ready(function(){
 
   var mask_moeda = {
                 'alias': 'numeric',
-                'groupSeparator': ',',
+                'groupSeparator': '.',
                 'autoGroup': true,
                 'digits': 2,
-                'radixPoint': ".",
+                'radixPoint': ",",
                 'digitsOptional': true,
                 'allowMinus': false,
                 'prefix': 'R$ ',

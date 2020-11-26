@@ -11,6 +11,7 @@ from .forms import UserChangeFormOwner
 from .forms import UserChangeFormSuper
 from .forms import UserCreationForm
 from .models import Loja
+from .models import User
 
 
 def get_admin_url(obj):
@@ -27,12 +28,10 @@ def get_admin_link(obj):
     return link
 
 
-User = get_user_model()
-
 
 @admin.register(Loja)
 class LojaAdmin(admin.ModelAdmin):
-    list_display = ["name", "operador", "vendedores"]
+    list_display = ["name", "cadastrada", "operador", "vendedores"]
 
     readonly_fields = ["vendedores"]
 
@@ -48,7 +47,7 @@ class UserAdmin(auth_admin.UserAdmin):
     add_form = UserCreationForm
     ordering = ["user_type", "username"]
 
-    list_display = ["username", "cpf", "name", "user_type"]
+    list_display = ["username", "cpf", "name", "user_type", "date_joined"]
     list_filter = ("is_staff", "user_type", "is_active", "groups")
     search_fields = ["name"]
 

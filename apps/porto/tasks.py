@@ -72,8 +72,18 @@ def porto_page_1(browser, data):
     time.sleep(10)
     data = adapt_data(data)
 
-    browser.fill("Valor", data["Valor"])
-    browser.fill("EntradaOutro", data["EntradaOutro"])
+    print("Valor=", data["Valor"])
+    print("Entrada=", data["EntradaOutro"])
+    print("CPF=", data["CPF"])
+
+    #browser.fill("Valor", data["Valor"], )
+    #browser.fill("EntradaOutro", data["EntradaOutro"], slowly=True)
+
+
+    for key in browser.type("Valor", data["Valor"], slowly=True):
+        pass
+    for key in browser.type("EntradaOutro", data["EntradaOutro"], slowly=True):
+        pass
     for key in browser.type("CPF", data["CPF"], slowly=True):
         pass
     slider = browser.find_by_css("span.ui-slider-handle")
@@ -100,6 +110,16 @@ def clean_currency(text):
         logger.info("Erro no decimal: " + new_text)
     return d
 
+
+def format_currency2(m):
+    return "{0:.2f}".format(
+        Decimal(m.replace("R", "").replace("$", "").replace(",", ""))
+    ).replace(".", "")
+
+
+
+def format_currency(d):
+    return "{0:.2f}".format(d).replace(".", "")
 
 def find_parcelas(browser):
     parcelas_c = [
@@ -147,17 +167,16 @@ def porto_page_2(browser, data):
     return STATUS_ERRO, None, None
 
 
-def format_currency(m):
-    return "{0:.2f}".format(
-        Decimal(m.replace("R", "").replace("$", "").replace(",", ""))
-    ).replace(".", "")
 
 
 def data_from_model(pk):
     proposta = PropostaPorto.objects.get(pk=pk)
 
-    valor = format_currency(proposta.valor_do_veiculo)
-    entrada = format_currency(proposta.valor_de_entrada)
+    valor = format_currency(proposta.numero_valor_do_veiculo)
+    entrada = format_currency(proposta.numero_valor_de_entrada)
+
+    #valor = proposta.numero_valor_do_veiculo
+    #entrada =proposta.numero_valor_de_entrada
     data = dict(Valor=valor, EntradaOutro=entrada, CPF=proposta.cpf)
     return data
 

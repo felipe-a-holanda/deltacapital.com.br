@@ -65,6 +65,9 @@
   </div>
   <a href="#contato">Contato</a>
   <a href="javascript:void(0);" class="icon" onclick="show_menu()">&#9776;</a>
+
+
+  {% block menuextra %}{% endblock menuextra%}
 </div>
 
 
@@ -126,6 +129,7 @@
 <script src="{% static 'js/browser.min.js' %}"></script>
 <script src="{% static 'js/breakpoints.min.js' %}"></script>
 <script src="{% static 'js/util.js' %}"></script>
+
 {% endcompress %}
 
 
