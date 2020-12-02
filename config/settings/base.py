@@ -66,6 +66,7 @@ LOCAL_APPS = [
     "apps.users.apps.UsersConfig",
     "apps.delta.apps.DeltaConfig",
     "apps.porto.apps.PortoConfig",
+    "apps.gestao.apps.GestaoConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -121,13 +122,13 @@ AUTH_USER_MODEL = "users.User"
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
-    },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
+AUTH_PASSWORD_VALIDATORS = [  # type: ignore
+    # {
+    #    "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
+    # },
+    # {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    # {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    # {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
 

@@ -23,6 +23,7 @@ coverage==5.1             # via -r requirements/dev.in, django-coverage-plugin, 
 decorator==4.4.2          # via ipython, traitlets
 defusedxml==0.6.0         # via python3-openid
 distlib==0.3.0            # via virtualenv
+django-admin-easy==0.6    # via -r requirements/base.in
 django-admin-tools==0.9.0  # via -r requirements/base.in
 django-allauth==0.42.0    # via -r requirements/base.in
 django-anymail[mailgun]==7.2  # via -r requirements/base.in
@@ -40,7 +41,7 @@ django-redis==4.12.1      # via -r requirements/base.in
 django-stubs==1.5.0       # via -r requirements/dev.in
 django-webpack-loader==0.7.0  # via -r requirements/base.in
 django-widget-tweaks==1.4.8  # via -r requirements/base.in
-django==3.0.6             # via -r requirements/base.in, django-allauth, django-anymail, django-appconf, django-debug-toolbar, django-filter, django-picklefield, django-redis, django-stubs, djangorestframework
+django==3.0.6             # via -r requirements/base.in, django-admin-easy, django-allauth, django-anymail, django-appconf, django-debug-toolbar, django-filter, django-picklefield, django-redis, django-stubs, djangorestframework
 djangorestframework==3.11.1  # via -r requirements/base.in
 entrypoints==0.3          # via flake8
 factory-boy==2.12.0       # via -r requirements/dev.in

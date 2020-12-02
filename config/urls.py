@@ -32,8 +32,14 @@ urlpatterns = [
 
 
 if settings.DEBUG:
+    from django.conf.urls.static import static
+
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
     # This allows the error pages to be debugged during development, just visit
     # these url in browser to see how these error pages look like.
+
     urlpatterns += [
         path(
             "400/",

@@ -18,7 +18,9 @@ def owner_perms():
     owner.permissions.add(*Permission.objects.all())
 
     owner.permissions.remove(*Permission.objects.filter(content_type__app_label="auth"))
-    owner.permissions.remove(*Permission.objects.filter(content_type__app_label="sites"))
+    owner.permissions.remove(
+        *Permission.objects.filter(content_type__app_label="sites")
+    )
     owner.permissions.remove(
         *Permission.objects.filter(content_type__app_label="account")
     )

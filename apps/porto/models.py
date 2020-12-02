@@ -1,6 +1,7 @@
 import hashlib
 import random
 import sys
+from decimal import Decimal
 
 from django.conf import settings
 from django.db import models
@@ -26,7 +27,7 @@ from .constants import TIPO_RENDA
 from .constants import UFS
 from apps.delta.helpers import model_to_dict_verbose
 from apps.users.models import User
-from decimal import Decimal
+
 
 def create_session_hash():
     hash = hashlib.sha1()
@@ -36,7 +37,7 @@ def create_session_hash():
 
 class PropostaPorto(models.Model):
     FIELDS = {
-        STAGE_1: ["valor_do_veiculo", "valor_de_entrada", "cpf",],
+        STAGE_1: ["valor_do_veiculo", "valor_de_entrada", "cpf"],
         STAGE_2: ["prazo"],
         STAGE_3: [
             "nome",
@@ -326,18 +327,20 @@ class PropostaPorto(models.Model):
     def __str__(self):
         return f"{self.nome} - {self.cpf}"
 
-
     def to_numeric(self, value):
-        n = value.strip(). \
-                replace("R", ""). \
-                replace("$", ""). \
-                replace(" ", ""). \
-                replace(".", "").replace(",", ".")
+        n = (
+            value.strip()
+            .replace("R", "")
+            .replace("$", "")
+            .replace(" ", "")
+            .replace(".", "")
+            .replace(",", ".")
+        )
         return Decimal(n)
 
     @property
     def numero_valor_do_veiculo(self):
-        return  self.to_numeric(self.valor_do_veiculo)
+        return self.to_numeric(self.valor_do_veiculo)
 
     @property
     def numero_valor_de_entrada(self):
@@ -354,16 +357,16 @@ class PropostaPorto(models.Model):
             self.motor,
             self.cambio,
         ]
-        return ' '.join(filter(None, veiculo))
-
+        return " ".join(filter(None, veiculo))
 
     def simular(self):
         from .tasks import get_simulation
-        #get_simulation(self.pk)
+
+        # get_simulation(self.pk)
         get_simulation.delay(self.pk)
-        #if settings.DEBUG:
+        # if settings.DEBUG:
         #    get_simulation(self.pk)
-        #else:
+        # else:
         #    get_simulation.delay(self.pk)
 
     def salvar_simulacao(self, valores_parcelas, pre_aprovado):
@@ -422,6 +425,11 @@ class PropostaPorto(models.Model):
                 return email
         return settings.DEFAULT_TO_EMAIL
 
+    def finish(self):
+        from apps.gestao.models import Proposta
+
+        self.send_mail()
+        Proposta.create_from_porto(self)
 
     def send_mail(self):
         from apps.delta.tasks import send_default_email

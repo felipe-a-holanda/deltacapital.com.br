@@ -13,6 +13,8 @@ django-filter  # https://github.com/carltongibson/django-filter
 django-redis  # https://github.com/jazzband/django-redis
 django-webpack-loader  # https://github.com/owais/django-webpack-loader
 django-widget-tweaks  # https://github.com/jazzband/django-widget-tweaks
+django-admin-easy  # https://github.com/ebertti/django-admin-easy
+
 
 # Databases and Static files
 # ------------------------------------------------------------------------------

@@ -21,9 +21,9 @@ logger = get_task_logger(__name__)
 HEADLESS = True
 
 
-
-
-PORTO_URL = "https://financeiraportoseguro.com.br/auto/?usrtip=S12345&webusrcod=108558&portal=2"
+PORTO_URL = (
+    "https://financeiraportoseguro.com.br/auto/?usrtip=S12345&webusrcod=108558&portal=2"
+)
 
 SUSEP = "3B501J"
 
@@ -57,15 +57,17 @@ def start_selenium_browser():
 
 
 def start_splinter_browser():
-    browser = Browser("chrome", headless=HEADLESS, executable_path=settings.CHROMEDRIVER_PATH)
+    browser = Browser(
+        "chrome", headless=HEADLESS, executable_path=settings.CHROMEDRIVER_PATH
+    )
     return browser
-
 
 
 def porto_page_0(browser, data):
     time.sleep(1)
     browser.fill("SUSEP", SUSEP)
     browser.find_by_text("Continuar").last.click()
+
 
 def porto_page_1(browser, data):
     slider = browser.is_element_present_by_id("slider", wait_time=10)
@@ -76,9 +78,8 @@ def porto_page_1(browser, data):
     print("Entrada=", data["EntradaOutro"])
     print("CPF=", data["CPF"])
 
-    #browser.fill("Valor", data["Valor"], )
-    #browser.fill("EntradaOutro", data["EntradaOutro"], slowly=True)
-
+    # browser.fill("Valor", data["Valor"], )
+    # browser.fill("EntradaOutro", data["EntradaOutro"], slowly=True)
 
     for key in browser.type("Valor", data["Valor"], slowly=True):
         pass
@@ -117,9 +118,9 @@ def format_currency2(m):
     ).replace(".", "")
 
 
-
 def format_currency(d):
     return "{0:.2f}".format(d).replace(".", "")
+
 
 def find_parcelas(browser):
     parcelas_c = [
@@ -167,16 +168,14 @@ def porto_page_2(browser, data):
     return STATUS_ERRO, None, None
 
 
-
-
 def data_from_model(pk):
     proposta = PropostaPorto.objects.get(pk=pk)
 
     valor = format_currency(proposta.numero_valor_do_veiculo)
     entrada = format_currency(proposta.numero_valor_de_entrada)
 
-    #valor = proposta.numero_valor_do_veiculo
-    #entrada =proposta.numero_valor_de_entrada
+    # valor = proposta.numero_valor_do_veiculo
+    # entrada =proposta.numero_valor_de_entrada
     data = dict(Valor=valor, EntradaOutro=entrada, CPF=proposta.cpf)
     return data
 

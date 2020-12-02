@@ -13,6 +13,7 @@ celery==4.4.6             # via -r requirements/base.in
 certifi==2020.6.20        # via requests
 chardet==3.0.4            # via requests
 defusedxml==0.6.0         # via python3-openid
+django-admin-easy==0.6    # via -r requirements/base.in
 django-admin-tools==0.9.0  # via -r requirements/base.in
 django-allauth==0.42.0    # via -r requirements/base.in
 django-anymail[mailgun]==7.2  # via -r requirements/base.in
@@ -27,7 +28,7 @@ django-picklefield==3.0.1  # via django-constance
 django-redis==4.12.1      # via -r requirements/base.in
 django-webpack-loader==0.7.0  # via -r requirements/base.in
 django-widget-tweaks==1.4.8  # via -r requirements/base.in
-django==3.0.6             # via -r requirements/base.in, django-allauth, django-anymail, django-appconf, django-filter, django-picklefield, django-redis, djangorestframework
+django==3.0.6             # via -r requirements/base.in, django-admin-easy, django-allauth, django-anymail, django-appconf, django-filter, django-picklefield, django-redis, djangorestframework
 djangorestframework==3.11.1  # via -r requirements/base.in
 future==0.18.2            # via celery
 gunicorn==20.0.4          # via -r requirements/prod.in

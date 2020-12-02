@@ -44,7 +44,6 @@ class User(AbstractUser):
         on_delete=models.CASCADE,
     )
 
-
     def get_absolute_url(self):
         return reverse("users:detail", kwargs={"username": self.username})
 
@@ -88,3 +87,13 @@ def save_groups(sender, instance, **kwargs):
 
 
 post_save.connect(save_groups, sender=User)
+
+
+class Operador(User):
+    class Meta:
+        proxy = True
+
+
+class Vendedor(User):
+    class Meta:
+        proxy = True

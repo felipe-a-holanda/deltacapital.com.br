@@ -2,30 +2,27 @@ import datetime
 
 import pytz
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.forms import modelform_factory
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.views.generic import CreateView
 from django.views.generic import DetailView
 from django.views.generic import FormView
-from django.views.generic import CreateView
-from django.views.generic import UpdateView
 from django.views.generic import TemplateView
-from django.http import HttpResponseRedirect
-from django.http import HttpResponseForbidden
-from django.core.exceptions import PermissionDenied
+from django.views.generic import UpdateView
+
 from . import constants
+from .constants import COMPLETE
 from .constants import STAGE_1
 from .constants import STAGE_2
-from .constants import COMPLETE
 from .constants import STATUS_EM_DIGITACAO
 from .constants import STATUS_ERRO
 from .constants import STATUS_NAO_SIMULADO
 from .constants import STATUS_PRE_RECUSADO
 from .forms import BasePropostaForm
 from .models import PropostaPorto
-
-
 
 
 def get_obj_from_hash(session_hash):
@@ -43,8 +40,6 @@ def get_obj_from_hash(session_hash):
     )
 
 
-
-
 class PropostaCreateView(LoginRequiredMixin, CreateView):
     template_name = "porto/proposta/proposta.html"
     model = PropostaPorto
@@ -52,8 +47,8 @@ class PropostaCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         response = super(PropostaCreateView, self).form_valid(form)
-        self.object.user = self.request.user
-        self.object.save()
+        self.object.user = self.request.user  # type: ignore
+        self.object.save()  # type: ignore
         return response
 
     def get_form_class(self):
@@ -62,8 +57,10 @@ class PropostaCreateView(LoginRequiredMixin, CreateView):
         return form
 
     def get_success_url(self):
-        return reverse("porto:proposta-simulacao", kwargs={"pk": self.object.pk})
-        #return reverse('porto:proposta-update', kwargs={'pk': self.object.pk, 'page':'2'})
+        return reverse(
+            "porto:proposta-simulacao", kwargs={"pk": self.object.pk}  # type: ignore
+        )
+        # return reverse('porto:proposta-update', kwargs={'pk': self.object.pk, 'page':'2'})
 
 
 class PropostaUpdateView(LoginRequiredMixin, UpdateView):
@@ -81,9 +78,9 @@ class PropostaUpdateView(LoginRequiredMixin, UpdateView):
         # Check permissions for the request.user here
         page = kwargs.get("page", 1)
         self.object = self.get_object()
-        self.object.pagina = page
+        self.object.pagina = page  # type: ignore
         self.object.save()
-        if self.object.user != request.user:
+        if self.object.user != request.user:  # type: ignore
             raise PermissionDenied()
 
         self.fields = PropostaPorto.FIELDS[page]
@@ -94,18 +91,19 @@ class PropostaUpdateView(LoginRequiredMixin, UpdateView):
         page = self.kwargs.get("page", 1)
         back_stage = page - 1
         if back_stage > 0:
-            context['current_stage'] = page
-            context['back_stage'] = back_stage
+            context["current_stage"] = page
+            context["back_stage"] = back_stage
         return context
-
 
     def get_success_url(self):
         page = self.kwargs.get("page", 1)
         next = page + 1
         if next == COMPLETE:
 
-            return reverse("porto:proposta-fim", kwargs={'pk': self.object.pk})
-        return reverse('porto:proposta-update', kwargs={'pk': self.object.pk, 'page':next})
+            return reverse("porto:proposta-fim", kwargs={"pk": self.object.pk})
+        return reverse(
+            "porto:proposta-update", kwargs={"pk": self.object.pk, "page": next}
+        )
 
 
 class PropostaView(LoginRequiredMixin, FormView):
@@ -120,7 +118,7 @@ class PropostaView(LoginRequiredMixin, FormView):
             stage = self.proposta.pagina
         else:
             stage = constants.STAGE_1
-        print("pagina=",stage)
+        print("pagina=", stage)
         return stage
 
     def _get_back_stage(self):
@@ -232,7 +230,7 @@ class PropostaSimulacaoView(DetailView):
 
     def get(self, request, *args, **kwargs):
         response = super(PropostaSimulacaoView, self).get(request, *args, **kwargs)
-        self.object.simular()
+        self.object.simular()  # type: ignore
         return response
 
     def get_context_data(self, **kwargs):
@@ -241,7 +239,6 @@ class PropostaSimulacaoView(DetailView):
         api_url = reverse("propostaporto-detail", args=[pk])
         next_url = reverse("porto:proposta-update", args=[pk, STAGE_2])
         recusado_url = reverse("porto:proposta-recusada")
-
 
         context["api_url"] = api_url
         context["return_url"] = next_url
@@ -263,9 +260,9 @@ class ObrigadoView(DetailView):
 
     def get(self, request, *args, **kwargs):
         response = super(ObrigadoView, self).get(request, *args, **kwargs)
-        self.object.send_mail()
-        return response
 
+        self.object.finish()  # type: ignore
+        return response
 
 
 obrigado_view = ObrigadoView.as_view()
@@ -286,3 +283,15 @@ def load_anos(request):
     return render(
         request, "porto/ano_modelo_dropdown_list_options.html", {"anos": anos_modelo}
     )
+
+
+def test_email(request, pk):
+    from django.template.loader import render_to_string
+    from django.http import HttpResponse
+    from apps.delta.helpers import model_to_dict_verbose
+
+    print("pk=", pk)
+    object = PropostaPorto.objects.get(pk=pk)
+    dic = model_to_dict_verbose(object, exclude=["id"] + object.hidden_fields)
+    email = render_to_string("delta/emails/email.html", {"object": dic})
+    return HttpResponse(email)

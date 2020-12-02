@@ -1,17 +1,19 @@
 from django.contrib import admin
 from django.contrib.auth import admin as auth_admin
-from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
+from .constants import OPERADOR
 from .constants import VENDEDOR
 from .forms import UserChangeFormOwner
 from .forms import UserChangeFormSuper
 from .forms import UserCreationForm
 from .models import Loja
+from .models import Operador
 from .models import User
+from .models import Vendedor
 
 
 def get_admin_url(obj):
@@ -26,7 +28,6 @@ def get_admin_link(obj):
     admin_url = get_admin_url(obj)
     link = mark_safe("<a href='{}'>{}</a>".format(admin_url, obj))
     return link
-
 
 
 @admin.register(Loja)
@@ -128,5 +129,30 @@ class UserAdmin(auth_admin.UserAdmin):
         for f in disabled_fields:
             if f in form.base_fields:
                 form.base_fields[f].disabled = True
+
+        return form
+
+
+@admin.register(Operador)
+class UserOperadorAdmin(UserAdmin):
+    def get_queryset(self, request):
+        return self.model.objects.filter(user_type=OPERADOR)
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super(UserOperadorAdmin, self).get_form(request, obj, **kwargs)
+        form.base_fields["user_type"].initial = OPERADOR
+
+        return form
+
+
+@admin.register(Vendedor)
+class UserVendedorAdmin(UserAdmin):
+    def get_queryset(self, request):
+        return self.model.objects.filter(user_type=VENDEDOR)
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super(UserVendedorAdmin, self).get_form(request, obj, **kwargs)
+        form.base_fields["user_type"].initial = VENDEDOR
+        form.base_fields["loja"].required = True
 
         return form

@@ -1,8 +1,11 @@
+import string
+from decimal import Decimal
+
 import pytz
 from django.forms.models import model_to_dict
 from django.utils import timezone
-import string
-from decimal import Decimal
+
+
 def model_to_dict_verbose(instance, exclude=("id")):
     dic = model_to_dict(instance, exclude=exclude)
     fields = {f.name: f for f in instance._meta.fields}
@@ -35,14 +38,13 @@ def model_to_dict_verbose(instance, exclude=("id")):
     return verbose_dic
 
 
-
-def currency_to_decimal(value, currency='BRL'):
-    if currency == 'BRL':
-        group, radix = '.', ','
+def currency_to_decimal(value, currency="BRL"):
+    if currency == "BRL":
+        group, radix = ".", ","  # noqa
     else:
-        group, radix = ',', '.'
+        group, radix = ",", "."  # noqa
 
     allowed = string.digits + radix
     cleaned = "".join([i for i in value if i in allowed])
-    cleaned = cleaned.replace(',', '.')
+    cleaned = cleaned.replace(",", ".")
     return Decimal(cleaned)
