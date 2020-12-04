@@ -27,7 +27,7 @@ class PropostaAdmin(admin.ModelAdmin):
         models.DecimalField: {'widget': forms.NumberInput(attrs={'step': 0.6})}
     }
 
-    readonly_fields = ['user']
+    readonly_fields = ['user', "proposta_porto"]
 
     @easy.short(desc='Cpf/Cnpj', order='cpf_cnpj', tags=True)
     def get_cpf_cnpj(self, obj):

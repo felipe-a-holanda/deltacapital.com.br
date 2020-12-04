@@ -15,7 +15,7 @@ class Proposta(models.Model):
     cpf_cnpj = models.CharField(max_length=255)
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=STATUS_CHOICES[0][0])
     telefone = models.CharField(max_length=255, blank=True)
-    codigo = models.CharField(max_length=255, blank=True)
+    origem = models.CharField("Origem/Lead", max_length=255, blank=True)
     loja = models.ForeignKey(Loja, on_delete=models.CASCADE, null=True, blank=True)
 
 
@@ -38,6 +38,8 @@ class Proposta(models.Model):
 
 
     arquivo_cnh = models.FileField("Arquivo da CNH", upload_to=UploadToPath("cnh"), null=True, blank=True)
+    arquivo_nf = models.FileField("Dut ou NF", upload_to=UploadToPath("nf"),
+                                   null=True, blank=True)
     arquivo_rg = models.FileField("Arquivo do RG", upload_to=UploadToPath("rg"), null=True, blank=True)
     arquivo_cpf = models.FileField("Arquivo do CPF", upload_to=UploadToPath("cpf"), null=True, blank=True)
     arquivo_endereco = models.FileField("Arquivo do Comprovante de Endereço", upload_to=UploadToPath("endereco"), null=True, blank=True)
