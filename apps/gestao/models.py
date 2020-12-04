@@ -2,7 +2,7 @@
 from django.db import models
 # Create your models here.
 from .constants import STATUS_CHOICES
-from apps.users.models import Loja
+from apps.users.models import Loja, User
 from apps.porto.models import PropostaPorto
 from apps.delta.helpers import currency_to_decimal
 
@@ -51,6 +51,7 @@ class Proposta(models.Model):
 
 
     proposta_porto = models.OneToOneField(PropostaPorto, null=True, blank=True, on_delete=models.SET_NULL)
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.cpf_cnpj

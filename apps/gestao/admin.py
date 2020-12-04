@@ -27,6 +27,20 @@ class PropostaAdmin(admin.ModelAdmin):
         models.DecimalField: {'widget': forms.NumberInput(attrs={'step': 0.6})}
     }
 
+    readonly_fields = ['user']
+
     @easy.short(desc='Cpf/Cnpj', order='cpf_cnpj', tags=True)
     def get_cpf_cnpj(self, obj):
         return status_colored(obj, "cpf_cnpj")
+
+    def get_form(self, request, obj=None, **kwargs):
+        # here insert/fill the current user name or id from request
+        if obj is not None:
+            obj.user = request.user
+        return super().get_form(request, obj, **kwargs)
+
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        obj.save()
+
+
