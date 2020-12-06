@@ -34,8 +34,6 @@
     {% endif %}
   <div class="inner-form form proposta-porto" data-depth="0.10">
 
-    
-
     <form id="proposta-financiamento" method="post" action="." data-anos-url="{% url 'porto:ajax_load_anos' %}" >
 
 
@@ -75,7 +73,11 @@
 
       <div class="button-row">
         {% if back_stage %}
-        <button class="button-submit" type="button" onclick="location.href='{% url 'porto:proposta-update' form.instance.id back_stage %}';" value="Anterior" />Anterior</button>
+          {% if back_stage == 1 %}
+          <button class="button-submit" type="button" onclick="location.href='{% url 'porto:proposta-create'  %}';" value="Anterior" />Anterior</button>
+          {% else %}
+          <button class="button-submit" type="button" onclick="location.href='{% url 'porto:proposta-update' form.instance.id back_stage %}';" value="Anterior" />Anterior</button>
+          {% endif %}
         {% endif %}
         <button class="button-submit" type="submit" value="continue">Seguinte</button>
       </div>
