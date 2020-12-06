@@ -363,6 +363,8 @@ class PropostaPorto(models.Model):
         from .tasks import get_simulation
 
         # get_simulation(self.pk)
+        self.status = STATUS_NAO_SIMULADO
+        self.save()
         get_simulation.delay(self.pk)
         # if settings.DEBUG:
         #    get_simulation(self.pk)

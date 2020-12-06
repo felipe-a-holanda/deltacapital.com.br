@@ -35,7 +35,9 @@
 <script>
   doUntilResult(function() {
     return $.ajax("{{api_url}}").then(function(data) {
+      if ((data === null) ||  data["status"]==1){
         return data || null; // adjust as required to ensure that `null` is returned only for the "continue" condition.
+        }
     });
 }, 1000); // 1 second delay between calls
 
