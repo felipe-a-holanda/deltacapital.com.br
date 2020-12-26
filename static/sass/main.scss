@@ -1,12 +1,12 @@
-@import 'libs/vars';
-@import 'libs/functions';
-@import 'libs/mixins';
-@import 'libs/vendor';
-@import 'libs/breakpoints';
-@import 'libs/grid';
-@import 'libs/flexgrid';
-@import '../css/font-awesome.min.css';
-@import url('https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600');
+@import "libs/vars";
+@import "libs/functions";
+@import "libs/mixins";
+@import "libs/vendor";
+@import "libs/breakpoints";
+@import "libs/grid";
+@import "libs/flexgrid";
+@import "../css/font-awesome.min.css";
+@import url("https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600");
 
 /*
 	Industrious by TEMPLATED
@@ -15,15 +15,40 @@
 */
 
 // Breakpoints.
-@include breakpoints((default: (1681px, null),
-    xlarge: (1281px, 1680px),
-    large: (981px, 1280px),
-    medium: (737px, 980px),
-    small: (481px, 736px),
-    xsmall: (361px, 480px),
-    xxsmall: (null, 360px)));
+@include breakpoints(
+  (
+    default: (
+      1681px,
+      null,
+    ),
+    xlarge: (
+      1281px,
+      1680px,
+    ),
+    large: (
+      981px,
+      1280px,
+    ),
+    medium: (
+      737px,
+      980px,
+    ),
+    small: (
+      481px,
+      736px,
+    ),
+    xsmall: (
+      361px,
+      480px,
+    ),
+    xxsmall: (
+      null,
+      360px,
+    ),
+  )
+);
 
-// Color. 
+// Color.
 @mixin color($p) {
   @include color-typography($p);
   @include color-button($p);
@@ -35,35 +60,36 @@
 }
 
 // Base.
-@import 'base/page';
-@import 'base/reset';
-@import 'base/typography';
+@import "base/page";
+@import "base/reset";
+@import "base/typography";
 
 // Component.
-@import 'components/inner';
-@import 'components/button';
-@import 'components/form';
-@import 'components/list';
-@import 'components/table';
-@import 'components/highlights';
-@import 'components/testimonials';
-@import 'components/actions';
-@import 'components/grid';
-@import 'components/icon';
-@import 'components/icons';
-@import 'components/image';
-@import 'components/wrapper';
-@import 'components/others';
+@import "components/inner";
+@import "components/button";
+@import "components/form";
+@import "components/new_forms";
+@import "components/list";
+@import "components/table";
+@import "components/highlights";
+@import "components/testimonials";
+@import "components/actions";
+@import "components/grid";
+@import "components/icon";
+@import "components/icons";
+@import "components/image";
+@import "components/wrapper";
+@import "components/others";
 
 // Layout.
-@import 'layout/banner';
-@import 'layout/cta';
-@import 'layout/footer';
-@import 'layout/header';
-@import 'layout/heading';
-@import 'layout/main';
-@import 'layout/menu';
-@import 'layout/form';
+@import "layout/banner";
+@import "layout/cta";
+@import "layout/footer";
+@import "layout/header";
+@import "layout/heading";
+@import "layout/main";
+@import "layout/menu";
+@import "layout/form";
 
-// card flip 
-@import 'components/card-flip';
+// card flip
+@import "components/card-flip";

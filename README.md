@@ -3,10 +3,8 @@
 Install dependencies
 
 ```
-sudo apt install direnv pipenv postgresql postgresql-contrib python3-dev python3-pip libpq-dev
+sudo apt install direnv pipenv postgresql postgresql-contrib python3-dev sudo apt install python3-pip
 pip installl pip-tools
-
-
 ```
 
 Add this to ~/.bashrc
