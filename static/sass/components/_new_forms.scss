@@ -1,18 +1,20 @@
 section.wrapper.form {
-  padding: 7rem 7rem;
+  padding: 12% 7%;
 }
 // Todo: clean padding override from form.scss
 section.form .inner-form {
   background-color: white;
   width: 100%;
   max-width: 100%;
-  padding: 7rem 7rem;
+  padding: 1rem 0;
 }
 
 section.form form {
-  padding: 1rem 3rem;
-  max-width: 70%;
-  margin: auto;
+  padding: 0 2rem;
+  @media (min-width: 700px) {
+    max-width: 70%;
+    margin: auto;
+  }
 }
 
 .form_head {
@@ -36,6 +38,8 @@ section.form form {
   position: relative;
   padding-top: 13px;
   margin: 0.5rem 0;
+  max-width: 600px;
+  margin: auto;
 }
 
 .label-float input:not(.invalid):hover {
@@ -127,9 +131,13 @@ section.form form {
 }
 
 .form form button.button-submit:hover {
-  color: white;
+  color: white !important;
 }
 
 .button:focus {
-  outline: none;
+  outline: none !important;
+}
+
+.inactive {
+  display: none;
 }

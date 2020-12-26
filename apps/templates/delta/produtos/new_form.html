@@ -14,7 +14,7 @@
         value="ywoKFML58e2Glpz6CQe9nnIiKzGdx8u58BS5FumsF2ANyzCoxyYtEBGg3hkSw8L2"
       />
       
-      <div class="form-group label-float cpf">
+      <div class="form-group label-float cpf ">
         <input
           type="text"
           name="cpf"
@@ -26,7 +26,7 @@
         <label for="id_cpf">CPF</label>
       </div>
 
-      <div class="form-group label-float name">
+      <div class="form-group label-float name inactive">
         <input
           type="text"
           name="name"
@@ -38,7 +38,7 @@
         <label for="id_name">Nome Completo</label>
       </div>
 
-      <div class="form-group label-float email">
+      <div class="form-group label-float email inactive">
         <input
           type="text"
           name="email"
@@ -88,11 +88,12 @@
       </div> -->
 
       <div class="button-row">
-        <button class="button-submit" type="submit" value="Enviar">
+        <button class="button-submit" type="submit" value="Enviar" onclick="verificarInputs(event);">
           Próximo
         </button>
       </div>
     </form>
   </div>
 </section>
+
 {% endblock content %}
