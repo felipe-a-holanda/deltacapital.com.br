@@ -133,7 +133,7 @@ section.form form {
   color: white !important;
 }
 
-.button:focus {
+button:focus {
   outline: none !important;
 }
 
@@ -151,10 +151,8 @@ section.form form {
   -moz-transition: all 0.2s linear;
   top: 0;
   text-align: left;
-  margin-left: 1cm;
   transition-timing-function: linear;
   font-size: 13px;
-  margin-left: 25%;
 }
 
 .error.active {

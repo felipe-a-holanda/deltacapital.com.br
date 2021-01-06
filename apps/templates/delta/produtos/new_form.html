@@ -26,9 +26,9 @@
           id="id_cpf"
         />
         <label for="id_cpf">CPF</label>
-      </div>
-      <div class="error">
-        <span> OBRIGATÓRIO! </span>
+        <div class="error">
+          <span> OBRIGATÓRIO! </span>
+        </div>
       </div>
 
       <div class="form-group label-float name inactive">
@@ -41,6 +41,9 @@
           id="id_name"
         />
         <label for="id_name">Nome Completo</label>
+        <div class="error">
+          <span> OBRIGATÓRIO! </span>
+        </div>
       </div>
 
       <div class="form-group label-float email inactive">
@@ -53,13 +56,16 @@
           id="id_email"
         />
         <label for="id_email">E-mail</label>
+        <div class="error">
+          <span> OBRIGATÓRIO! </span>
+        </div>
       </div>
     </div>
 
       <div class="section inactive" id='section_2'>
         <h3>agora nos informe alguns detalhes sobre seu financiamento:</h1>
         <p><h4>Entradas de 30% sobre o valor total do veículo aumentam as chances de aprovação do financiamento.</h4></p>
-        <div class="label-float form-group moeda">
+        <div class="label-float form-group moeda inactive">
           <input
             type="text"
             name="valor_do_veiculo"
@@ -69,9 +75,12 @@
             id="id_valor_do_veiculo"
           />
           <label for="id_valor_do_veiculo">Valor do Veículo</label>
+          <div class="error">
+            <span> OBRIGATÓRIO! </span>
+          </div>
         </div>
 
-        <div class="label-float form-group moeda">
+        <div class="label-float form-group moeda inactive">
           <input
             type="text"
             name="entrada"
@@ -81,9 +90,12 @@
             id="id_entrada"
           />
           <label for="id_entrada">Valor de Entrada</label>
+          <div class="error">
+            <span> OBRIGATÓRIO! </span>
+          </div>
         </div>
 
-        <div class="label-float form-group moeda">
+        <div class="label-float form-group moeda inactive">
           <input
             type="text"
             name="ano"
@@ -93,6 +105,9 @@
             id="id_ano"
           />
           <label for="id_ano">Ano de fabricação</label>
+          <div class="error">
+            <span> OBRIGATÓRIO! </span>
+          </div>
         </div>
       </div>
 

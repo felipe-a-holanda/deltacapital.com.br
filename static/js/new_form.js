@@ -1,25 +1,36 @@
-function onSubmit() {
-  $(".inactive").removeClass("inactive");
-  $(".error").removeClass("active");
-  $("#id_cpf").removeClass("invalid");
-}
 
 function verificarInputs(event) {
   event.stopPropagation();
   event.preventDefault();
 
   var CpfInput = $("#id_cpf");
+  var activeInputs = $(".label-float:not(.inactive)");
+  
 
-  if (!CpfInput.val()) {
-    CpfInput.addClass("invalid");
-    $(".error").addClass("active");
-  } else {
-    $(".label-float.inactive").removeClass("inactive");
-    $(".error").removeClass("active");
-    $("#id_cpf").removeClass("invalid");
+  $.each(activeInputs, function(index, Div) {
+    console.log(typeof(Div), Div);
+    
+    var input = $(Div).children('input').first();
+    var erroMsg =  $(Div).children('.error').first();
+
+    if (!input.val()) {
+      $(input).addClass("invalid");
+      $(erroMsg).addClass("active");
+    } else {
+      $(input).removeClass("invalid");
+      $(erroMsg).removeClass("active");
+    }
+  });
+
+  if(CpfInput.val()){
+    $("#section_1 .label-float.inactive").removeClass("inactive");
   }
+  
+  /*Se todos três campos da primeira sessão foram preenchidos ativa a seção 2 e ativa seus inputs*/
   if (CpfInput.val() && $("#id_name").val() && $("#id_email").val()) {
     $("#section_1").addClass("inactive");
     $("#section_2").removeClass("inactive");
+    $("#section_2 .label-float.inactive").removeClass("inactive");
   }
 }
+
