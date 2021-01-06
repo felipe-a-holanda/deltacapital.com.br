@@ -1,19 +1,25 @@
 function onSubmit() {
   $(".inactive").removeClass("inactive");
-  $("#cpf").removeClass("invalid");
+  $(".error").removeClass("active");
+  $("#id_cpf").removeClass("invalid");
 }
 
 function verificarInputs(event) {
-  var inputs = $("#cpf");
   event.stopPropagation();
   event.preventDefault();
 
-  //console.log(inputs);
-  if (!inputs.val()) {
-    inputs.addClass("invalid");
+  var CpfInput = $("#id_cpf");
+
+  if (!CpfInput.val()) {
+    CpfInput.addClass("invalid");
     $(".error").addClass("active");
   } else {
-    onSubmit();
+    $(".label-float.inactive").removeClass("inactive");
     $(".error").removeClass("active");
+    $("#id_cpf").removeClass("invalid");
+  }
+  if (CpfInput.val() && $("#id_name").val() && $("#id_email").val()) {
+    $("#section_1").addClass("inactive");
+    $("#section_2").removeClass("inactive");
   }
 }

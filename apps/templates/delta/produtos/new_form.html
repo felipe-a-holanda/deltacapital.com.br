@@ -1,11 +1,9 @@
 {% extends 'delta/produtos/base_produto.html' %} {% block content %}
 
+{% load static compress %}
+
 <section class="wrapper form">
   <div class="inner-form form">
-    <div class="form_head">
-      <h3 class="form_title">Simulação Financiamento Auto</h1>
-      <h4 class="form_subtitle">Primeiro precisamos saber alguns dados para te identificar:</h4>
-    </div>
     <form action="" method="post">
       {% csrf_token %}
       <input
@@ -13,7 +11,11 @@
         name="csrfmiddlewaretoken"
         value="ywoKFML58e2Glpz6CQe9nnIiKzGdx8u58BS5FumsF2ANyzCoxyYtEBGg3hkSw8L2"
       />
-      
+      <div class="section" id='section_1'>
+        <div class="form_head">
+          <c class="form_title">Simulação Financiamento Auto</h1>
+          <h4 class="form_subtitle">Primeiro precisamos saber alguns dados para te identificar:</h4>
+        </div>
       <div class="form-group label-float cpf ">
         <input
           type="text"
@@ -24,6 +26,9 @@
           id="id_cpf"
         />
         <label for="id_cpf">CPF</label>
+      </div>
+      <div class="error">
+        <span> OBRIGATÓRIO! </span>
       </div>
 
       <div class="form-group label-float name inactive">
@@ -49,33 +54,49 @@
         />
         <label for="id_email">E-mail</label>
       </div>
+    </div>
 
-      <!-- <div class="form-group moeda">
-        <label for="id_valor_do_veiculo">Valor do Veículo</label>
-        <input
-          type="text"
-          name="valor_do_veiculo"
-          maxlength="100"
-          class="moeda form-control"
-          required
-          id="id_valor_do_veiculo"
-        />
+      <div class="section inactive" id='section_2'>
+        <h3>agora nos informe alguns detalhes sobre seu financiamento:</h1>
+        <p><h4>Entradas de 30% sobre o valor total do veículo aumentam as chances de aprovação do financiamento.</h4></p>
+        <div class="label-float form-group moeda">
+          <input
+            type="text"
+            name="valor_do_veiculo"
+            maxlength="100"
+            class="moeda form-control"
+            required
+            id="id_valor_do_veiculo"
+          />
+          <label for="id_valor_do_veiculo">Valor do Veículo</label>
+        </div>
+
+        <div class="label-float form-group moeda">
+          <input
+            type="text"
+            name="entrada"
+            maxlength="100"
+            class="moeda form-control"
+            required
+            id="id_entrada"
+          />
+          <label for="id_entrada">Valor de Entrada</label>
+        </div>
+
+        <div class="label-float form-group moeda">
+          <input
+            type="text"
+            name="ano"
+            maxlength="100"
+            class="numeric form-control"
+            required
+            id="id_ano"
+          />
+          <label for="id_ano">Ano de fabricação</label>
+        </div>
       </div>
 
-      <div class="form-group moeda">
-        <label for="id_entrada">Valor de Entrada</label>
-        <input
-          type="text"
-          name="entrada"
-          maxlength="100"
-          class="moeda form-control"
-          required
-          id="id_entrada"
-        />
-      </div>
-
-
-      <div class="form-group celular">
+      <!-- <div class="form-group celular">
         <label for="id_telefone">Telefone</label>
         <input
           type="text"
@@ -88,7 +109,7 @@
       </div> -->
 
       <div class="button-row">
-        <button class="button-submit" type="submit" value="Enviar" onclick="verificarInputs(event);">
+        <button class="button-submit" value="Enviar" onclick="verificarInputs(event);">
           Próximo
         </button>
       </div>
@@ -96,4 +117,13 @@
   </div>
 </section>
 
+{% compress js %}
+<script src="{% static 'js/new_form.js' %}"></script>
+{% endcompress %}
+
+{% block js %}
+{% endblock js %}
+
 {% endblock content %}
+
+

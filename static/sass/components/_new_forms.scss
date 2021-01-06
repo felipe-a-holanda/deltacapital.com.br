@@ -37,9 +37,8 @@ section.form form {
 .label-float {
   position: relative;
   padding-top: 13px;
-  margin: 0.5rem 0;
+  margin: 1rem auto 0.2rem;
   max-width: 600px;
-  margin: auto;
 }
 
 .label-float input:not(.invalid):hover {
@@ -139,5 +138,34 @@ section.form form {
 }
 
 .inactive {
+  display: none;
+}
+
+.error {
+  opacity: 0;
+  color: red;
+  line-height: 0.1cm;
+  text-align: left;
+  transition: all 0.2s linear;
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  top: 0;
+  text-align: left;
+  margin-left: 1cm;
+  transition-timing-function: linear;
+  font-size: 13px;
+  margin-left: 25%;
+}
+
+.error.active {
+  position: relative;
+  opacity: 1;
+  display: block;
+  top: 10px;
+  background-color: white;
+  color: red;
+}
+
+.hidden {
   display: none;
 }
