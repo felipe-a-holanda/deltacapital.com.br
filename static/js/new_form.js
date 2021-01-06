@@ -21,12 +21,10 @@ function verificarInputs(event) {
   event.preventDefault();
 
   var CpfInput = $("#id_cpf");
-  var activeInputs = $(".label-float:not(.inactive)");
+  var activeDiv = $(".label-float:not(.inactive)");
   
 
-  $.each(activeInputs, function(index, Div) {
-    console.log(typeof(Div), Div);
-    
+  $.each(activeDiv, function(index, Div) {
     var input = $(Div).children('input').first();
     var erroMsg =  $(Div).children('.error').first();
 
