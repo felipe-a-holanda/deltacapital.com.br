@@ -1,4 +1,21 @@
 
+window.onload = function() {
+  if (window.jQuery) {  
+      // jQuery is loaded  
+      disableError();
+  }
+}
+
+
+function disableError(){
+  var inputs = $(".label-float > input");
+  $(".label-float > input").on("change paste keyup", function() {
+    $(this).removeClass("invalid");
+    $(this).siblings('.error').removeClass('active');
+  });
+}
+
+
 function verificarInputs(event) {
   event.stopPropagation();
   event.preventDefault();
