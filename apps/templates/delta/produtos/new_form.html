@@ -11,9 +11,13 @@
         name="csrfmiddlewaretoken"
         value="ywoKFML58e2Glpz6CQe9nnIiKzGdx8u58BS5FumsF2ANyzCoxyYtEBGg3hkSw8L2"
       />
+      <div id="back_button" onclick="backSection(event);" class="inactive">
+        <span id='arrow'>&#8617;</span>
+        <span>Voltar</span>
+      </div>
       <div class="section" id='section_1'>
         <div class="form_head">
-          <c class="form_title">Simulação Financiamento Auto</h1>
+          <h3 class="form_title">Simulação Financiamento Auto</h3>
           <h4 class="form_subtitle">Primeiro precisamos saber alguns dados para te identificar:</h4>
         </div>
       <div class="form-group label-float cpf ">
@@ -64,7 +68,6 @@
 
       <div class="section inactive" id='section_2'>
         <h3>agora nos informe alguns detalhes sobre seu financiamento:</h1>
-        <p><h4>Entradas de 30% sobre o valor total do veículo aumentam as chances de aprovação do financiamento.</h4></p>
         <div class="label-float form-group moeda inactive">
           <input
             type="text"
@@ -111,21 +114,26 @@
         </div>
       </div>
 
-      <!-- <div class="form-group celular">
-        <label for="id_telefone">Telefone</label>
-        <input
-          type="text"
-          name="telefone"
-          maxlength="100"
-          class="celular form-control"
-          required
-          id="id_telefone"
-        />
-      </div> -->
-
+      <div class="section inactive" id='section_3'>
+        <h4>Qual é o seu Telefone para contato?</h4> 
+        <div class="label-float form-group celular">
+          <label for="id_telefone">Telefone</label>
+          <input
+            type="text"
+            name="telefone"
+            maxlength="100"
+            class="celular form-control"
+            required
+            id="id_telefone"
+          />
+      </div>
+      </div>
       <div class="button-row">
-        <button class="button-submit" value="Enviar" onclick="verificarInputs(event);">
+        <button id='next_button'class="button-submit" value="Enviar" onclick="verificarInputs(event);">
           Próximo
+        </button>
+        <button id='submit_button' class="button-submit inactive" value="Enviar" type="submit">
+          SOLICITAR SIMULAÇÃO
         </button>
       </div>
     </form>

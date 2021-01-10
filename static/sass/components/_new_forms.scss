@@ -138,7 +138,7 @@ button:focus {
 }
 
 .inactive {
-  display: none;
+  display: none !important;
 }
 
 .error {
@@ -166,4 +166,10 @@ button:focus {
 
 .hidden {
   display: none;
+}
+
+#back_button{
+  font-size: 1rem;
+  cursor: pointer;
+  color: #374eff;
 }
