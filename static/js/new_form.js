@@ -19,9 +19,13 @@ function verificarInputs(event) {
   event.preventDefault();
 
   var CpfInput = $("#id_cpf");
-  var activeDiv = $(".label-float:not(.inactive)");
-  var inactiveDivs = $("#section_1 .label-float.inactive");
-  var activeSection = $('.section:not(.inactive)');
+  var activeSection = $('.section:not(.inactive)');  
+  var activeDiv = $(activeSection).children(".label-float:not(.inactive)");
+
+  const sectionName = activeSection.attr('id');
+  var inactiveDivs = $(activeSection).children(".label-float.inactive");
+  var sectionNumber = sectionName.slice(-1);
+
   var hasInvalid = false;
   
   //se não tem inativos na sessão
@@ -48,15 +52,14 @@ function verificarInputs(event) {
   }
   
   // Se não tiver Divs inputs inativos e se não tiver nenhum inválido
-  // Vai para próxima section;
+  // Vai para próxima section;  
   if(inactiveDivs.length === 0 && !hasInvalid){
-    const sectionName = activeSection.attr('id');
-    var sectionNumber = sectionName.slice(-1);
     // Senão for a ultima sessão vai para próxima
     // Se for adiciona o botão de submeter o form
     if(sectionNumber < $('.section').length ){
       nextSection(activeSection, sectionNumber);
-    } else{
+    }
+    if(sectionNumber == ($('.section').length - 1) ){
       $('#next_button').addClass('inactive');
       $('#submit_button').removeClass('inactive');
     }
