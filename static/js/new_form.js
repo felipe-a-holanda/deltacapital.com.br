@@ -1,8 +1,13 @@
 
 window.onload = function() {
   if (window.jQuery) {  
-      // jQuery is loaded  
+      // jQuery is loaded ;
       disableError();
+      updatePercentage();
+      // on browser resize...
+      $(window).resize(function() {
+        moveProgressBar();
+      });
   }
 }
 
@@ -76,6 +81,7 @@ function nextSection(activeSection, sectionNumber){
   $(nexSectionDiv).removeClass("inactive");
   $(nexSectionDiv).children('.label-float.inactive').removeClass("inactive");
   $("#back_button").removeClass('inactive');
+  updatePercentage();
 }
 
 // Verificar se é a primeira
@@ -95,4 +101,33 @@ function backSection(){
   
   $('#submit_button').addClass('inactive');
   $('#next_button').removeClass('inactive');
+
+  updatePercentage();
+}
+
+/*Progress bar*/
+
+
+// SIGNATURE PROGRESS
+function moveProgressBar() {
+    var getPercent = ($('.progress-wrap').data('progress-percent'));
+    var getProgressWrapWidth = $('.progress-wrap').width();
+    var progressTotal = getPercent * getProgressWrapWidth;
+    var animationLength = 1000;
+    
+    // on page load, animate percentage bar to data percentage length
+    // .stop() used to prevent animation queueing
+    $('.progress-bar').stop().animate({
+        left: progressTotal
+    }, animationLength);
+}
+
+function updatePercentage(){
+  const sectionNumber = $('.section:not(.inactive)').attr('id').slice(-1);  
+  const totalSection = $('.section').length;
+  const percentage = (sectionNumber / (totalSection+1));
+  console.log(percentage);  
+  $("#progress-div").attr('data-progress-percent', percentage);
+  $("#progress-div").data('progress-percent', percentage);
+  moveProgressBar();
 }

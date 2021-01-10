@@ -3,6 +3,11 @@
 {% load static compress %}
 
 <section class="wrapper form">
+  <h3 class="form_title">Simulação Financiamento Auto</h3>
+  <!-- Change the below data attribute to play -->
+  <div class="progress-wrap progress" id='progress-div' data-progress-percent="0">
+    <div class="progress-bar progress"></div>
+  </div>
   <div class="inner-form form">
     <form action="" method="post">
       {% csrf_token %}
@@ -15,9 +20,9 @@
         <span id='arrow'>&#8617;</span>
         <span>Voltar</span>
       </div>
+
       <div class="section" id='section_1'>
         <div class="form_head">
-          <h3 class="form_title">Simulação Financiamento Auto</h3>
           <h4 class="form_subtitle">Primeiro precisamos saber alguns dados para te identificar:</h4>
         </div>
       <div class="form-group label-float cpf ">
@@ -67,7 +72,7 @@
     </div>
 
       <div class="section inactive" id='section_2'>
-        <h3>agora nos informe alguns detalhes sobre seu financiamento:</h1>
+        <h3 class="form_subtitle">Agora nos informe alguns detalhes sobre seu financiamento:</h1>
         <div class="label-float form-group moeda inactive">
           <input
             type="text"
@@ -115,7 +120,7 @@
       </div>
 
       <div class="section inactive" id='section_3'>
-        <h4>Qual é o seu Telefone para contato?</h4> 
+        <h4 class="form_subtitle">Qual é o seu Telefone para contato?</h4> 
         <div class="label-float form-group celular">
           <input
             type="text"
