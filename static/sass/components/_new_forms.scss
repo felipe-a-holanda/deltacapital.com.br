@@ -20,6 +20,21 @@ section.form form {
   }
 }
 
+//Animação entre as sections n funciona
+// .section{
+//   transition: all 0.8s linear;
+//   -webkit-transition: all 0.8s linear;
+//   -moz-transition: all 0.2s linear;
+//   opacity: 1;
+//   position: relative;
+//   top: 0;
+// }
+
+// .section.inactive {
+//   top: -250px;
+//   opacity: 0;
+// }
+
 .form_head {
   text-align: center;
 }
@@ -206,3 +221,21 @@ button:focus {
   }
 }
 
+.form-dropdown {
+  min-width: 450px;
+  padding: 15px 20px;
+  border-radius: 7px;
+  border: 0 solid #ffffff;
+  font-family: "montserrat";
+  font-size: 15px;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  color: gray;
+}
+
+.label-float select:hover:focus + label, .label-float select:not(:placeholder-shown) + label {
+  font-size: 13px;
+  top: 0;
+  color:  #3951b2;
+  background-color: white;
+}
