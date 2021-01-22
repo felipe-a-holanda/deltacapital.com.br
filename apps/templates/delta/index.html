@@ -5,19 +5,18 @@
 {% block content %}
 <!-- Banner -->
 <section id="banner">
-
+ 
   <div class="inner" data-depth="0.10">
+    <img class="logo" src="{% static 'images/logo01.png' %} "/> 
     <h1>Delta Capital</h1>
     <p>Em todo lugar onde estamos presentes, buscamos oferecer produtos e serviços
       financeiros ideais para que você alcance seus objetivos.<br>
 
     </p>
+
   </div>
 
-
-
-
-  <img class="float-img" src="{% static 'images/man_transparent.webp' %} "
+  <img class="float-img" id="man" src="{% static 'images/man_semfundo.png' %} "
        data-depth="0.40">
 
 
@@ -127,7 +126,7 @@
 
 {% block js %}
 
-<script src="{% static 'js/parallax.js' %}"></script>
+<!-- <script src="{% static 'js/parallax.js' %}"></script> -->
 
 
 <script>

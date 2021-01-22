@@ -43,6 +43,8 @@
 		h1 {
 			font-size: 4rem;
 			margin-bottom: 1rem;
+			//margin-right: -300px;
+			margin-top: -75px;
 		}
 
 		p {
@@ -78,12 +80,52 @@
 		
 		.float-img{
 			position:absolute;
-			width: 50vw;
-			right: 0px !important;
+			width: 90vw;
+			right: -200px !important;
 			top: 10vh !important;
 			left:auto;
 			z-index: 2;
 		}
+		.logo{
+			
+			max-width: 20vw;
+		}
+		//Img Logo
+		@media (max-device-width: 400px) {
+			.logo {
+				display: none !important;
+				//margin-bottom: 20%;
+			}
+			}
+		@media (max-device-width: 700px) {
+			.logo {
+				max-width: 40%;
+				//margin-bottom: 6%;
+			}
+			}	
+		@media (max-device-width: 1200px) {
+			.logo {
+				max-width: 40%;
+				//margin-bottom: 0%;
+			}
+			}
+		//Img Man
+		@media only screen and (max-device-width: 400px) {
+			#man {
+				display: none !important;
+				
+			}
+			}
+		@media only screen and (max-device-width: 700px) {
+			#man {
+				max-width: 30%;
+			}
+			}	
+		@media only screen and (max-device-width: 1200px) {
+			#man {
+				max-width: 40%;
+			}
+			}
 
 		&:before {
 			@include vendor('transition', 'opacity 3s ease');
@@ -124,9 +166,9 @@
 			video {
 				display: none !important;
 			}
-			img{
-				display: none !important;
-			}
+			// img{
+			// 	display: none !important;
+			// }
 		}
 		
 		@include breakpoint('>large') {
@@ -163,6 +205,7 @@
 				width: 100%;
 			}
 		}
+		
 
 		@include breakpoint('<=xsmall') {
 			p {
@@ -193,7 +236,7 @@
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-size: 100%;
   -webkit-mask-position-x: 50%;
-  -webkit-mask-position-y: 50%;
+  -webkit-mask-position-y: 90%; // Barra branca onda
 	
 	
 	
