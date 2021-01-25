@@ -91,22 +91,22 @@
 			max-width: 20vw;
 		}
 		//Img Logo
-		@media (max-device-width: 400px) {
+		@media (max-device-width: 300px) {
 			.logo {
-				display: none !important;
-				//margin-bottom: 20%;
+				max-width: 100px;
+				margin-bottom: 50px;
 			}
 			}
-		@media (max-device-width: 700px) {
+		@media (max-device-width: 710px) {
 			.logo {
 				max-width: 40%;
-				//margin-bottom: 6%;
+				margin-bottom: 6%;
 			}
 			}	
 		@media (max-device-width: 1200px) {
 			.logo {
-				max-width: 40%;
-				//margin-bottom: 0%;
+				max-width: 50%;
+				margin-bottom: 20%;
 			}
 			}
 		//Img Man
@@ -123,7 +123,8 @@
 			}	
 		@media only screen and (max-device-width: 1200px) {
 			#man {
-				max-width: 40%;
+				max-width: 70%;
+				margin-top: 30px;
 			}
 			}
 

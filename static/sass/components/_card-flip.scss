@@ -36,6 +36,7 @@ body {
   background-attachment: fixed;
 }
 
+//espaço dos cards 
 .content {
   display: flex;
   margin: 0 auto;
@@ -43,6 +44,7 @@ body {
   align-items: center;
   flex-wrap: wrap;
   max-width: 1300px;
+  margin-top: -60px; // subindo os cards
 }
 
 .heading {
@@ -253,7 +255,8 @@ body {
     transform: rotateY(180deg);
 
     .button {
-      background: linear-gradient(135deg, adjust-hue($secondary, -20deg), $secondary);
+    //Button roxo (2ª cor)
+      //background: linear-gradient(135deg, adjust-hue($secondary, -20deg), $secondary);
 
       &:before {
         box-shadow: 0 0 10px 10px rgba($secondary, 0.25);
