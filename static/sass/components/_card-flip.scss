@@ -44,7 +44,9 @@ body {
   align-items: center;
   flex-wrap: wrap;
   max-width: 1300px;
-  margin-top: -60px; // subindo os cards
+  margin-top: -100px; // subindo os cards
+  margin-bottom: 0px;
+  padding: 50px 0px 20px 0px;
 }
 
 .heading {
@@ -82,8 +84,8 @@ body {
   cursor: pointer;
   width: calc(33% - 4rem);
   min-width: calc(33% - 4rem);
-  height: 400px;
-  min-height: 400px;
+  height: 300px;
+  //min-height: 400px;
   perspective: 1000px;
   margin: 2rem;
   position: relative;
@@ -202,13 +204,11 @@ body {
     z-index: -1;
   }
 
-
-
-
+  //Animação Cards
 
   .card:hover & {
-    transform: rotateY(180deg) rotateZ(180deg);
-  }
+    transform: rotateY(180deg) //rotateZ(180deg);
+     }
 
   .card:nth-child(even):hover & {
     transform: rotateY(-180deg);

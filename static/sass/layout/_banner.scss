@@ -106,14 +106,13 @@
 		@media (max-device-width: 1200px) {
 			.logo {
 				max-width: 50%;
-				margin-bottom: 20%;
+				margin-bottom: 10%;
 			}
 			}
 		//Img Man
 		@media only screen and (max-device-width: 400px) {
 			#man {
-				display: none !important;
-				
+				display: none !important;		
 			}
 			}
 		@media only screen and (max-device-width: 700px) {
@@ -121,10 +120,12 @@
 				max-width: 30%;
 			}
 			}	
+			//Rever 
 		@media only screen and (max-device-width: 1200px) {
 			#man {
-				max-width: 70%;
-				margin-top: 30px;
+				max-width: 100%;
+				margin-top: -50px;
+				left: 200px;
 			}
 			}
 
