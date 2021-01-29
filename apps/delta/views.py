@@ -68,7 +68,7 @@ class ProductCreate(CreateView):
 class FinanciamentoVeiculoCreate(ProductCreate):
     model = FinanciamentoVeiculo
     form_class = FinanciamentoVeiculoForm
-    template_name = "delta/produtos/financiamento-de-veiculos.html"
+    template_name = "delta/produtos/new_form.html"
     subject = "Financiamento de Veiculo: "
 
 

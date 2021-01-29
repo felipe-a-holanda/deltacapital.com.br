@@ -1,0 +1,171 @@
+{% extends 'delta/produtos/base_produto.html' %} {% block content %}
+
+{% load static compress %}
+
+<section class="wrapper form">
+  <h3 class="form_title">Simulação Financiamento Auto</h3>
+  <!-- Change the below data attribute to play -->
+  <div class="progress-wrap progress" id='progress-div' data-progress-percent="0">
+    <div class="progress-bar progress"></div>
+  </div>
+  <div class="inner-form form">
+    <form action="" method="post">
+      {% csrf_token %}
+      <input
+        type="hidden"
+        name="csrfmiddlewaretoken"
+        value="ywoKFML58e2Glpz6CQe9nnIiKzGdx8u58BS5FumsF2ANyzCoxyYtEBGg3hkSw8L2"
+      />
+      <div id="back_button" onclick="backSection(event);" class="inactive">
+        <span id='arrow'>&#8617;</span>
+        <span>Voltar</span>
+      </div>
+
+      <div class="section" id='section_1'>
+        <div class="form_head">
+          <h4 class="form_subtitle">Primeiro precisamos saber alguns dados para te identificar:</h4>
+        </div>
+      <div class="form-group label-float cpf ">
+        <input
+          type="text"
+          name="cpf"
+          maxlength="100"
+          class="cpf form-control"
+          required
+          id="id_cpf"
+        />
+        <label for="id_cpf">CPF</label>
+        <div class="error">
+          <span> OBRIGATÓRIO! </span>
+        </div>
+      </div>
+
+      <div class="form-group label-float name inactive">
+        <input
+          type="text"
+          name="name"
+          maxlength="200"
+          class="name form-control"
+          required
+          id="id_name"
+        />
+        <label for="id_name">Nome Completo</label>
+        <div class="error">
+          <span> OBRIGATÓRIO! </span>
+        </div>
+      </div>
+
+      <div class="form-group label-float email inactive">
+        <input
+          type="text"
+          name="email"
+          maxlength="200"
+          class="email form-control"
+          required
+          id="id_email"
+        />
+        <label for="id_email">E-mail</label>
+        <div class="error">
+          <span> OBRIGATÓRIO! </span>
+        </div>
+      </div>
+    </div>
+
+      <div class="section inactive" id='section_2'>
+        <h3 class="form_subtitle">Agora nos informe alguns detalhes sobre seu financiamento:</h1>
+        <div class="label-float form-group moeda inactive">
+          <input
+            type="text"
+            name="valor_do_veiculo"
+            maxlength="100"
+            class="moeda form-control"
+            required
+            id="id_valor_do_veiculo"
+          />
+          <label for="id_valor_do_veiculo">Valor do Veículo</label>
+          <div class="error">
+            <span> OBRIGATÓRIO! </span>
+          </div>
+        </div>
+
+        <div class="label-float form-group moeda inactive">
+          <input
+            type="text"
+            name="entrada"
+            maxlength="100"
+            class="moeda form-control"
+            required
+            id="id_entrada"
+          />
+          <label for="id_entrada">Valor de Entrada</label>
+          <div class="error">
+            <span> OBRIGATÓRIO! </span>
+          </div>
+        </div>
+
+        <div class="label-float form-group moeda inactive">
+          <input
+            type="text"
+            name="ano"
+            maxlength="100"
+            class="numeric form-control"
+            required
+            id="id_ano"
+          />
+          <label for="id_ano">Ano de fabricação</label>
+          <div class="error">
+            <span> OBRIGATÓRIO! </span>
+          </div>
+        </div>
+
+        <div class="label-float form-group inactive">
+          <select id="dropdown" name="best-option" class="form-dropdown" placeholder=" ">
+            <option value="select" disabled selected >  </option>
+            <option value="carro"> Carro </option>
+            <option value="moto"> Moto </option>
+            <option value="utilitário"> Utilitário </option>
+            <option value="caminhão"> Caminhão</option>
+          </select>
+          <label> O que deseja financiar? </label>
+        </div>
+      </div>
+
+      <div class="section inactive" id='section_3'>
+        <h4 class="form_subtitle">Qual é o seu Telefone para contato?</h4> 
+        <div class="label-float form-group celular">
+          <input
+            type="text"
+            name="telefone"
+            maxlength="100"
+            class="celular form-control"
+            required
+            id="id_telefone"
+          />
+          <label for="id_telefone">Telefone</label>
+          <div class="error">
+            <span> OBRIGATÓRIO! </span>
+          </div>
+      </div>
+      </div>
+      <div class="button-row">
+        <button id='next_button'class="button-submit" value="Enviar" onclick="verificarInputs(event);">
+          Próximo
+        </button>
+        <button id='submit_button' class="button-submit inactive" value="Enviar" type="submit">
+          SOLICITAR SIMULAÇÃO
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+{% compress js %}
+<script src="{% static 'js/new_form.js' %}"></script>
+{% endcompress %}
+
+{% block js %}
+{% endblock js %}
+
+{% endblock content %}
+
+
