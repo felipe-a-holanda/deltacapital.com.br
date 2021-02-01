@@ -1,15 +1,14 @@
 # deltacapital.com.br
 
-
-
 Install dependencies
-```
-sudo apt install direnv pipenv pip-tools postgresql postgresql-contrib python3-dev libpq-dev
 
 ```
-
+sudo apt install direnv pipenv postgresql postgresql-contrib python3-dev python3-pip
+pip3 installl pip-tools
+```
 
 Add this to ~/.bashrc
+
 ```
 # direnv:
 eval "$(direnv hook bash)"
@@ -24,35 +23,37 @@ PS1='$(show_virtual_env)'$PS1
 ```
 
 Create Python virtualenv
+
 ```
 export PIPENV_VENV_IN_PROJECT="enabled"
-pipenv install -r requirements.txt
+pipenv install
+pip install -r requirements.txt
+pip install -r requirements/dev.txt
 direnv allow
 ```
 
-
 Update virtualenv
+
 ```
 make
 ```
 
-
 Compile frontend
+
 ```
 npm install
 npm run build
 ```
 
-
 Create database
+
 ```
 cp .env.example .env
 python manage.py migrate
 ```
 
-
-
 Run Django server
+
 ```
 python manage.py runserver
 ```
