@@ -1,5 +1,4 @@
-{% load static compress %}
-{% load render_bundle from webpack_loader %}
+{% load static %}
 <!DOCTYPE HTML>
 <!--
 	Industrious by TEMPLATED
@@ -16,7 +15,9 @@
   <meta name="keywords" content=""/>
 
 
-  {% render_bundle 'main' 'css' %}
+  <link rel="stylesheet" href="{% static 'build/main.css' %}">
+  <script src="{% static 'build/main.js' %}"></script>
+
   {% block css %}{% endblock %}
   {% block headmedia %}{% endblock headmedia %}
 
@@ -123,21 +124,21 @@
 <!--<script src="{% static 'js/main.js' %} "></script> -->
 
 
-{% compress js %}
+
 
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/browser.min.js' %}"></script>
 <script src="{% static 'js/breakpoints.min.js' %}"></script>
 <script src="{% static 'js/util.js' %}"></script>
 
-{% endcompress %}
+
 
 
 {% block js %}
 {% endblock js %}
 
 
-{% render_bundle 'main' 'js' %}
+
 
 {% block footer %}
 {% endblock footer %}
