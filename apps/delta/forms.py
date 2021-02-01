@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.forms.models import ModelForm
 
 from .models import CapitalGiro
@@ -45,6 +46,12 @@ class FinanciamentoVeiculoForm(BaseForm):
     class Meta:
         model = FinanciamentoVeiculo
         fields = "__all__"
+
+    def clean_cpf(self):
+        cpf = self.cleaned_data["cpf"]
+        if cpf.startswith("0"):
+            raise ValidationError("nao podec omeçar com 0")
+        return cpf
 
 
 class CartaoCreditoForm(BaseForm):

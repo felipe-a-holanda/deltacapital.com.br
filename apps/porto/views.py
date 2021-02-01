@@ -90,9 +90,11 @@ class PropostaUpdateView(LoginRequiredMixin, UpdateView):
         context = super(PropostaUpdateView, self).get_context_data(**kwargs)
         page = self.kwargs.get("page", 1)
         back_stage = page - 1
+
         if back_stage > 0:
             context["current_stage"] = page
             context["back_stage"] = back_stage
+
         return context
 
     def get_success_url(self):
@@ -106,6 +108,7 @@ class PropostaUpdateView(LoginRequiredMixin, UpdateView):
         )
 
 
+#Old:
 class PropostaView(LoginRequiredMixin, FormView):
     template_name = "porto/proposta/proposta.html"
     proposta = None
@@ -150,9 +153,9 @@ class PropostaView(LoginRequiredMixin, FormView):
         return super().dispatch(request, *args, **kwargs)
 
     def run_simulation(self, proposta, form):
-        from .tasks import get_simulation
+        from .tasks import run_simulation
 
-        get_simulation.delay(proposta.pk, form.cleaned_data)
+        run_simulation.delay(proposta.pk, form.cleaned_data)
 
     def get_user(self):
         u = self.request.GET.get("u")

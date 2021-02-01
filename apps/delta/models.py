@@ -8,6 +8,7 @@ class FinanciamentoVeiculo(models.Model):
     entrada = models.CharField("Valor de Entrada", max_length=100)
     cpf = models.CharField("CPF", max_length=100)
     telefone = models.CharField("Telefone", max_length=100)
+    # email = models.EmailField("E-mail")
 
     class Meta:
         verbose_name = "Financiamento de Veículo"

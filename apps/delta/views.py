@@ -19,6 +19,12 @@ from .tasks import send_default_email
 class HomeView(TemplateView):
     template_name = "delta/index.html"
 
+    def get_context_data(self, **kwargs):
+        context = super(HomeView, self).get_context_data(**kwargs)
+        print(context["view"].__dict__)
+        # embed()
+        return context
+
 
 home_view = HomeView.as_view()
 

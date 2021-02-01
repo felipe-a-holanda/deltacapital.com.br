@@ -153,7 +153,9 @@ ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 # TIME_ZONE = "UTC"
 TIME_ZONE = "America/Fortaleza"
 # https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-LANGUAGE_CODE = "pt-BR"
+LANGUAGE_CODE = "pt-br"
+
+LANGUAGES = (("pt-br", u"Português"),)
 # https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-i18n
@@ -164,6 +166,11 @@ USE_L10N = True
 USE_TZ = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#locale-paths
 LOCALE_PATHS = [str(ROOT_DIR / "locale")]
+
+DECIMAL_SEPARATOR = ","
+THOUSAND_SEPARATOR = "."
+USE_THOUSAND_SEPARATOR = True
+NUMBER_GROUPING = 3
 
 
 ADMIN_URL = env("DJANGO_ADMIN_URL", default="admin/")

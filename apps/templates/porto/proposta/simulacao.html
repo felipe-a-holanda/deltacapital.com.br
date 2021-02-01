@@ -37,7 +37,7 @@
     return $.ajax("{{api_url}}").then(function(data) {
       console.log("data==",data);
       if (data == null) return null;
-      if (data && data["status"]==1) return null;
+      if (data && data["estado_simulacao"]==1) return null;
       return data;
     });
 }, 1000); // 1 second delay between calls
@@ -56,11 +56,11 @@ function doUntilResult(doThis, t) {
         var returns = {{returns|safe }};
         return $.when(doThis()).then(function(data) { // $.when() caters for non-async functions to be passed.
 
-            if (data==null || data.status <= 1 ){
+            if (data==null || data.estado_simulacao <= 1 ){
                 return delay().then(poll);
             }else{
                 //window.location.href= "{{ return_url }}";
-                window.location.href = returns[data.status];
+                window.location.href = returns[data.estado_simulacao];
                 return data;
             }
             //return (data.simulado_em === null) ?  delay().then(poll) : data ; // continue on null, otherwise return data.
