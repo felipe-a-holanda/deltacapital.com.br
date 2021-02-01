@@ -6,6 +6,9 @@
 import '../sass/main.scss';
 import './masks.js';
 import './cep-fill.js';
+import './jquery.js';
+import './browser.min.js';
+import './breakpoints.min.js';
 import './util.js';
 
 (function($) {
