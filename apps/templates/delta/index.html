@@ -85,7 +85,7 @@
               odio porttitor sem non mi integer non faucibus.</p>
           </blockquote>
           <div class="author">
-            <div class="image"><img src="{% static 'images/pic01.jpg' %}" alt=""/></div>
+            <div class="image"><img src="{% static 'src/images/pic01.jpg' %}" alt=""/></div>
             <p class="credit">- <strong>Jane Doe</strong> <span>CEO - ABC Inc.</span>
             </p>
           </div>
@@ -98,7 +98,7 @@
               odio porttitor sem non mi integer non faucibus.</p>
           </blockquote>
           <div class="author">
-            <div class="image"><img src="{% static 'images/pic03.jpg' %} " alt=""/>
+            <div class="image"><img src="{% static 'src/images/pic03.jpg' %} " alt=""/>
             </div>
             <p class="credit">- <strong>John Doe</strong> <span>CEO - ABC Inc.</span>
             </p>
@@ -112,7 +112,7 @@
               odio porttitor sem non mi integer non faucibus.</p>
           </blockquote>
           <div class="author">
-            <div class="image"><img src="{% static 'images/pic02.jpg' %}" alt=""/></div>
+            <div class="image"><img src="{% static 'src/images/pic02.jpg' %}" alt=""/></div>
             <p class="credit">- <strong>Janet Smith</strong> <span>CEO - ABC Inc.</span>
             </p>
           </div>
@@ -127,13 +127,4 @@
 
 {% block js %}
 
-<script src="{% static 'js/parallax.js' %}"></script>
-
-
-<script>
-	// Pretty simple huh?
-	var scene = document.getElementById('banner');
-	var parallax = new Parallax(scene);
-
-</script>
 {% endblock js %}

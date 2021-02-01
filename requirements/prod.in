@@ -1,3 +1,4 @@
 -r base.in
 
+Collectfast  # https://github.com/antonagestam/collectfast/
 gunicorn  # https://github.com/benoitc/gunicorn
