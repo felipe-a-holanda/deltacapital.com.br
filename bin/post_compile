@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+compress_enabled() {
+python << END
+import sys
+
+from environ import Env
+
+env = Env(COMPRESS_ENABLED=(bool, False))
+if env('COMPRESS_ENABLED'):
+    sys.exit(0)
+else:
+    sys.exit(1)
+
+END
+}
+
+if compress_enabled
+then
+  python manage.py collectstatic --noinput
+  python manage.py compress --force
+fi
+python manage.py collectstatic --noinput
