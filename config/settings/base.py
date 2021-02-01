@@ -10,9 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 import sys
+import warnings
 from pathlib import Path
 
 import environ
+
+warnings.filterwarnings("ignore", category=UserWarning, module=r".*environ")
+
 
 ROOT_DIR = Path(__file__).parents[2]  # user-records/)
 BASE_DIR = str(ROOT_DIR)
@@ -66,7 +70,7 @@ LOCAL_APPS = [
     "apps.users.apps.UsersConfig",
     "apps.delta.apps.DeltaConfig",
     "apps.porto.apps.PortoConfig",
-    "apps.gestao.apps.GestaoConfig",
+    #"apps.gestao.apps.GestaoConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
