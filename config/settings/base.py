@@ -53,7 +53,7 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-    "webpack_loader",
+    #"webpack_loader",
     "compressor",
     "allauth",
     "allauth.account",
@@ -248,7 +248,7 @@ WEBPACK_LOADER = {
     }
 }
 
-COMPRESS_ENABLED = True
+COMPRESS_ENABLED = False
 COMPRESS_OFFLINE = False
 COMPRESS_ROOT = STATIC_ROOT
 
