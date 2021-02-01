@@ -1,0 +1,206 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 18px;
+  line-height: 1.5;
+  font-weight: 300;
+  color: #333;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-color: #ecf0f9;
+  background-attachment: fixed;
+}
+
+.content {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 1000px;
+}
+
+.heading {
+  width: 100%;
+  margin-left: 1rem;
+  font-weight: 900;
+  font-size: 1.618rem;
+  text-transform: uppercase;
+  letter-spacing: .1ch;
+  line-height: 1;
+  padding-bottom: .5em;
+  margin-bottom: 1rem;
+  position: relative;
+}
+.heading:after {
+  display: block;
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(135deg, #1a9be6, #1a57e6);
+  bottom: 0;
+}
+
+.description {
+  width: 100%;
+  margin-top: 0;
+  margin-left: 1rem;
+  margin-bottom: 3rem;
+}
+
+.card {
+  color: inherit;
+  cursor: pointer;
+  width: calc(50% - 4rem);
+  min-width: calc(50% - 4rem);
+  height: 400px;
+  min-height: 400px;
+  perspective: 1000px;
+  margin: 2rem;
+  position: relative;
+}
+.card .icon {
+  font-size: 4rem;
+  color: _palette(accent1, bg);
+}
+.card .button {
+  transform: translateZ(80px);
+  cursor: pointer;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  font-weight: bold;
+  color: #fff !important;
+  padding: .5em 1em;
+  border-radius: 100px;
+  font: inherit;
+  border: none;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: 300ms ease;
+}
+.card .button:before {
+  transition: 300ms ease;
+  position: absolute;
+  display: block;
+  content: '';
+  transform: translateZ(-80px);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  height: calc(100% - 20px);
+  width: calc(100% - 20px);
+  border-radius: 100px;
+  left: 10px;
+  top: 16px;
+}
+.card .button:hover {
+  transform: translateZ(280px);
+  color: #fff !important;
+}
+.card .button:hover:before {
+  transform: translateZ(-280px);
+}
+.card .button:active {
+  transform: translateZ(40px);
+}
+.card .button:active:before {
+  transform: translateZ(-40px);
+  top: 12px;
+}
+
+.front,
+.back {
+  display: flex;
+  border-radius: 20px;
+  background-position: center;
+  background-size: cover;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transition: ease-in-out 900ms;
+}
+
+.front {
+  background-size: cover;
+  padding: 2rem;
+  font-size: 1.618rem;
+  font-weight: 600;
+  color: #000;
+  overflow: hidden;
+  font-family: Poppins, sans-serif;
+}
+.front:before {
+  position: absolute;
+  display: block;
+  content: '';
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  opacity: 1;
+  z-index: -1;
+}
+.card:hover .front {
+  transform: rotateY(180deg) rotateZ(180deg);
+}
+.card:nth-child(even):hover .front {
+  transform: rotateY(-180deg);
+}
+
+.back {
+  color: #fff;
+  transform: rotateY(-180deg);
+  padding: 0 2em;
+}
+.back:before {
+  position: absolute;
+  display: block;
+  content: '';
+  border-radius: 20px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #c41ae6, #e61a3c);
+  opacity: .75;
+  z-index: -1;
+}
+.back .button {
+  background: linear-gradient(135deg, #1a9be6, #1a57e6);
+}
+.back .button:before {
+  box-shadow: 0 0 10px 10px rgba(26, 87, 230, 0.25);
+  background-color: rgba(26, 87, 230, 0.25);
+}
+.card:hover .back {
+  transform: rotateY(0deg);
+}
+.card:nth-child(even) .back {
+  transform: rotateY(180deg);
+}
+.card:nth-child(even) .back .button {
+  background: linear-gradient(135deg, #e61a80, #e61a3c);
+}
+.card:nth-child(even) .back .button:before {
+  box-shadow: 0 0 10px 10px rgba(230, 26, 60, 0.25);
+  background-color: rgba(230, 26, 60, 0.25);
+}
+.card:nth-child(even):hover .back {
+  transform: rotateY(0deg);
+}
+
+/*# sourceMappingURL=card-flip.css.map */
