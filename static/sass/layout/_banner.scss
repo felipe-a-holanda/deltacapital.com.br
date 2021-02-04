@@ -227,18 +227,19 @@
 		}
 	}
 
+	//Onda branca 
 #shape-mask{
 	position: relative;
 	bottom: 9%;
-	width: 100%;
+	width: 100%; // fundo da onda modifica
 	height: 10%;
   margin: 0;
 	z-index: 10;
   -webkit-mask-image: url('../../images/shape.svg');
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-size: 100%;
-  -webkit-mask-position-x: 50%;
-  -webkit-mask-position-y: 90%; // Barra branca onda
+  -webkit-mask-position-x: 100%;
+  -webkit-mask-position-y: 100%; // Barra branca onda
 	
 	
 	
