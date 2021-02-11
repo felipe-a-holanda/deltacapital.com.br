@@ -1,0 +1,17 @@
+{% extends 'delta/produtos/base_produto.html' %} {% block content %}
+
+{% load static compress %}
+
+<section class="wrapper form">
+  <h3 class="form_title">Cartão de Crédito Pessoa Física</h3>
+  
+</section>
+
+{% compress js %}
+<script src="{% static 'js/form-cartao-pessoa-fisica.js' %}"></script>
+{% endcompress %}
+
+{% block js %}
+{% endblock js %}
+
+{% endblock content %}

@@ -1,0 +1,240 @@
+// @import "compass/css3";
+
+section.wrapper.form {
+    padding: 12% 7%;
+  }
+  // Todo: clean padding override from form.scss
+  section.form .inner-form {
+    background-color: white;
+    width: 100%;
+    max-width: 100%;
+    padding: 1rem 0;
+    position: relative;
+  }
+  
+  section.form form {
+    padding: 0 2rem;
+    @media (min-width: 700px) {
+      max-width: 70%;
+      margin: auto;
+    }
+  }
+  
+  //Animação entre as sections n funciona
+  // .section{
+  //   transition: all 0.8s linear;
+  //   -webkit-transition: all 0.8s linear;
+  //   -moz-transition: all 0.2s linear;
+  //   opacity: 1;
+  //   position: relative;
+  //   top: 0;
+  // }
+  
+  // .section.inactive {
+  //   top: -250px;
+  //   opacity: 0;
+  // }
+  
+  .form_head {
+    text-align: center;
+  }
+  
+  .form_title {
+    color: #3951b2;
+    font-weight: 600;
+    text-align: center;
+  }
+  
+  .form_subtitle {
+    color: #3d4459;
+    font-weight: 600;
+    text-transform: none;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .label-float {
+    position: relative;
+    padding-top: 13px;
+    margin: 1rem auto 0.2rem;
+    max-width: 600px;
+  }
+  
+  .label-float input:not(.invalid):hover {
+    border-color: black;
+  }
+  
+  .label-float input {
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    outline: none;
+    min-width: 450px;
+    padding: 15px 20px;
+    font-size: 16px;
+    transition: all 0.1s linear;
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    -webkit-appearance: none;
+    margin: 0 auto;
+  }
+  .label-float input:focus {
+    border: 2px solid #3951b2;
+    background-color: white;
+  }
+  
+  .label-float input::placeholder {
+    color: transparent;
+  }
+  
+  .label-float label {
+    color: #3d4459;
+    pointer-events: none;
+    position: absolute;
+    top: calc(50% - 8px);
+    left: 15px;
+    font-size: 18px;
+    transition: all 0.1s linear;
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    background-color: white;
+    padding: 5px;
+    box-sizing: border-box;
+    margin: 0; //todo: clean override
+  }
+  
+  .label-float .invalid + label {
+    font-size: 13px;
+    top: 0;
+    color: red;
+  }
+  .label-float .invalid {
+    border: 2px solid red;
+  }
+  .label-float .invalid + label:before {
+    content: "*";
+  }
+  .label-float .invalid + label:before {
+    color: red;
+  }
+  
+  .label-float input:focus + label {
+    font-size: 15px;
+    top: 0;
+    color: #3951b2;
+  }
+  
+  .label-float input:not(:placeholder-shown) + label {
+    font-size: 15px;
+    top: 0;
+  }
+  
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover, 
+  input:-webkit-autofill:focus, 
+  input:-webkit-autofill:active  {
+      -webkit-box-shadow: 0 0 0 30px white inset !important;
+  }
+  
+  
+  // Todo: clean overrided style
+  .form form button.button-submit {
+    background-color: #374eff;
+    height: 40px;
+    width: 450px;
+    border-spacing: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    -webkit-border-radius: 1000px;
+    -moz-border-radius: 100px;
+    border: 1px solid;
+    color: rgb(250, 250, 250);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem auto;
+    font-weight: 400;
+    font-size: 1rem;
+  }
+  
+  .form form button.button-submit:hover {
+    color: white !important;
+  }
+  
+  button:focus {
+    outline: none !important;
+  }
+  
+  .inactive {
+    display: none !important;
+  }
+  
+  .error {
+    opacity: 0;
+    color: red;
+    line-height: 0.1cm;
+    text-align: left;
+    transition: all 0.2s linear;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    top: 0;
+    text-align: left;
+    transition-timing-function: linear;
+    font-size: 13px;
+  }
+  
+  .error.active {
+    position: relative;
+    opacity: 1;
+    display: block;
+    top: 10px;
+    background-color: white;
+    color: red;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  #back_button{
+    position: absolute;
+    left: 3%;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #374eff;
+  }
+  
+  .progress {
+    width: 100%;
+    height: 5px;
+  }
+  .progress-wrap {
+    background: #374eff;
+    overflow: hidden;
+    position: relative;
+    .progress-bar {
+      background: #caccff;
+      left: 0;
+      position: absolute;
+      top: 0;
+    }
+  }
+  
+  .form-dropdown {
+    min-width: 450px;
+    padding: 15px 20px;
+    border-radius: 7px;
+    border: 0 solid #ffffff;
+    font-family: "montserrat";
+    font-size: 15px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    color: gray;
+  }
+  
+  .label-float select:hover:focus + label, .label-float select:not(:placeholder-shown) + label {
+    font-size: 13px;
+    top: 0;
+    color:  #3951b2;
+    background-color: white;}
