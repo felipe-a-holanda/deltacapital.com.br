@@ -1,5 +1,6 @@
 
-var Inputmask = require('inputmask');
+
+import Inputmask from "inputmask";
 
 $(document).ready(function(){
 
