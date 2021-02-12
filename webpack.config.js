@@ -126,6 +126,10 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.ProvidePlugin({
+       $: "jquery",
+       jQuery: "jquery"
+      }),
     !DEV && new CleanWebpackPlugin({
       cleanAfterEveryBuildPatterns: 'build/**/*'
     }),
