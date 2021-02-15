@@ -126,7 +126,6 @@ function updatePercentage(){
   const sectionNumber = $('.section:not(.inactive)').attr('id').slice(-1);  
   const totalSection = $('.section').length;
   const percentage = (sectionNumber / (totalSection+1));
-  console.log(percentage);  
   $("#progress-div").attr('data-progress-percent', percentage);
   $("#progress-div").data('progress-percent', percentage);
   moveProgressBar();
