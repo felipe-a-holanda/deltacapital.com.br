@@ -38,7 +38,7 @@ function verificarInputs(event) {
   // se não tiver não prenchido chama próxima seção
 
   $.each(activeDiv, function(index, Div) {
-    var input = $(Div).children('input').first();
+    var input = $(Div).children('input, select').first();
     var erroMsg =  $(Div).children('.error').first();
 
     if (!input.val()) {
