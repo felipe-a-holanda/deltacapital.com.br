@@ -42,7 +42,7 @@
 		}
 
 		h1 {
-			font-size: 4rem;
+			font-size: 3rem;
 			margin-bottom: 1rem;
 			//margin-right: -300px;
 			margin-top: -75px;
@@ -110,7 +110,7 @@
 			}
 			}
 		//Img Man
-		@media only screen and (max-device-width: 500px) {
+		@media only screen and (max-device-width: 666px) {
 			#man {
 				display: none !important;		
 			}

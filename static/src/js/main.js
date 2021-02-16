@@ -8,4 +8,5 @@ import '../sass/main.scss';
 import './masks.js';
 import './cep-fill.js';
 import './new_form.js';
+import './topbar.js';
 import './browser.min.js';

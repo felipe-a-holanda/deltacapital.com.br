@@ -108,8 +108,8 @@ body {
   }
 
   .button {
-    $height: 80px;
-    transform: translateZ($height);
+    $height: 70px;
+    transform: translateZ(10px);
     cursor: pointer;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
@@ -139,11 +139,11 @@ body {
     }
 
     &:hover {
-      transform: translateZ($height + 200px);
+      transform: translateZ(30px);
       color: #fff !important;
 
       &:before {
-        transform: translateZ(-($height + 200px));
+        transform: translateZ(-30px);
       }
     }
 

@@ -65,7 +65,7 @@
     </div>
   </div>
   <a href="#contato">Contato</a>
-  <a href="javascript:void(0);" class="icon" onclick="show_menu()">&#9776;</a>
+  <a href="javascript:void(0);" class="icon" onclick="show_menu();">&#9776;</a>
 
 
   {% block menuextra %}{% endblock menuextra%}
@@ -74,7 +74,19 @@
 
 {% block content %}{% endblock content %}
 
-
+<script>
+  function show_menu() {    
+    var myTopnav =  $("#myTopnav");
+    console.log('my');
+    
+    if (myTopnav.hasClass('responsive')) {
+      myTopnav.removeClass('responsive');
+      // myTopnav.className += " responsive";
+    } else {
+      myTopnav.addClass('responsive');
+    }
+  }
+</script>
 <!-- Footer -->
 <footer id="footer">
   <div class="inner">
