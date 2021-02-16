@@ -7,12 +7,12 @@
 		@include vendor('align-items', 'center');
 		@include vendor('display', 'flex');
 		@include vendor('justify-content', 'center');
-		//background-image: url('../../images/banner.jpg');
-		//background-image: url('../images/pattern.webp');
-		background-image: url('../../images/bg_color.jpg');
-		background-position: center;
-		background-repeat: no-repeat;
-		background-size: cover;
+		// //background-image: url('../../images/banner.jpg');
+		// //background-image: url('../images/pattern.webp');
+		// background-image: url('../../images/bg_color.jpg');
+		// background-position: center;
+		// background-repeat: no-repeat;
+		// background-size: cover;
 		border-top: 0;
 		display: -ms-flexbox;
 		height: 35rem !important;
@@ -26,6 +26,7 @@
 		
 
 		> .inner {
+			color: white;
 			@include vendor('transform', 'scale(1.0)');
 			@include vendor('transition', (
 				'opacity #{_duration(banner)} ease',
@@ -80,9 +81,8 @@
 		
 		.float-img{
 			position:absolute;
-			width: 90vw;
-			right: -200px !important;
-			top: 10vh !important;
+			right: 100px;
+			bottom: -100px;
 			left:auto;
 			z-index: 2;
 		}
@@ -110,22 +110,23 @@
 			}
 			}
 		//Img Man
-		@media only screen and (max-device-width: 400px) {
+		@media only screen and (max-device-width: 500px) {
 			#man {
 				display: none !important;		
-			}
-			}
-		@media only screen and (max-device-width: 700px) {
-			#man {
-				max-width: 30%;
 			}
 			}	
 			//Rever 
 		@media only screen and (max-device-width: 1200px) {
 			#man {
-				max-width: 100%;
-				margin-top: -50px;
-				left: 200px;
+				max-width: 40%;
+    			right: 0px;
+			}
+			}
+		@media only screen and (max-device-width: 740px) {
+			#man {
+				max-width: 30%;
+				right: -70px;
+				bottom: -170px;
 			}
 			}
 
@@ -173,7 +174,7 @@
 			// }
 		}
 		
-		@include breakpoint('>large') {
+		@include breakpoint('>small') {
 			> .inner {
 				width: 45%;
 				left: -25%;
@@ -186,7 +187,7 @@
 			padding: 4rem 2rem 4rem 2rem;
 
 			.inner {
-				width: 100%;
+				width: 70%;
 			}
 
 			h1 {
