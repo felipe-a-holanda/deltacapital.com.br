@@ -11,11 +11,15 @@
   <div class="inner-form form">
     <form action="" method="post">
       {% csrf_token %}
-      <input
-        type="hidden"
-        name="csrfmiddlewaretoken"
-        value="ywoKFML58e2Glpz6CQe9nnIiKzGdx8u58BS5FumsF2ANyzCoxyYtEBGg3hkSw8L2"
-      />
+
+      {{ form.errors }}
+      {{ form.non_field_errors }}
+
+      {% for hidden_field in form.hidden_fields %}
+        {{ hidden_field.errors }}
+        {{ hidden_field }}
+      {% endfor %}
+
       <div id="back_button" onclick="backSection(event);" class="inactive">
         <span id='arrow'>&#8617;</span>
         <span>Voltar</span>
@@ -26,15 +30,10 @@
           <h4 class="form_subtitle">Primeiro precisamos saber alguns dados para te identificar:</h4>
         </div>
       <div class="form-group label-float cpf ">
-        <input
-          type="text"
-          name="cpf"
-          maxlength="100"
-          class="cpf form-control"
-          required
-          id="id_cpf"
-        />
+
+        {{ form.cpf }}
         <label for="id_cpf">CPF</label>
+
         <div class="error">
           <span> OBRIGATÓRIO! </span>
         </div>
@@ -43,13 +42,14 @@
       <div class="form-group label-float name inactive">
         <input
           type="text"
-          name="name"
+          name="nome"
           maxlength="200"
           class="name form-control"
           required
           id="id_name"
         />
         <label for="id_name">Nome Completo</label>
+        {{ form.nome.errors }}
         <div class="error">
           <span> OBRIGATÓRIO! </span>
         </div>
@@ -65,6 +65,7 @@
           id="id_email"
         />
         <label for="id_email">E-mail</label>
+        {{ form.email.errors }}
         <div class="error">
           <span> OBRIGATÓRIO! </span>
         </div>
@@ -83,6 +84,7 @@
             id="id_valor_do_veiculo"
           />
           <label for="id_valor_do_veiculo">Valor do Veículo</label>
+          {{ form.valor_do_veiculo.errors }}
           <div class="error">
             <span> OBRIGATÓRIO! </span>
           </div>
@@ -98,6 +100,7 @@
             id="id_entrada"
           />
           <label for="id_entrada">Valor de Entrada</label>
+          {{ form.entrada.errors }}
           <div class="error">
             <span> OBRIGATÓRIO! </span>
           </div>
@@ -113,19 +116,24 @@
             id="id_ano"
           />
           <label for="id_ano">Ano de fabricação</label>
+          {{ form.ano.errors }}
           <div class="error">
             <span> OBRIGATÓRIO! </span>
           </div>
         </div>
 
         <div class="label-float form-group inactive">
-          <select id="dropdown" name="best-option" class="form-dropdown" placeholder=" ">
+          <select id="id_tipo_veiculo" name="tipo_veiculo" class="form-dropdown" placeholder=" ">
             <option value="select" disabled selected >  </option>
             <option value="carro"> Carro </option>
             <option value="moto"> Moto </option>
-            <option value="utilitário"> Utilitário </option>
-            <option value="caminhão"> Caminhão</option>
+            <option value="utilitario"> Utilitário </option>
+            <option value="caminhao"> Caminhão</option>
           </select>
+
+          {{ form.tipo_veiculo }}
+
+          {{ form.tipo_veiculo.errors }}
           <label> O que deseja financiar? </label>
         </div>
       </div>
@@ -142,6 +150,7 @@
             id="id_telefone"
           />
           <label for="id_telefone">Telefone</label>
+          {{ form.telefone.errors }}
           <div class="error">
             <span> OBRIGATÓRIO! </span>
           </div>
@@ -158,6 +167,7 @@
     </form>
   </div>
 </section>
+
 
 
 <script src="{% static 'src/js/new_form.js' %}"></script>

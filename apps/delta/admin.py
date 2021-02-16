@@ -7,7 +7,8 @@ from .models import FinanciamentoVeiculo
 
 @admin.register(FinanciamentoVeiculo)
 class FinanciamentoVeiculoAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["cpf", "telefone", "email", "tipo_veiculo", "valor_do_veiculo", "criado_em"]
+    list_filter = ["tipo_veiculo", "criado_em"]
 
 
 @admin.register(CartaoCredito)
