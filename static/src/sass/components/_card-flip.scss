@@ -36,13 +36,17 @@ body {
   background-attachment: fixed;
 }
 
+//espaço dos cards 
 .content {
   display: flex;
   margin: 0 auto;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  max-width: 1300px;
+  max-width: 1200px;
+  margin-top: -100px; // subindo os cards
+  margin-bottom: 0px;
+  padding: 50px 0px 20px 0px;
 }
 
 .heading {
@@ -80,8 +84,8 @@ body {
   cursor: pointer;
   width: calc(33% - 4rem);
   min-width: calc(33% - 4rem);
-  height: 400px;
-  min-height: 400px;
+  height: 300px;
+  //min-height: 400px;
   perspective: 1000px;
   margin: 2rem;
   position: relative;
@@ -200,13 +204,11 @@ body {
     z-index: -1;
   }
 
-
-
-
+  //Animação Cards
 
   .card:hover & {
-    transform: rotateY(180deg) rotateZ(180deg);
-  }
+    transform: rotateY(180deg) //rotateZ(180deg);
+     }
 
   .card:nth-child(even):hover & {
     transform: rotateY(-180deg);
@@ -253,7 +255,8 @@ body {
     transform: rotateY(180deg);
 
     .button {
-      background: linear-gradient(135deg, adjust-hue($secondary, -20deg), $secondary);
+    //Button roxo (2ª cor)
+      //background: linear-gradient(135deg, adjust-hue($secondary, -20deg), $secondary);
 
       &:before {
         box-shadow: 0 0 10px 10px rgba($secondary, 0.25);
