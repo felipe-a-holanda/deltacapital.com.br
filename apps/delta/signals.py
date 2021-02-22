@@ -1,8 +1,6 @@
-
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.utils import timezone
-
 
 
 @receiver(pre_save)

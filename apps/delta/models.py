@@ -12,9 +12,8 @@ class TimedModel(models.Model):
         abstract = True
 
 
-
 class FinanciamentoVeiculo(TimedModel):
-    TIPOS_VEICULO =(
+    TIPOS_VEICULO = (
         ("carro", "Carro"),
         ("moto", "Moto"),
         ("utilitario", "Utilitário"),
@@ -25,14 +24,12 @@ class FinanciamentoVeiculo(TimedModel):
     email = models.EmailField("E-mail", default="")
     telefone = models.CharField("Telefone", max_length=100)
 
-    tipo_veiculo = models.CharField(choices=TIPOS_VEICULO, max_length=100, default="carro")
+    tipo_veiculo = models.CharField(
+        choices=TIPOS_VEICULO, max_length=100, default="carro"
+    )
     valor_do_veiculo = models.CharField("Valor do Veículo", max_length=100)
     entrada = models.CharField("Valor de Entrada", max_length=100)
     ano = models.PositiveSmallIntegerField(default=1)
-
-
-
-
 
     class Meta:
         verbose_name = "Financiamento de Veículo"

@@ -108,7 +108,7 @@ class PropostaUpdateView(LoginRequiredMixin, UpdateView):
         )
 
 
-#Old:
+# Old:
 class PropostaView(LoginRequiredMixin, FormView):
     template_name = "porto/proposta/proposta.html"
     proposta = None

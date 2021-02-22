@@ -53,8 +53,8 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-    #"webpack_loader",
-    #"compressor",
+    # "webpack_loader",
+    # "compressor",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
@@ -70,7 +70,7 @@ LOCAL_APPS = [
     "apps.users.apps.UsersConfig",
     "apps.delta.apps.DeltaConfig",
     "apps.porto.apps.PortoConfig",
-    #"apps.gestao.apps.GestaoConfig",
+    # "apps.gestao.apps.GestaoConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -84,7 +84,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -191,7 +190,7 @@ STATICFILES_DIRS = [str(ROOT_DIR / "static")]
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    #"compressor.finders.CompressorFinder",
+    # "compressor.finders.CompressorFinder",
 ]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"

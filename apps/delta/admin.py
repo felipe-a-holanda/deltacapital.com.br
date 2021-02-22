@@ -7,7 +7,14 @@ from .models import FinanciamentoVeiculo
 
 @admin.register(FinanciamentoVeiculo)
 class FinanciamentoVeiculoAdmin(admin.ModelAdmin):
-    list_display = ["cpf", "telefone", "email", "tipo_veiculo", "valor_do_veiculo", "criado_em"]
+    list_display = [
+        "cpf",
+        "telefone",
+        "email",
+        "tipo_veiculo",
+        "valor_do_veiculo",
+        "criado_em",
+    ]
     list_filter = ["tipo_veiculo", "criado_em"]
 
 

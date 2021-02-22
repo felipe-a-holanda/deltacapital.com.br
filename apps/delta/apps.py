@@ -9,4 +9,3 @@ class DeltaConfig(AppConfig):
             import apps.delta.signals  # noqa F401
         except ImportError:
             pass
-
