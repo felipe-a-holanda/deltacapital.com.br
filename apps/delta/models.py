@@ -19,7 +19,7 @@ class FinanciamentoVeiculo(TimedModel):
         ("utilitario", "Utilitário"),
         ("caminhao", "Caminhão"),
     )
-
+    nome = models.CharField('Nome', max_length=300, null= True )
     cpf = models.CharField("CPF", max_length=100)
     email = models.EmailField("E-mail", default="")
     telefone = models.CharField("Telefone", max_length=100)
@@ -29,7 +29,7 @@ class FinanciamentoVeiculo(TimedModel):
     )
     valor_do_veiculo = models.CharField("Valor do Veículo", max_length=100)
     entrada = models.CharField("Valor de Entrada", max_length=100)
-    ano = models.PositiveSmallIntegerField(default=1)
+    ano = models.PositiveSmallIntegerField(default=2010, max_length=4)
 
     class Meta:
         verbose_name = "Financiamento de Veículo"

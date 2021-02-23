@@ -69,6 +69,7 @@ section.form form {
   border-radius: 5px;
   outline: none;
   min-width: 450px;
+  width: 100%;
   padding: 15px 20px;
   font-size: 16px;
   transition: all 0.1s linear;
@@ -220,7 +221,7 @@ button:focus {
   }
 }
 
-.form-dropdown {
+.label-float select {
   min-width: 450px;
   padding: 15px 20px;
   border-radius: 7px;
@@ -237,4 +238,11 @@ button:focus {
   top: 0;
   color:  #3951b2;
   background-color: white;
+}
+
+.listErrrors {
+  background-color: #ff000057;
+  li {
+    list-style: inside;
+  }
 }

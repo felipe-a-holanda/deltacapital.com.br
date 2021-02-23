@@ -11,9 +11,11 @@
   <div class="inner-form form">
     <form action="" method="post">
       {% csrf_token %}
-
+      
+      <div class='listErrrors'>
       {{ form.errors }}
       {{ form.non_field_errors }}
+    </div>
 
       {% for hidden_field in form.hidden_fields %}
         {{ hidden_field.errors }}
@@ -30,7 +32,6 @@
           <h4 class="form_subtitle">Primeiro precisamos saber alguns dados para te identificar:</h4>
         </div>
       <div class="form-group label-float cpf ">
-
         {{ form.cpf }}
         <label for="id_cpf">CPF</label>
 
@@ -40,15 +41,9 @@
       </div>
 
       <div class="form-group label-float name inactive">
-        <input
-          type="text"
-          name="nome"
-          maxlength="200"
-          class="name form-control"
-          required
-          id="id_name"
-        />
-        <label for="id_name">Nome Completo</label>
+        {{ form.nome }}
+        <label for="id_nome">Nome Completo</label>
+        
         {{ form.nome.errors }}
         <div class="error">
           <span> OBRIGATÓRIO! </span>
@@ -56,14 +51,7 @@
       </div>
 
       <div class="form-group label-float email inactive">
-        <input
-          type="text"
-          name="email"
-          maxlength="200"
-          class="email form-control"
-          required
-          id="id_email"
-        />
+        {{ form.email }}
         <label for="id_email">E-mail</label>
         {{ form.email.errors }}
         <div class="error">
@@ -75,14 +63,7 @@
       <div class="section inactive" id='section_2'>
         <h3 class="form_subtitle">Agora nos informe alguns detalhes sobre seu financiamento:</h1>
         <div class="label-float form-group moeda inactive">
-          <input
-            type="text"
-            name="valor_do_veiculo"
-            maxlength="100"
-            class="moeda form-control"
-            required
-            id="id_valor_do_veiculo"
-          />
+          {{ form.valor_do_veiculo }}
           <label for="id_valor_do_veiculo">Valor do Veículo</label>
           {{ form.valor_do_veiculo.errors }}
           <div class="error">
@@ -91,14 +72,7 @@
         </div>
 
         <div class="label-float form-group moeda inactive">
-          <input
-            type="text"
-            name="entrada"
-            maxlength="100"
-            class="moeda form-control"
-            required
-            id="id_entrada"
-          />
+          {{ form.entrada }}
           <label for="id_entrada">Valor de Entrada</label>
           {{ form.entrada.errors }}
           <div class="error">
@@ -107,14 +81,7 @@
         </div>
 
         <div class="label-float form-group moeda inactive">
-          <input
-            type="text"
-            name="ano"
-            maxlength="100"
-            class="numeric form-control"
-            required
-            id="id_ano"
-          />
+          {{ form.ano }}
           <label for="id_ano">Ano de fabricação</label>
           {{ form.ano.errors }}
           <div class="error">
@@ -123,32 +90,17 @@
         </div>
 
         <div class="label-float form-group inactive">
-          <select id="id_tipo_veiculo" name="tipo_veiculo" class="form-dropdown" placeholder=" ">
-            <option value="select" disabled selected >  </option>
-            <option value="carro"> Carro </option>
-            <option value="moto"> Moto </option>
-            <option value="utilitario"> Utilitário </option>
-            <option value="caminhao"> Caminhão</option>
-          </select>
-
           {{ form.tipo_veiculo }}
-
-          {{ form.tipo_veiculo.errors }}
           <label> O que deseja financiar? </label>
+          {{ form.tipo_veiculo.errors }}
+
         </div>
       </div>
 
       <div class="section inactive" id='section_3'>
         <h4 class="form_subtitle">Qual é o seu Telefone para contato?</h4> 
         <div class="label-float form-group celular inactive">
-          <input
-            type="text"
-            name="telefone"
-            maxlength="100"
-            class="celular form-control"
-            required
-            id="id_telefone"
-          />
+          {{ form.telefone }}
           <label for="id_telefone">Telefone</label>
           {{ form.telefone.errors }}
           <div class="error">
