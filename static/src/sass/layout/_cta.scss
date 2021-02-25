@@ -14,11 +14,9 @@
 		.inner {
 			position: relative;
 			z-index: 3;
-		}
-
-		p{
 			font-weight: bold;
 		}
+
 
 		@include breakpoint('<=medium') {
 			background-attachment: scroll;
