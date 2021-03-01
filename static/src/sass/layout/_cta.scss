@@ -14,7 +14,11 @@
 		.inner {
 			position: relative;
 			z-index: 3;
-			font-weight: bold;
+			background: #0000009e;
+			padding: 1rem;
+			p {
+				font-size: 1.2rem;
+			}
 		}
 
 

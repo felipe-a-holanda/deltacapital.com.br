@@ -91,24 +91,26 @@
 			max-width: 6vw;
 		}
 		//Img Logo
-		@media (max-device-width: 300px) {
-			.logo {
-				max-width: 100px;
-				margin-bottom: 50px;
-			}
-			}
-		@media (max-device-width: 710px) {
-			.logo {
-				max-width: 40%;
-				margin-bottom: 6%;
-			}
-			}	
+		
 		@media (max-device-width: 1200px) {
 			.logo {
 				max-width: 50%;
 				margin-bottom: 10%;
 			}
 			}
+			@media (max-device-width: 710px) {
+				.logo {
+					max-width: 40%;
+					margin-bottom: 50%;
+				}
+				}
+				@media (max-device-width: 300px) {
+					.logo {
+						max-width: 100px;
+						margin-bottom: 50px;
+					}
+					}
+				
 		//Img Man
 		@media only screen and (max-device-width: 666px) {
 			#man {
