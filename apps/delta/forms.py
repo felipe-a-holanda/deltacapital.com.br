@@ -2,9 +2,16 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.models import ModelForm
 
+from validate_docbr import CPF
+
+
+
 from .models import CapitalGiro
 from .models import CartaoCredito
 from .models import FinanciamentoVeiculo
+
+
+cpf_validator = CPF()
 
 
 class BaseForm(ModelForm):
@@ -48,10 +55,11 @@ class FinanciamentoVeiculoForm(BaseForm):
         fields = "__all__"
 
     def clean_cpf(self):
-        cpf = self.cleaned_data["cpf"]
-        if cpf.startswith("0"):
-            raise ValidationError("nao podec omeçar com 0")
-        return cpf
+        cpf = self.cleaned_data["cpf"].strip()
+        if cpf_validator.validate(cpf):
+            return cpf
+        else:
+            raise ValidationError("CPF Inválido")
 
 
 class CartaoCreditoForm(BaseForm):
