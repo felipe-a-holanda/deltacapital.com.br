@@ -35,3 +35,6 @@ celery  # https://github.com/celery/celery
 markdown  # https://github.com/Python-Markdown/markdown/
 selenium  # https://github.com/SeleniumHQ/selenium
 splinter  # https://github.com/cobrateam/splinter
+
+
+validate-docbr  # https://github.com/alvarofpp/validate-docbr
