@@ -230,7 +230,7 @@ CELERY_RESULT_BACKEND = env.str("REDIS_URL", default=None)
 
 
 GOOGLE_CHROME_PATH = env.str(
-    "GOOGLE_CHROME_PATH", default="/app/.apt/usr/bin/google_chrome"
+    "GOOGLE_CHROME_PATH", default="/app/.apt/usr/bin/google-chrome"
 )
 CHROMEDRIVER_PATH = env.str(
     "CHROMEDRIVER_PATH", default="/app/.chromedriver/bin/chromedriver"
