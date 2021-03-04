@@ -1,23 +1,22 @@
 
 {% extends 'delta/base.html' %}
-{% load static compress %}
+{% load static %}
 
 {% block content %}
 <!-- Banner -->
 <section id="banner">
-
+ 
   <div class="inner" data-depth="0.10">
+    <img class="logo" src="{% static 'images/logo.png' %} "/> 
     <h1>Delta Capital</h1>
-    <p>Em todo lugar onde estamos presentes, buscamos oferecer produtos e serviços
-      financeiros ideais para que você alcance seus objetivos.<br>
+    <p>Somos um HUB de produtos financeiros simples, descomplicados e que facilitam de verdade a 
+      sua busca por soluções de crédito.<br>
 
     </p>
+
   </div>
 
-
-
-
-  <img class="float-img" src="{% static 'images/man_transparent.webp' %} "
+  <img class="float-img" id="man" src="{% static 'images/man_semfundo.png' %} "
        data-depth="0.40">
 
 
@@ -26,7 +25,7 @@
 
 
 <!-- Highlights -->
-<section class="wrapper">
+<!-- <section class="wrapper">
   <div class="inner">
     <header class="special">
       <h2>Nossos Serviços</h2>
@@ -35,7 +34,7 @@
     </header>
 
   </div>
-</section>
+</section> -->
 <section class="cards">
   <div class="card-columns">
     <div class="content">
@@ -68,72 +67,10 @@
   </div>
 </section>
 
-<!-- Testimonials -->
-<section class="wrapper">
-  <div class="inner">
-    <header class="special">
-      <h2>Faucibus consequat lorem</h2>
-      <p>In arcu accumsan arcu adipiscing accumsan orci ac. Felis id enim aliquet.
-        Accumsan ac integer lobortis commodo ornare aliquet accumsan erat tempus amet
-        porttitor.</p>
-    </header>
-    <div class="testimonials">
-      <section>
-        <div class="content">
-          <blockquote>
-            <p>Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida
-              odio porttitor sem non mi integer non faucibus.</p>
-          </blockquote>
-          <div class="author">
-            <div class="image"><img src="{% static 'images/pic01.jpg' %}" alt=""/></div>
-            <p class="credit">- <strong>Jane Doe</strong> <span>CEO - ABC Inc.</span>
-            </p>
-          </div>
-        </div>
-      </section>
-      <section>
-        <div class="content">
-          <blockquote>
-            <p>Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida
-              odio porttitor sem non mi integer non faucibus.</p>
-          </blockquote>
-          <div class="author">
-            <div class="image"><img src="{% static 'images/pic03.jpg' %} " alt=""/>
-            </div>
-            <p class="credit">- <strong>John Doe</strong> <span>CEO - ABC Inc.</span>
-            </p>
-          </div>
-        </div>
-      </section>
-      <section>
-        <div class="content">
-          <blockquote>
-            <p>Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida
-              odio porttitor sem non mi integer non faucibus.</p>
-          </blockquote>
-          <div class="author">
-            <div class="image"><img src="{% static 'images/pic02.jpg' %}" alt=""/></div>
-            <p class="credit">- <strong>Janet Smith</strong> <span>CEO - ABC Inc.</span>
-            </p>
-          </div>
-        </div>
-      </section>
-    </div>
-  </div>
-</section>
 {% endblock content %}
 
 
 
 {% block js %}
 
-<script src="{% static 'js/parallax.js' %}"></script>
-
-
-<script>
-	// Pretty simple huh?
-	var scene = document.getElementById('banner');
-	var parallax = new Parallax(scene);
-
-</script>
 {% endblock js %}

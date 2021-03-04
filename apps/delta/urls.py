@@ -1,6 +1,4 @@
 from django.urls import path
-from django.conf.urls.static import static
-from django.conf import settings
 
 from .views import capital_de_giro_view
 from .views import cartao_view
@@ -25,4 +23,4 @@ urlpatterns = [
     path("cartao-de-credito", cartao_view, name="cartao-de-credito"),
     path("emprestimo-pessoal", emprestimo_view, name="emprestimo-pessoal"),
     path("obrigado/", obrigado_view, name="obrigado"),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]

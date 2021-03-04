@@ -1,13 +1,35 @@
 # Create your models here.
 from django.core.validators import MaxValueValidator
 from django.db import models
+from django.utils import timezone
 
 
-class FinanciamentoVeiculo(models.Model):
+class TimedModel(models.Model):
+    criado_em = models.DateTimeField(blank=True, default=timezone.now)
+    modificado_em = models.DateTimeField(blank=True, default=timezone.now)
+
+    class Meta:
+        abstract = True
+
+
+class FinanciamentoVeiculo(TimedModel):
+    TIPOS_VEICULO = (
+        ("carro", "Carro"),
+        ("moto", "Moto"),
+        ("utilitario", "Utilitário"),
+        ("caminhao", "Caminhão"),
+    )
+    nome = models.CharField('Nome', max_length=300, null= True )
+    cpf = models.CharField("CPF", max_length=100)
+    email = models.EmailField("E-mail", default="")
+    telefone = models.CharField("Telefone", max_length=100)
+
+    tipo_veiculo = models.CharField(
+        choices=TIPOS_VEICULO, max_length=100, default="carro"
+    )
     valor_do_veiculo = models.CharField("Valor do Veículo", max_length=100)
     entrada = models.CharField("Valor de Entrada", max_length=100)
-    cpf = models.CharField("CPF", max_length=100)
-    telefone = models.CharField("Telefone", max_length=100)
+    ano = models.PositiveSmallIntegerField(default=2010, max_length=4)
 
     class Meta:
         verbose_name = "Financiamento de Veículo"
@@ -17,7 +39,7 @@ class FinanciamentoVeiculo(models.Model):
         return f"Financiamento de Veículo: {self.cpf} - {self.valor_do_veiculo}"
 
 
-class CartaoCredito(models.Model):
+class CartaoCredito(TimedModel):
     OPCOES_PESSOA = (("fisica", "Pessoa Física"), ("juridica", "Pessoa Jurídica"))
     OPCOES_BANDEIRA = (("visa", "Visa"), ("master", "Master"))
     OPCOES_SEXO = (("masculino", "Masculino"), ("feminino", "Feminino"))
@@ -57,7 +79,7 @@ class CartaoCredito(models.Model):
         return f"Cartão de Crédito: {self.cpf}"
 
 
-class CapitalGiro(models.Model):
+class CapitalGiro(TimedModel):
     OPCOES_FATURAMENTO = (
         ("200-500", "200 mil - 500 mil"),
         ("500-1", "500 mil - 1 milhão"),

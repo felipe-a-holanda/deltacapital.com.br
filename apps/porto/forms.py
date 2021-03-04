@@ -20,8 +20,9 @@ class ReadOnlyText(forms.TextInput):
         return value
 
 
-def get_value_prazo(prazo, valores):
-    x = [i for i in valores if prazo in i]
+def get_value_prazo(n, prazo, valores):
+    print(n, prazo, valores)
+    x = [i for i in valores if n in i]
     return x[0] if x else prazo
 
 
@@ -83,10 +84,9 @@ class BaseForm(ModelForm):
             if field_name == "prazo":
                 if self.instance and self.instance.valores_parcelas:
                     valores = eval(self.instance.valores_parcelas)
-                    choices = [
-                        (x, get_value_prazo(y, valores))
-                        for x, y in field._choices  # type: ignore
-                    ]
+
+                    choices = [(x, f"{x} x R$ {v}") for x, v in valores]
+
                     field.widget = forms.RadioSelect(choices=choices)  # type: ignore
 
 
@@ -150,9 +150,10 @@ class BasePropostaForm(BaseForm):
         super().__init__(*args, **kwargs)
         self.config_conditional_fields()
 
-    #def save(self, commit=True, request=None):
-    #    self.instance.user = request.user
-    #    return super().save(commit=commit)
+    def save(self, commit=True, request=None):
+        # self.instance.user = request.user
+        print("FORM SAVE")
+        return super().save(commit=commit)
 
     def config_conditional_fields(self):
         endereco_comercial = [

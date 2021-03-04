@@ -1,3 +1,6 @@
+from collections import namedtuple
+from enum import Enum
+
 STAGE_1 = 1
 STAGE_2 = 2
 STAGE_3 = 3
@@ -87,6 +90,23 @@ COMBUSTIVEL = [("Gasolina/Alcool/Flex", "Gasolina/Alcool/Flex"), ("Diesel", "Die
 CAMBIO = [("Manual", "Manual"), ("Automatico", "Automático")]
 
 
+State = Enum("State", "INICIAL ERRO RECUSADO APROVADO PRE_APROVADO")
+
+SIMULACAO_INICIAL = 1
+SIMULACAO_ERRO = 2
+SIMULACAO_RECUSADO = 3
+SIMULACAO_APROVADO = 4
+SIMULACAO_PRE_APROVADO = 5
+
+STATUS_SIMULACAO = [
+    (SIMULACAO_INICIAL, "Inicial"),
+    (SIMULACAO_ERRO, "Erro"),
+    (SIMULACAO_RECUSADO, "Recusado"),
+    (SIMULACAO_APROVADO, "Aprovado"),
+    (SIMULACAO_PRE_APROVADO, "Credito Pre Aprovado"),
+]
+
+
 STATUS_NAO_SIMULADO = 1
 STATUS_ERRO = 2
 STATUS_PRE_RECUSADO = 3
@@ -98,3 +118,9 @@ STATUS = [
     (STATUS_PRE_RECUSADO, "Pre Recusado"),
     (STATUS_EM_DIGITACAO, "Em Digitação"),
 ]
+
+
+Valores = namedtuple("Valores", ["valor", "entrada", "cpf"])
+ResultadoSimulacao = namedtuple(
+    "ResultadoSimulacao", ["estado", "parcelas", "mensagem"]
+)

@@ -12,6 +12,7 @@ from .constants import COMBUSTIVEL
 from .constants import PRAZO
 from .constants import PROFISSAO_ASSALARIADO
 from .constants import PROFISSAO_LIBERAL
+from .constants import SIMULACAO_INICIAL
 from .constants import STAGE_1
 from .constants import STAGE_2
 from .constants import STAGE_3
@@ -23,6 +24,7 @@ from .constants import STATUS_EM_DIGITACAO
 from .constants import STATUS_ERRO
 from .constants import STATUS_NAO_SIMULADO
 from .constants import STATUS_PRE_RECUSADO
+from .constants import STATUS_SIMULACAO
 from .constants import TIPO_RENDA
 from .constants import UFS
 from apps.delta.helpers import model_to_dict_verbose
@@ -112,6 +114,10 @@ class PropostaPorto(models.Model):
     status = models.PositiveSmallIntegerField(
         "Status", choices=STATUS, default=STATUS_NAO_SIMULADO
     )
+    estado_simulacao = models.PositiveSmallIntegerField(
+        "Simulacao", choices=STATUS_SIMULACAO, default=SIMULACAO_INICIAL
+    )
+    mensagem = models.CharField(max_length=500, null=True, blank=True)
     valores_parcelas = models.CharField(
         "Valores das parcelas", max_length=1000, null=True, blank=True
     )
@@ -360,12 +366,12 @@ class PropostaPorto(models.Model):
         return " ".join(filter(None, veiculo))
 
     def simular(self):
-        from .tasks import get_simulation
+        from .tasks import run_simulation
 
         # get_simulation(self.pk)
         self.status = STATUS_NAO_SIMULADO
         self.save()
-        get_simulation.delay(self.pk)
+        run_simulation.delay(self.pk)
         # if settings.DEBUG:
         #    get_simulation(self.pk)
         # else:
@@ -443,3 +449,7 @@ class PropostaPorto(models.Model):
 
         to_email = self.get_to_email()
         send_default_email.delay(dic, "Proposta", to_email)
+
+    @property
+    def loja(self):
+        return self.user.loja

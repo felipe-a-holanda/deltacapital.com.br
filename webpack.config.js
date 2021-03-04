@@ -1,133 +1,159 @@
-// Webpack uses this to work with directories
-const path = require('path');
+'use strict';
+
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-var webpack = require('webpack');
-var BundleTracker = require('webpack-bundle-tracker');
+const TaserJSPlugin = require("terser-webpack-plugin");
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const path = require('path');
 
+const paths = {
+  appSrc: path.join(__dirname, 'static/src/'),
+  appBuild: path.join(__dirname, 'static/build/'),
+};
 
-// This is main configuration object.
-// Here you write different options and tell Webpack what to do
+const DEV = process.env.NODE_ENV === 'development';
+
 module.exports = {
-
-
-
-  // Path to your entry point. From this file Webpack will begin his work
-  //entry: './src/javascript/index.js',
-  entry:  './static/js/main',
-
-  // Path and filename of your result bundle.
-  // Webpack will bundle all JavaScript into this file
-  output: {
-    //path: path.resolve(__dirname, 'webpack_bundles'),
-    path: path.resolve('./static/webpack_bundles/'),
-    filename: "js/[name]-[hash].js"
+  mode: DEV ? 'development' : 'production',
+  target: 'web',
+  devtool: DEV ? 'source-map' : false,
+  performance: {
+    maxEntrypointSize: 1024000,
+    maxAssetSize: 1024000,
   },
-  
+  entry: [
+    path.join(__dirname, 'static/src/sass/main.scss'),
+    path.join(__dirname, 'static/src/js/main.js')
+  ],
+  output: {
+    path: paths.appBuild,
+    filename: 'main.js'
+  },
   module: {
     rules: [
-    {
-      test: /\.js$/,
-      exclude: /(node_modules)/,
-      use: {
+      // Disable require.ensure as it's not a standard language feature.
+      { parser: { requireEnsure: false } },
+      // Transform ES6 with Babel
+      {
+        test: /\.js?$/,
         loader: 'babel-loader',
+        include: paths.appSrc,
+      },
+      {
+        test: /\.(png|jpg|jpe?g|gif|svg)$/i,
+        loader: 'file-loader',
         options: {
-          presets: ['@babel/preset-env']
+          outputPath: 'images',
         }
+      },
+
+      {
+          // Apply rule for fonts files
+          test: /\.(woff|woff2|ttf|otf|eot)$/,
+          use: [
+                 {
+                   // Using file-loader too
+                   loader: "file-loader",
+                   options: {
+                     name: '[name].[ext]',
+                     outputPath: 'fonts'
+                   }
+                 }
+               ]
+     },
+
+
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: ''
+            }
+          },
+          {
+            loader: "css-loader",
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                plugins: [
+                  [
+                    "autoprefixer",
+                  ]
+                ],
+              },
+            }
+          },
+          {
+            loader: 'resolve-url-loader',
+            options: {
+              sourceMap: true,
+              removeCR: true,
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+            }
+          }
+        ],
       }
-    },
-    
-    
-    {
-      // Apply rule for .sass, .scss or .css files
-      test: /\.(sa|sc|c)ss$/,
-
-      // Set loaders to transform files.
-      // Loaders are applying from right to left(!)
-      // The first loader will be applied after others
-      use: [
-                   {
-               // After all CSS loaders we use plugin to do his work.
-               // It gets all transformed CSS and extracts it into separate
-               // single bundled file
-               loader: MiniCssExtractPlugin.loader
-             }, 
-             {
-               // This loader resolves url() and @imports inside CSS
-               loader: "css-loader?url=false",
-             },
-             //{
-               // Then we apply postCSS fixes like autoprefixer and minifying
-               //loader: "postcss-loader"
-             //},
-             {
-               // First we transform SASS to standard CSS
-               loader: "sass-loader",
-               options: {
-                 implementation: require("sass")
-               }
-             }
-           ]
-    },
-    
-    
-    {
-      // Now we apply rule for images
-      test: /\.(png|jpe?g|gif|svg)$/,
-      use: [
-             {
-               // Using file-loader for these files
-               loader: "file-loader",
-
-               // In options we can set different things like format
-               // and directory to save
-               options: {
-                 outputPath: 'images'
-               }
-             }
-           ]
-    },
-    
-    
-    
-    {
-      // Apply rule for fonts files
-      test: /\.(woff|woff2|ttf|otf|eot)$/,
-      use: [
-             {
-               // Using file-loader too
-               loader: "file-loader",
-               options: {
-                 name: '[name].[ext]',
-                 outputPath: 'fonts'
-               }
-             }
-           ]
-    },
-    
-    
-    
-  ],
+    ],
   },
-  
-    plugins: [
-    new BundleTracker({filename: './webpack-stats.json'}),
-    new MiniCssExtractPlugin({  filename: "css/[name]-[hash].css"   }),
+  optimization: {
+    minimize: !Boolean(DEV),
+    minimizer: [
+      new OptimizeCSSAssetsPlugin({
+        cssProcessorOptions: {
+          map: {
+            inline: false,
+            annotation: true,
+          }
+        }
+      }),
+      new TaserJSPlugin({
+        terserOptions: {
+          keep_fnames: true
+        }
+      })
+    ]
+  },
+  plugins: [
     new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery"
-    })
-  ],
-
-
-
-
-  
-  
-
-  // Default mode for Webpack is production.
-  // Depending on mode Webpack will apply different things
-  // on final bundle. For now we don't need production's JavaScript 
-  // minifying and other thing so let's set mode to development
-  mode: 'development',
-  watch: true
-};
+       $: "jquery",
+       jQuery: "jquery"
+      }),
+    !DEV && new CleanWebpackPlugin({
+      cleanAfterEveryBuildPatterns: 'build/**/*'
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'main.css'
+    }),
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: 'development', // use 'development' unless process.env.NODE_ENV is defined
+      DEBUG: false,
+    }),
+    DEV &&
+      new FriendlyErrorsPlugin({
+        clearConsole: false,
+      }),
+    DEV &&
+      new BrowserSyncPlugin({
+        notify: false,
+        host: 'localhost',
+        port: 4000,
+        logLevel: 'info',
+        proxy: `http://127.0.0.1:8000/`
+      }),
+  ].filter(Boolean),
+  externals: {
+    jquery: 'jQuery',
+  },
+}

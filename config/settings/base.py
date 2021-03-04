@@ -10,9 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 import sys
+import warnings
 from pathlib import Path
 
 import environ
+
+warnings.filterwarnings("ignore", category=UserWarning, module=r".*environ")
+
 
 ROOT_DIR = Path(__file__).parents[2]  # user-records/)
 BASE_DIR = str(ROOT_DIR)
@@ -49,8 +53,8 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-    "webpack_loader",
-    "compressor",
+    # "webpack_loader",
+    # "compressor",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
@@ -66,20 +70,20 @@ LOCAL_APPS = [
     "apps.users.apps.UsersConfig",
     "apps.delta.apps.DeltaConfig",
     "apps.porto.apps.PortoConfig",
-    "apps.gestao.apps.GestaoConfig",
+    # "apps.gestao.apps.GestaoConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     # "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -153,7 +157,9 @@ ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 # TIME_ZONE = "UTC"
 TIME_ZONE = "America/Fortaleza"
 # https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-LANGUAGE_CODE = "pt-BR"
+LANGUAGE_CODE = "pt-br"
+
+LANGUAGES = (("pt-br", u"Português"),)
 # https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-i18n
@@ -164,6 +170,11 @@ USE_L10N = True
 USE_TZ = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#locale-paths
 LOCALE_PATHS = [str(ROOT_DIR / "locale")]
+
+DECIMAL_SEPARATOR = ","
+THOUSAND_SEPARATOR = "."
+USE_THOUSAND_SEPARATOR = True
+NUMBER_GROUPING = 3
 
 
 ADMIN_URL = env("DJANGO_ADMIN_URL", default="admin/")
@@ -179,7 +190,7 @@ STATICFILES_DIRS = [str(ROOT_DIR / "static")]
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    "compressor.finders.CompressorFinder",
+    # "compressor.finders.CompressorFinder",
 ]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
@@ -219,7 +230,7 @@ CELERY_RESULT_BACKEND = env.str("REDIS_URL", default=None)
 
 
 GOOGLE_CHROME_PATH = env.str(
-    "GOOGLE_CHROME_PATH", default="/app/.apt/usr/bin/google_chrome"
+    "GOOGLE_CHROME_PATH", default="/app/.apt/usr/bin/google-chrome"
 )
 CHROMEDRIVER_PATH = env.str(
     "CHROMEDRIVER_PATH", default="/app/.chromedriver/bin/chromedriver"
@@ -237,7 +248,7 @@ WEBPACK_LOADER = {
     }
 }
 
-COMPRESS_ENABLED = True
+COMPRESS_ENABLED = False
 COMPRESS_OFFLINE = False
 COMPRESS_ROOT = STATIC_ROOT
 

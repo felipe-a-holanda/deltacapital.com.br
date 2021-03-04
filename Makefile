@@ -1,4 +1,9 @@
 install:
+	pip install -r requirements/dev.txt
+	pip install -r requirements/prod.txt
+
+
+dep:
 	pip-compile requirements/prod.in
 	pip-compile requirements/dev.in
 	cp requirements/prod.txt requirements.txt
@@ -22,3 +27,9 @@ reset:
 
 deploy:
 	git push heroku master
+
+
+pull_db:
+	dropdb --if-exists delta
+	heroku pg:pull DATABASE_URL delta --app deltacapital
+	#psql -d delta -c "REASSIGN OWNED BY ${USER} TO delta"

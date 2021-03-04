@@ -1,9 +1,17 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.forms.models import ModelForm
+
+from validate_docbr import CPF
+
+
 
 from .models import CapitalGiro
 from .models import CartaoCredito
 from .models import FinanciamentoVeiculo
+
+
+cpf_validator = CPF()
 
 
 class BaseForm(ModelForm):
@@ -28,8 +36,8 @@ class BaseForm(ModelForm):
 
         for field_name in self.fields:
             field = self.fields.get(field_name)
-            if field and isinstance(field, forms.TypedChoiceField):
-                field.choices = field.choices[1:]  # type: ignore
+            #if field and isinstance(field, forms.TypedChoiceField):
+            #    field.choices = field.choices[1:]  # type: ignore
 
             if field_name in radio_fields:
                 field.widget = forms.RadioSelect(choices=field._choices)  # type: ignore
@@ -45,6 +53,13 @@ class FinanciamentoVeiculoForm(BaseForm):
     class Meta:
         model = FinanciamentoVeiculo
         fields = "__all__"
+
+    def clean_cpf(self):
+        cpf = self.cleaned_data["cpf"].strip()
+        if cpf_validator.validate(cpf):
+            return cpf
+        else:
+            raise ValidationError("CPF Inválido")
 
 
 class CartaoCreditoForm(BaseForm):
