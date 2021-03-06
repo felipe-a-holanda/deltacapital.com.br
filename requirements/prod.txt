@@ -9,6 +9,8 @@
 amqp==2.6.0               # via kombu
 asgiref==3.2.7            # via django
 billiard==3.6.3.0         # via celery
+boto3==1.17.22            # via django-storages
+botocore==1.20.22         # via boto3, s3transfer
 celery==4.4.6             # via -r requirements/base.in
 certifi==2020.6.20        # via requests
 chardet==3.0.4            # via requests
@@ -17,7 +19,7 @@ defusedxml==0.6.0         # via python3-openid
 django-admin-easy==0.6    # via -r requirements/base.in
 django-admin-tools==0.9.0  # via -r requirements/base.in
 django-allauth==0.42.0    # via -r requirements/base.in
-django-anymail[mailgun]==7.2  # via -r requirements/base.in
+django-anymail[mailgun]==8.2  # via -r requirements/base.in
 django-appconf==1.0.4     # via django-compressor
 django-compressor==2.4    # via -r requirements/base.in
 django-constance[database]==2.7.0  # via -r requirements/base.in
@@ -27,7 +29,7 @@ django-extensions==2.2.8  # via -r requirements/base.in
 django-filter==2.2.0      # via -r requirements/base.in
 django-picklefield==3.0.1  # via django-constance
 django-redis==4.12.1      # via -r requirements/base.in
-django-storages==1.11.1   # via collectfast
+django-storages[boto3]==1.11.1  # via -r requirements/base.in, collectfast
 django-webpack-loader==0.7.0  # via -r requirements/base.in
 django-widget-tweaks==1.4.8  # via -r requirements/base.in
 django==3.0.6             # via -r requirements/base.in, collectfast, django-admin-easy, django-allauth, django-anymail, django-appconf, django-filter, django-picklefield, django-redis, django-storages, djangorestframework
@@ -35,10 +37,12 @@ djangorestframework==3.11.1  # via -r requirements/base.in
 future==0.18.2            # via celery
 gunicorn==20.0.4          # via -r requirements/prod.in
 idna==2.10                # via requests
+jmespath==0.10.0          # via boto3, botocore
 kombu==4.6.11             # via celery
 markdown==3.2.1           # via -r requirements/base.in
 oauthlib==3.1.0           # via requests-oauthlib
 psycopg2==2.8.5           # via -r requirements/base.in
+python-dateutil==2.8.1    # via botocore
 python3-openid==3.2.0     # via django-allauth
 pytz==2020.1              # via celery, django
 rcssmin==1.0.6            # via django-compressor
@@ -46,12 +50,13 @@ redis==3.5.3              # via django-redis
 requests-oauthlib==1.3.0  # via django-allauth
 requests==2.24.0          # via django-allauth, django-anymail, requests-oauthlib
 rjsmin==1.1.0             # via django-compressor
+s3transfer==0.3.4         # via boto3
 selenium==3.141.0         # via -r requirements/base.in, splinter
-six==1.15.0               # via django-anymail, django-compressor, django-extensions, splinter
+six==1.15.0               # via django-compressor, django-extensions, python-dateutil, splinter
 splinter==0.13.0          # via -r requirements/base.in
 sqlparse==0.3.1           # via django
 typing-extensions==3.7.4.3  # via collectfast
-urllib3==1.25.10          # via requests, selenium
+urllib3==1.25.10          # via botocore, requests, selenium
 validate-docbr==1.8.2     # via -r requirements/base.in
 vine==1.3.0               # via amqp, celery
 whitenoise==5.0.1         # via -r requirements/base.in

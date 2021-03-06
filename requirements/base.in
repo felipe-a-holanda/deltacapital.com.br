@@ -20,6 +20,8 @@ django-admin-easy  # https://github.com/ebertti/django-admin-easy
 # ------------------------------------------------------------------------------
 psycopg2   --no-binary psycopg2  # https://github.com/psycopg/psycopg2
 whitenoise  # https://github.com/evansd/whitenoise/
+django-storages[boto3]==1.11.1  # https://github.com/jschneier/django-storages
+
 
 
 # Databases and Static files
