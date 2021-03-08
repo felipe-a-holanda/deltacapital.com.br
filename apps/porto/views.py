@@ -57,10 +57,12 @@ class PropostaCreateView(LoginRequiredMixin, CreateView):
         return form
 
     def get_success_url(self):
-        return reverse(
-            "porto:proposta-simulacao", kwargs={"pk": self.object.pk}  # type: ignore
-        )
-        # return reverse('porto:proposta-update', kwargs={'pk': self.object.pk, 'page':'2'})
+        return reverse('porto:proposta-update',
+                       kwargs={'pk': self.object.pk, 'page': '2'})
+        #return reverse(
+        #    "porto:proposta-simulacao", kwargs={"pk": self.object.pk}  # type: ignore
+        #)
+
 
 
 class PropostaUpdateView(LoginRequiredMixin, UpdateView):
@@ -178,14 +180,12 @@ class PropostaView(LoginRequiredMixin, FormView):
         if new_stage == constants.COMPLETE:
             form.instance.send_mail()
             return redirect(reverse("delta:obrigado"))
-        if new_stage == constants.STAGE_2:
-            form.instance.simular()
-            return redirect(
-                reverse("porto:proposta_simulacao", args=(form.instance.pk,))
-            )
-        # elif new_stage == constants.STAGE_2:
-        #    self.run_simulation(proposta, form)
-        # else
+        #if new_stage == constants.STAGE_2:
+        #    form.instance.simular()
+        #    return redirect(
+        #        reverse("porto:proposta_simulacao", args=(form.instance.pk,))
+        #    )
+
         return redirect(reverse("porto:proposta", args=(new_stage,)))
 
     def fill_initial_fields(self, form):
