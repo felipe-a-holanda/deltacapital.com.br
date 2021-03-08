@@ -63,6 +63,7 @@ THIRD_PARTY_APPS = [
     "constance.backends.database",
     "crispy_forms",
     "widget_tweaks",
+    "django_extensions",
 ]
 
 
