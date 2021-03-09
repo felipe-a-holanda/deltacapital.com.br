@@ -78,7 +78,7 @@ class BaseForm(ModelForm):
             if field_name in hidden_fields:
                 field.widget = HiddenInput()  # type:ignore
             if field_name in readonly_fields:
-                field.widget = ReadOnlyText()  # type:ignore
+                field.widget.attrs['readonly'] = True
             if field_name in radio_fields:
                 field.widget = forms.RadioSelect(choices=field._choices)  # type: ignore
             if field_name == "prazo":
@@ -151,8 +151,6 @@ class BasePropostaForm(BaseForm):
         self.config_conditional_fields()
 
     def save(self, commit=True, request=None):
-        # self.instance.user = request.user
-        print("FORM SAVE")
         return super().save(commit=commit)
 
     def config_conditional_fields(self):
@@ -203,7 +201,3 @@ class BasePropostaForm(BaseForm):
             raise ValidationError(f"CPF incompleto")
         return cpf
 
-    # class Media:
-    # css = {
-    #     "all": ("job_application/css/job_application.css",)
-    # }

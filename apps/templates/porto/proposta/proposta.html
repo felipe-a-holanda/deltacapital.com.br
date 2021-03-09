@@ -57,7 +57,7 @@
           {% if field.data_cond %}
           <label data-cond="{{field.data_cond}}" for="{{ field.id_for_label }}">{{ field.label }}</label>
           {% else %}
-          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
           {% endif %}
 
 
@@ -94,8 +94,25 @@
 <script>
   $(document).ready( function(){
     $('#proposta-financiamento').conditionize();
+
+    $('#id_valor_do_veiculo').keyup(calc_valor_financiado);
+    $('#id_valor_de_entrada').keyup(calc_valor_financiado);
+
+
+
+
 });
 
+
+function calc_valor_financiado(){
+  val_veiculo = $('#id_valor_do_veiculo').val().slice(3).replace(",", ".");
+  val_entrada = $('#id_valor_de_entrada').val().slice(3).replace(",", ".");
+
+  val_veiculo = Number(val_veiculo);
+  val_entrada = Number(val_entrada);
+
+  $('#id_valor_financiado').val("R$ "+(val_veiculo-val_entrada).toFixed(2));
+}
 
 $("#id_ano_de_fabricacao").change(function () {
   var url = $("#proposta-financiamento").attr("data-anos-url");  // get the url of the `load_cities` view

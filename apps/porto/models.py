@@ -39,7 +39,7 @@ def create_session_hash():
 
 class PropostaPorto(models.Model):
     FIELDS = {
-        STAGE_1: ["valor_do_veiculo", "valor_de_entrada", "cpf"],
+        STAGE_1: ["valor_do_veiculo", "valor_de_entrada", "valor_financiado", "cpf"],
         STAGE_2: ["prazo"],
         STAGE_3: [
             "nome",
@@ -133,6 +133,7 @@ class PropostaPorto(models.Model):
         help_text="<h2>Veículo</h2><h3>Preencha os dados do financiamento</h3>",
     )
     valor_de_entrada = models.CharField("Valor de Entrada", max_length=20, blank=True)
+    valor_financiado = models.CharField("Valor Financiado", max_length=20, blank=True)
     cpf = models.CharField(
         "CPF",
         max_length=20,
@@ -267,6 +268,7 @@ class PropostaPorto(models.Model):
     # hidden_fields = ["stage", "session_hash", "operador"]
     hidden_fields = ["pagina", "session_hash", "nome_operador"]
     radio_fields = ["prazo", "sexo", "tipo_de_renda", "dados_placa"]
+    readonly_fields = ["valor_financiado"]
 
     required_fields = [
         "valor_do_veiculo",
