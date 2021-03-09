@@ -1,6 +1,6 @@
 import datetime
 from collections import defaultdict
-
+from validate_docbr import CPF
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import HiddenInput
@@ -196,8 +196,10 @@ class BasePropostaForm(BaseForm):
                 field.data_cond = cond  # type: ignore
 
     def clean_cpf(self):
-        cpf = self.cleaned_data.get("cpf", "")
-        if len(cpf) < 14:
-            raise ValidationError(f"CPF incompleto")
-        return cpf
+        cpf = self.cleaned_data.get("cpf", "").strip()
+        cpf_validator = CPF()
+        if cpf_validator.validate(cpf):
+            return cpf
+        else:
+            raise ValidationError("CPF Inválido")
 
