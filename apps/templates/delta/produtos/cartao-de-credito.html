@@ -1,6 +1,176 @@
-{% extends 'delta/produtos/base_produto.html' %}
+{% extends 'delta/produtos/base_produto.html' %} {% block content %}
+
 {% load static %}
 
-{% block header %}
-<h1>Cartão de Crédito</h1>
-{% endblock header %}
+<section class="wrapper form">
+  <h3 class="form_title">Cartão de Crédito Pessoa Física</h3>
+  <!-- Change the below data attribute to play -->
+  <div class="progress-wrap progress" id='progress-div' data-progress-percent="0">
+    <div class="progress-bar progress"></div>
+  </div>
+  <div class="inner-form form">
+    <form action="" method="post">
+      {% csrf_token %}
+      
+      <div class='listErrrors'>
+      {{ form.errors }}
+      {{ form.non_field_errors }}
+    </div>
+
+      {% for hidden_field in form.hidden_fields %}
+        {{ hidden_field.errors }}
+        {{ hidden_field }}
+      {% endfor %}
+
+      <div id="back_button" onclick="backSection(event);" class="inactive">
+        <span id='arrow'>&#8617;</span>
+        <span>Voltar</span>
+      </div>
+
+      <div class="section" id='section_1'>
+        <div class="form_head">
+          <h4 class="form_subtitle">Vamos começar? Primeiro, nos informe as suas preferências do cartão:</h4>
+        </div>
+        <div class="form-group" _ngcontent-gsn-c10="">
+          <label class="text-center"_ngcontent-gsn-c10=""> Selecione a Bandeira</label>
+              <mat-button-toggle-group _ngcontent-fie-c10="" aria-label="Bandeira Cartão" 
+              class="mat-button-toggle-group mat-button-toggle-group-appearance-standard ng-untouched ng-pristine ng-invalid" 
+              formcontrolname="bandeira_cartao" name="bandeira_cartao" role="group" 
+              aria-disabled="false">
+              <mat-button-toggle _ngcontent-fie-c10="" 
+              class="mat-button-toggle mat-button-toggle-appearance-standard" 
+              value="VISA" tabindex="-1" id="visa">
+              <button class="mat-button-toggle-button" type="button" 
+              id="mat-button-toggle-4-button" tabindex="0" aria-pressed="false" 
+              name="bandeira_cartao"><div class="mat-button-toggle-label-content">VISA</div>
+            </button>
+            <!-- <div class="mat-button-toggle-focus-overlay"></div>
+            <div class="mat-button-toggle-ripple mat-ripple" matripple=""></div> -->
+          </mat-button-toggle>
+          <mat-button-toggle _ngcontent-fie-c10="" class="mat-button-toggle mat-button-toggle-appearance-standard" 
+          value="MASTERCARD" tabindex="-1" id="mastercard">
+          <button class="mat-button-toggle-button" type="button" id="mat-button-toggle-5-button" tabindex="0" 
+          aria-pressed="false" name="bandeira_cartao">
+          <div class="mat-button-toggle-label-content">MASTERCARD</div>
+        </button>
+        <!-- <div class="mat-button-toggle-focus-overlay"></div>
+        <div class="mat-button-toggle-ripple mat-ripple" matripple=""></div> -->
+      </mat-button-toggle>
+        </div>
+          <div class="error">
+            <span> OBRIGATÓRIO! </span>
+          </div> 
+      </div>
+
+      <div class="mat-form-field-wrapper">
+        <div class="mat-form-field-flex">
+          <div class="mat-form-field-outline ng-tns-c20-1 ng-start-inserted"></div>
+          <div class="mat-form-field-outline mat-form-field-outline-thick ng-tns-c20-1 ng-start-inserted"></div>
+
+        
+        </div>
+
+      </div>
+
+      <div class="section" id='section_2'>
+        <div class="form_head inactive">
+          <h4 class="form_subtitle">Primeiro precisamos saber alguns dados para te identificar:</h4>
+        </div>
+      <div class="form-group label-float cpf inactive">
+        {{ form.cpf }}
+        <label for="id_cpf">CPF</label>
+
+        <div class="error">
+          <span> OBRIGATÓRIO! </span>
+        </div>
+      </div>
+
+      <div class="form-group label-float name inactive">
+        {{ form.nome }}
+        <label for="id_nome">Nome Completo</label>
+        
+        {{ form.nome.errors }}
+        <div class="error">
+          <span> OBRIGATÓRIO! </span>
+        </div>
+      </div>
+
+      <div class="form-group label-float email inactive">
+        {{ form.email }}
+        <label for="id_email">E-mail</label>
+        {{ form.email.errors }}
+        <div class="error">
+          <span> OBRIGATÓRIO! </span>
+        </div>
+      </div>
+    </div>
+
+      <div class="section inactive" id='section_3'>
+        <h3 class="form_subtitle">Agora nos informe alguns detalhes sobre seu financiamento:</h1>
+        <div class="label-float form-group moeda inactive">
+          {{ form.valor_do_veiculo }}
+          <label for="id_valor_do_veiculo">Valor do Veículo</label>
+          {{ form.valor_do_veiculo.errors }}
+          <div class="error">
+            <span> OBRIGATÓRIO! </span>
+          </div>
+        </div>
+
+        <div class="label-float form-group moeda inactive">
+          {{ form.entrada }}
+          <label for="id_entrada">Valor de Entrada</label>
+          {{ form.entrada.errors }}
+          <div class="error">
+            <span> OBRIGATÓRIO! </span>
+          </div>
+        </div>
+
+        <div class="label-float form-group moeda inactive">
+          {{ form.ano }}
+          <label for="id_ano">Ano de fabricação</label>
+          {{ form.ano.errors }}
+          <div class="error">
+            <span> OBRIGATÓRIO! </span>
+          </div>
+        </div>
+
+        <div class="label-float form-group inactive">
+          {{ form.tipo_veiculo }}
+          <label> O que deseja financiar? </label>
+          {{ form.tipo_veiculo.errors }}
+
+        </div>
+      </div>
+
+      <div class="section inactive" id='section_4'>
+        <h4 class="form_subtitle">Qual é o seu Telefone para contato?</h4> 
+        <div class="label-float form-group celular inactive">
+          {{ form.telefone }}
+          <label for="id_telefone">Telefone</label>
+          {{ form.telefone.errors }}
+          <div class="error">
+            <span> OBRIGATÓRIO! </span>
+          </div>
+      </div>
+      </div>
+      <div class="button-row">
+        <button id='next_button'class="button-submit" value="Enviar" onclick="verificarInputs(event);">
+          Próximo
+        </button>
+        <button id='submit_button' class="button-submit inactive" value="Enviar" type="submit">
+          SOLICITAR SIMULAÇÃO
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+
+
+<script src="{% static 'src/js/new_form.js' %}"></script>
+
+
+{% block js %}
+{% endblock js %}
+
+{% endblock content %}

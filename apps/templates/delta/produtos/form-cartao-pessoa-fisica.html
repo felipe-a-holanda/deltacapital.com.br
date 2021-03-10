@@ -1,15 +1,129 @@
 {% extends 'delta/produtos/base_produto.html' %} {% block content %}
 
-{% load static compress %}
+{% load static %}
 
 <section class="wrapper form">
   <h3 class="form_title">Cartão de Crédito Pessoa Física</h3>
-  
+  <!-- Change the below data attribute to play -->
+  <div class="progress-wrap progress" id='progress-div' data-progress-percent="0">
+    <div class="progress-bar progress"></div>
+  </div>
+  <div class="inner-form form">
+    <form action="" method="post">
+      {% csrf_token %}
+      
+      <div class='listErrrors'>
+      {{ form.errors }}
+      {{ form.non_field_errors }}
+    </div>
+
+      {% for hidden_field in form.hidden_fields %}
+        {{ hidden_field.errors }}
+        {{ hidden_field }}
+      {% endfor %}
+
+      <div id="back_button" onclick="backSection(event);" class="inactive">
+        <span id='arrow'>&#8617;</span>
+        <span>Voltar</span>
+      </div>
+
+      <div class="section" id='section_1'>
+        <div class="form_head">
+          <h4 class="form_subtitle">Primeiro precisamos saber alguns dados para te identificar:</h4>
+        </div>
+      <div class="form-group label-float cpf ">
+        {{ form.cpf }}
+        <label for="id_cpf">CPF</label>
+
+        <div class="error">
+          <span> OBRIGATÓRIO! </span>
+        </div>
+      </div>
+
+      <div class="form-group label-float name inactive">
+        {{ form.nome }}
+        <label for="id_nome">Nome Completo</label>
+        
+        {{ form.nome.errors }}
+        <div class="error">
+          <span> OBRIGATÓRIO! </span>
+        </div>
+      </div>
+
+      <div class="form-group label-float email inactive">
+        {{ form.email }}
+        <label for="id_email">E-mail</label>
+        {{ form.email.errors }}
+        <div class="error">
+          <span> OBRIGATÓRIO! </span>
+        </div>
+      </div>
+    </div>
+
+      <div class="section inactive" id='section_2'>
+        <h3 class="form_subtitle">Agora nos informe alguns detalhes sobre seu financiamento:</h1>
+        <div class="label-float form-group moeda inactive">
+          {{ form.valor_do_veiculo }}
+          <label for="id_valor_do_veiculo">Valor do Veículo</label>
+          {{ form.valor_do_veiculo.errors }}
+          <div class="error">
+            <span> OBRIGATÓRIO! </span>
+          </div>
+        </div>
+
+        <div class="label-float form-group moeda inactive">
+          {{ form.entrada }}
+          <label for="id_entrada">Valor de Entrada</label>
+          {{ form.entrada.errors }}
+          <div class="error">
+            <span> OBRIGATÓRIO! </span>
+          </div>
+        </div>
+
+        <div class="label-float form-group moeda inactive">
+          {{ form.ano }}
+          <label for="id_ano">Ano de fabricação</label>
+          {{ form.ano.errors }}
+          <div class="error">
+            <span> OBRIGATÓRIO! </span>
+          </div>
+        </div>
+
+        <div class="label-float form-group inactive">
+          {{ form.tipo_veiculo }}
+          <label> O que deseja financiar? </label>
+          {{ form.tipo_veiculo.errors }}
+
+        </div>
+      </div>
+
+      <div class="section inactive" id='section_3'>
+        <h4 class="form_subtitle">Qual é o seu Telefone para contato?</h4> 
+        <div class="label-float form-group celular inactive">
+          {{ form.telefone }}
+          <label for="id_telefone">Telefone</label>
+          {{ form.telefone.errors }}
+          <div class="error">
+            <span> OBRIGATÓRIO! </span>
+          </div>
+      </div>
+      </div>
+      <div class="button-row">
+        <button id='next_button'class="button-submit" value="Enviar" onclick="verificarInputs(event);">
+          Próximo
+        </button>
+        <button id='submit_button' class="button-submit inactive" value="Enviar" type="submit">
+          SOLICITAR SIMULAÇÃO
+        </button>
+      </div>
+    </form>
+  </div>
 </section>
 
-{% compress js %}
-<script src="{% static 'js/form-cartao-pessoa-fisica.js' %}"></script>
-{% endcompress %}
+
+
+<script src="{% static 'src/js/new_form.js' %}"></script>
+
 
 {% block js %}
 {% endblock js %}
