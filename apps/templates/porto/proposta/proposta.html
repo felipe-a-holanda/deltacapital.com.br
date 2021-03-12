@@ -105,13 +105,16 @@
 
 
 function calc_valor_financiado(){
-  val_veiculo = $('#id_valor_do_veiculo').val().slice(3).replace(",", ".");
-  val_entrada = $('#id_valor_de_entrada').val().slice(3).replace(",", ".");
+  val_veiculo = $('#id_valor_do_veiculo').val().slice(3).replaceAll(".","").replace(",", ".");
+  val_entrada = $('#id_valor_de_entrada').val().slice(3).replaceAll(".","").replace(",", ".");
 
   val_veiculo = Number(val_veiculo);
   val_entrada = Number(val_entrada);
 
-  $('#id_valor_financiado').val("R$ "+(val_veiculo-val_entrada).toFixed(2));
+  valor_financiado = val_veiculo - val_entrada;
+  valor_financiado = valor_financiado.toLocaleString("pt-BR", {maximumFractionDigits:2})
+
+  $('#id_valor_financiado').val("R$ "+valor_financiado);
 }
 
 $("#id_ano_de_fabricacao").change(function () {
