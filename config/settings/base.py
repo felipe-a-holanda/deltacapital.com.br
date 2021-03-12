@@ -146,9 +146,13 @@ AUTHENTICATION_BACKENDS = [
     "apps.users.auth_backends.CPFBackend",
 ]
 
-
-LOGIN_REDIRECT_URL = "account_logout"
+# All-Auth
+# ------------------------------------------------------------------------------
+LOGIN_REDIRECT_URL = "porto:proposta-create"
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_ADAPTER = 'apps.users.account_adapter.NoNewUsersAccountAdapter'
 
 
 # Local time zone. Choices are

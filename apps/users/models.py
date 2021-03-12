@@ -11,6 +11,7 @@ from .constants import USER_TYPE_CHOICES
 from .constants import VENDEDOR
 from .constants import WEBMASTER
 from .utils import create_groups
+from apps.utils.validators import validate_cpf
 
 
 class Loja(models.Model):
@@ -32,7 +33,7 @@ class User(AbstractUser):
     # First Name and Last Name do not cover name patterns
     # around the globe.
     name = models.CharField(_("Nome do usuário"), blank=True, max_length=255)
-    cpf = models.CharField(_("CPF do usuário"), max_length=11)
+    cpf = models.CharField(_("CPF do usuário"), max_length=14, validators=[validate_cpf])
     user_type = models.PositiveSmallIntegerField(
         "Tipo do usuário", default=VENDEDOR, choices=USER_TYPE_CHOICES
     )
@@ -43,6 +44,15 @@ class User(AbstractUser):
         blank=True,
         on_delete=models.CASCADE,
     )
+
+    def __str__(self):
+        return self.cpf
+        if self.name:
+            return self.name
+        elif self.cpf:
+            return self.cpf
+        else:
+            return self.email
 
     def get_absolute_url(self):
         return reverse("users:detail", kwargs={"username": self.username})
