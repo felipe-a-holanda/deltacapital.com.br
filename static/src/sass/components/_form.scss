@@ -3,11 +3,11 @@
 form {
   margin: 0 0 _size(element-margin) 0;
 
-  button.button-submit {
+  button.button-submit, .button-submit {
     margin: 2rem 1rem 1rem 1rem;
     text-transform: uppercase;
     color: white;
-    background-color: #7198bb;
+    background-color:  #374eff;
     box-shadow: none;
     height: 2.2rem;
     line-height: 1rem;
@@ -298,10 +298,8 @@ input[type="radio"] {
 div.help-text {
   padding: 2rem 0rem 0rem 0rem;
   h2 {
-    color: #064f93;
-    font-family: "Open Sans", sans-serif;
-    font-size: 22px;
-    font-weight: 300 !important;
+    color: #3951b2;
+    font-weight: 600;
     text-align: center;
   }
   h3 {
@@ -323,4 +321,5 @@ div.proposta-porto {
     letter-spacing: 1.5px;
     font-family: 'Open Sans', sans-serif;
   }
+  
 }

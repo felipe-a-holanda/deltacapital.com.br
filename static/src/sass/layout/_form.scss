@@ -1,8 +1,11 @@
 /* Heading */
 
 	body.form {
-		padding-top: _size(header-height);
-		background-color: white;
+		margin: 0;
+		padding: 0;
+		height: 100vh;
+		background-color: #ecf0f9;
+		background-attachment: fixed;
 
 		&:before {
 			content: ' ';
@@ -13,4 +16,5 @@
 
 div.button-row{
     text-align: center;
+	// padding-left: 51px;
 }

@@ -26,7 +26,7 @@
 
 {% block content %}
 
-<section class="wrapper">
+<section class="wrapper form">
 
 
   {% if form.instance.pre_aprovado and current_stage == 2 %}
@@ -43,27 +43,27 @@
         {{ hidden }}
       {% endfor %}
 
-
       {% for field in form.visible_fields %}
 
         {% if field.help_text %}
         <div class="help-text">
+          
           {{ field.help_text|safe }}
         </div>
+        
           {% endif %}
 
-
-        <div class="form-group {{field.klass}}">
+        <!-- Formulario - CDC -->
+        <div class="label-float form-group moeda {{field.klass}}">
+          
+          <!-- Boxs do form  -->
+          {{ field|add_class:'form-control' }}
           {% if field.data_cond %}
           <label data-cond="{{field.data_cond}}" for="{{ field.id_for_label }}">{{ field.label }}</label>
           {% else %}
+          <!-- Nome estranho  -->
           <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
           {% endif %}
-
-
-
-          {{ field|add_class:'form-control' }}
-
           {% for error in field.errors %}
             <span class="help-block">{{ error }}</span>
           {% endfor %}

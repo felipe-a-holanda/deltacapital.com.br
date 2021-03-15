@@ -2,6 +2,7 @@
 
 section.wrapper.form {
   padding: 12% 7%;
+  
 }
 // Todo: clean padding override from form.scss
 section.form .inner-form {
@@ -124,7 +125,8 @@ section.form form {
   color: #3951b2;
 }
 
-.label-float input:not(:placeholder-shown) + label {
+//Resolver Bug da seleção do Chrome
+ .label-float input:not(:placeholder-shown) + label {
   font-size: 15px;
   top: 0;
 }
