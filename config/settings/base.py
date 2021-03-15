@@ -54,7 +54,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     # "webpack_loader",
-    # "compressor",
+    "compressor",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
@@ -146,9 +146,13 @@ AUTHENTICATION_BACKENDS = [
     "apps.users.auth_backends.CPFBackend",
 ]
 
-
-LOGIN_REDIRECT_URL = "account_logout"
+# All-Auth
+# ------------------------------------------------------------------------------
+LOGIN_REDIRECT_URL = "porto:proposta-create"
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_ADAPTER = 'apps.users.account_adapter.NoNewUsersAccountAdapter'
 
 
 # Local time zone. Choices are
@@ -191,7 +195,7 @@ STATICFILES_DIRS = [str(ROOT_DIR / "static")]
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    # "compressor.finders.CompressorFinder",
+    "compressor.finders.CompressorFinder",
 ]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
