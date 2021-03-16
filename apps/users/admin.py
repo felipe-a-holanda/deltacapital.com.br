@@ -64,6 +64,16 @@ class UserAdmin(auth_admin.UserAdmin):
         ),
     )
 
+    class Media:
+        # this path may be any you want,
+        # just put it in your static folder
+        js = (
+            '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',  # jquery
+            'src/admin/js/inputmask.js',
+           # 'src/admin/js/jquery.inputmask.min.js',
+            'src/admin/js/masks_admin.js',
+        )
+
     def get_fieldsets(self, request, obj):
         if obj:
             personal = {"fields": ("name",)}

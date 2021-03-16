@@ -1,8 +1,11 @@
+console.log("CEP FILL loaded");
+
 function get_data(data, field){
     return data[field].toUpperCase();
 };
 
 function get_cep(cep, n){
+console.log("get_cep");
   url = 'https://viacep.com.br/ws/'+cep+'/json/'
   jQuery.getJSON(url,function(data){
   console.log(data);
@@ -17,7 +20,10 @@ function get_cep(cep, n){
 };
 
 
-jQuery('.autofill__cep_1').blur(function(){
+jQuery(document).ready( function(){
+
+
+    jQuery('.autofill__cep_1').blur(function(){
 
   cep = this.value.replace(/\D/g,'');
   get_cep(cep, 1);
@@ -30,3 +36,8 @@ jQuery('.autofill__cep_2').blur(function(){
   get_cep(cep, 2);
 
 });
+
+
+});
+
+

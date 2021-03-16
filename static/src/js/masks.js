@@ -19,10 +19,10 @@ $(document).ready(function(){
 
   };
 
-  var mask_cpf ={  "mask":"999.999.999-99", 'placeholder': ''}
-  var mask_cnpj ={ "mask":"99.999.999/9999-99", 'placeholder': ''}
-  var mask_data ={"alias":"datetime", 'inputFormat': 'dd/mm/yyyy', 'displayFormat':'dd/mm/aaaa'}
-  var mask_cep ={"mask":"99999-999", 'placeholder': ''}
+  var mask_cpf ={  "mask":"999.999.999-99", 'placeholder': '___.___.___-__'}
+  var mask_cnpj ={ "mask":"99.999.999/9999-99", 'placeholder': '__.___.___/____-__'}
+  var mask_data ={"alias":"datetime", 'inputFormat': 'dd/mm/yyyy', 'displayFormat':'dd/mm/aaaa', }
+  var mask_cep ={"mask":"99999-999", 'placeholder': '_____-___'}
   var mask_celular ={ "mask":"(99) [9]9999-9999", 'placeholder': ''}
   var mask_telefone ={ "mask":"(99) 9999-9999", 'placeholder': ''}
   var mask_email ={ "alias": "email"}
