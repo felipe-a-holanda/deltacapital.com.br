@@ -53,19 +53,19 @@
         
           {% endif %}
 
-        <!-- Formulario - CDC -->
+        <!-- Formulario -->
         <div class="form-group {{field.klass}}">
           
           <!-- Boxs do form  -->
-
+          {{ field|add_class:'form-control' }}
           {% if field.data_cond %}
           <label data-cond="{{field.data_cond}}" for="{{ field.id_for_label }}">{{ field.label }}</label>
           {% else %}
-          <!-- Nome estranho  -->
+         
           <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
           {% endif %}
 
-          {{ field|add_class:'form-control' }}
+         
 
           {% for error in field.errors %}
             <span class="help-block">{{ error }}</span>

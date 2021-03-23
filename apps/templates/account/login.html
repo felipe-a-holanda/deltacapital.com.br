@@ -6,7 +6,8 @@
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
-<div class="inner">
+<section class="wrapper form">
+<div class="inner-form">
 <h1>{% trans "Sign In" %}</h1>
 
 {% get_providers as socialaccount_providers %}
@@ -34,8 +35,20 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 {% endif %}
 
 <form class="login" method="POST" action="{% url 'account_login' %}">
+  
   {% csrf_token %}
+  
+  {% for field in form %}
+  <div class="label-float">
+  {{ field }}
+         
+    <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+  </div>
+
+  {% endfor %}
+  <!-- <div class="label-float">
   {{ form.as_p }}
+  </div>  -->
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}
@@ -47,4 +60,5 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
   -->
 </form>
 </div>
+</section>
 {% endblock %}
