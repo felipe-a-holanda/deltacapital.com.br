@@ -138,7 +138,7 @@ class BasePropostaForm(BaseForm):
             "profissao_assalariado",
             "tempo_de_atividade",
             "tempo_de_aposentadoria",
-            "outras_rendas"
+            "outras_rendas",
             "ano_de_fabricacao",
             "ano_do_modelo",
             "marca",

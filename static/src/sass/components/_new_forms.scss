@@ -11,6 +11,33 @@ section.form .inner-form {
   max-width: 100%;
   padding: 1rem 0;
   position: relative;
+  text-align: center;
+}
+
+#id_sexo{
+  padding-left: 50px;
+  padding-right: 50px;
+}
+ #id_remember,#id_remember + label{
+  display: none;
+ }
+
+
+label[for=id_prazo_0], label[for=id_prazo_1],
+label[for=id_prazo_2],
+label[for=id_prazo_3],
+label[for=id_prazo_4]{ 
+  height: 3.25rem;
+  font-size: 23px;
+  text-align: center;
+}
+
+.login input::placeholder{
+    color: transparent;
+}
+.login input::-webkit-input-placeholder {
+  /* WebKit browsers */
+   color: transparent;
 }
 
 section.form form {
