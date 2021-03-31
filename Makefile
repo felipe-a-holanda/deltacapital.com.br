@@ -3,6 +3,14 @@ install:
 	pip install -r requirements/prod.txt
 
 
+upgrade:
+	pip-compile --upgrade --max-rounds 20 requirements/prod.in
+	pip-compile --upgrade --max-rounds 20  requirements/dev.in
+	cp requirements/prod.txt requirements.txt
+	pip install -r requirements/dev.txt
+	pip install -r requirements/prod.txt
+
+
 dep:
 	pip-compile requirements/prod.in
 	pip-compile requirements/dev.in
