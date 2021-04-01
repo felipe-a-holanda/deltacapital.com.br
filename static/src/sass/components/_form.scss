@@ -277,19 +277,19 @@ input[type="radio"] {
   }
 
   ::-webkit-input-placeholder {
-    color: _palette($p, fg-light) !important;
+    color: _palette($p, fg-light);
   }
 
   :-moz-placeholder {
-    color: _palette($p, fg-light) !important;
+    color: _palette($p, fg-light);
   }
 
   ::-moz-placeholder {
-    color: _palette($p, fg-light) !important;
+    color: _palette($p, fg-light);
   }
 
   :-ms-input-placeholder {
-    color: _palette($p, fg-light) !important;
+    color: _palette($p, fg-light);
   }
 }
 
@@ -322,4 +322,8 @@ div.proposta-porto {
     font-family: 'Open Sans', sans-serif;
   }
   
+}
+ul ~ label{
+  color: red;
+
 }

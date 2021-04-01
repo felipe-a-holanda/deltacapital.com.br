@@ -12,7 +12,8 @@
 
 {% block bodyclass %}form{% endblock bodyclass %}
 
-{% block menu %}
+<!-- Menu Nova Proposta -->
+<!-- {% block menu %}
 
 <a class="logo" href="{% url 'porto:proposta-create' %}">Nova proposta</a>
 {% endblock menu %}
@@ -20,7 +21,7 @@
 
 {% block menuextra %}
 <a class="btn btn-danger" href="{% url 'porto:proposta-create' %}">Nova proposta</a>
-{% endblock menuextra%}
+{% endblock menuextra%} -->
 
 
 
@@ -43,8 +44,26 @@
         {{ hidden }}
       {% endfor %}
 
+      
+        {% if back_stage %}
+        
+          <a class="nova-proposta" href="{% url 'porto:proposta-create' %}">Nova proposta</a>
+        
+          {% if back_stage == 1 %}
+          <div class="back_button" onclick="location.href='{% url 'porto:proposta-create'  %}';" value="Anterior" />
+          <span id='arrow'>&#8617;</span>
+          <span>Voltar</span></div>
+          {% else %}
+          <div class="back_button" onclick="location.href='{% url 'porto:proposta-update' form.instance.id back_stage %}';" value="Anterior" />
+          <span id='arrow'>&#8617;</span>
+          <span>Voltar</span></div>
+          {% endif %}
+        {% endif %}
+        
       {% for field in form.visible_fields %}
 
+      
+      
         {% if field.help_text %}
         <div class="help-text">
           
@@ -52,17 +71,20 @@
         </div>
         
           {% endif %}
-          <!-- <h4>Cotação de Financiamento:</h4> -->
+          
+    
 
         <!-- Formulario -->
         <div class="form-group {{field.klass}}">
           
           <!-- Boxs do form  -->
           {{ field|add_class:'form-control' }}
+          
           {% if field.data_cond %}
           <label data-cond="{{field.data_cond}}" for="{{ field.id_for_label }}">{{ field.label }}</label>
           {% else %}
          
+          <!-- labels de texto -->
           <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
           {% endif %}
 
@@ -76,17 +98,10 @@
 
 
       <div class="button-row">
-        {% if back_stage %}
-          {% if back_stage == 1 %}
-          <button class="button-submit" type="button" onclick="location.href='{% url 'porto:proposta-create'  %}';" value="Anterior" />Anterior</button>
-          {% else %}
-          <button class="button-submit" type="button" onclick="location.href='{% url 'porto:proposta-update' form.instance.id back_stage %}';" value="Anterior" />Anterior</button>
-          {% endif %}
-        {% endif %}
+        
         <button class="button-submit" type="submit" value="continue">Seguinte</button>
       </div>
-<!-- button - lado a lado - display: flex;padding-left: 50px;
-padding-right: 50px; -->
+
     </form>
   </div>
 </section>

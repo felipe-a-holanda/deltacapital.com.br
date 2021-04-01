@@ -13,12 +13,28 @@ section.form .inner-form {
   position: relative;
   text-align: center;
 }
+form.login{
+  ::-webkit-input-placeholder {
+    color: red;
+  }
 
+  :-moz-placeholder {
+    color: red;
+  }
+
+  ::-moz-placeholder {
+    color: red;
+  }
+
+  :-ms-input-placeholder {
+    color: red;
+  }
+}
 #id_sexo{
   padding-left: 50px;
   padding-right: 50px;
 }
- #id_remember,#id_remember + label{
+ #id_remember,#id_remember ~ label{
   display: none;
  }
 
@@ -131,7 +147,7 @@ section.form form {
   margin: 0; //todo: clean override
 }
 
-.label-float .invalid + label {
+.label-float .invalid ~ label {
   font-size: 13px;
   top: 0;
   color: red;
@@ -139,21 +155,21 @@ section.form form {
 .label-float .invalid {
   border: 2px solid red;
 }
-.label-float .invalid + label:before {
+.label-float .invalid ~ label:before {
   content: "*";
 }
-.label-float .invalid + label:before {
+.label-float .invalid ~ label:before {
   color: red;
 }
 
-.label-float input:focus + label {
+.label-float input:focus ~ label {
   font-size: 15px;
   top: 0;
   color: #3951b2;
 }
 
 //Resolver Bug da seleção do Chrome
- .label-float input:not(:placeholder-shown) + label {
+ .label-float input:not(:placeholder-shown) ~ label {
   font-size: 15px;
   top: 0;
 }
@@ -226,6 +242,14 @@ button:focus {
   display: none;
 }
 
+.back_button{
+  position: absolute;
+  left: 3%;
+  // font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  color: #374eff;
+}
 #back_button{
   position: absolute;
   left: 3%;
@@ -233,7 +257,18 @@ button:focus {
   cursor: pointer;
   color: #374eff;
 }
-
+.nova-proposta{
+  position: absolute;
+    left: 81%;
+    cursor: pointer;
+    border: 1px solid;
+    border-spacing: 5px;
+    padding: 8px;
+    border-radius: 5px;
+    height: 44px;
+    width: 178px;
+    color: #374eff;
+}
 .progress {
   width: 100%;
   height: 5px;
@@ -262,7 +297,7 @@ button:focus {
   color: gray;
 }
 
-.label-float select:hover:focus + label, .label-float select:not(:placeholder-shown) + label {
+.label-float select:hover:focus ~ label, .label-float select:not(:placeholder-shown) ~ label {
   font-size: 13px;
   top: 0;
   color:  #3951b2;
