@@ -84,6 +84,8 @@ textarea {
 }
 
 div.radio-toolbar {
+  display: flex;
+  flex-direction: column-reverse;
   label {
     text-align: center;
   }
@@ -301,13 +303,14 @@ div.help-text {
     color: #3951b2;
     font-weight: 600;
     text-align: center;
+    font-size: 2rem;
   }
   h3 {
     text-align: center;
     font-family: "Open Sans", sans-serif !important;
     font-weight: 300 !important;
     color: #272727;
-    font-size: 14px;
+    font-size: 20px;
   }
 }
 
@@ -322,8 +325,4 @@ div.proposta-porto {
     font-family: 'Open Sans', sans-serif;
   }
   
-}
-ul ~ label{
-  color: red;
-
 }

@@ -143,11 +143,11 @@ class PropostaPorto(models.Model):
 
     # stage 2 fields
     prazo = models.CharField(
-        "Cotação de Financiamento",
+        '',
         max_length=3,
         choices=PRAZO,
         blank=False,
-        help_text="Selecione a melhor opção para seu cliente.",
+        help_text="<h2>Prazo de Financiamento</h2><h3>Selecione a melhor opção para seu cliente.</h3>",
     )
 
     # stage 3 fields
