@@ -148,11 +148,13 @@ class PropostaPorto(models.Model):
         choices=PRAZO,
         blank=False,
         help_text="Selecione a melhor opção para seu cliente.",
+       
     )
 
     # stage 3 fields
     nome = models.CharField("Nome", max_length=100, blank=True)
     data_de_nascimento = models.DateField("Data de Nascimento", null=True, blank=True)
+    
     sexo = models.CharField(
         "Sexo",
         max_length=100,
@@ -185,13 +187,14 @@ class PropostaPorto(models.Model):
 
     # stage 5 fields
     tipo_de_renda = models.CharField(
-        "Tipo de Renda",
+        # "Tipo de Renda",
         choices=TIPO_RENDA,
         max_length=100,
         blank=True,
         help_text="<h2>Informe a renda do seu cliente</h2>"
         "<h3>Essas informações são essenciais para análise de crédito do "
-        "financiamento</h3>",
+        "financiamento</h3>"
+        "<h3>Tipo de Renda</h3>",
     )
     renda_mensal_pessoal = models.CharField(
         "Renda Mensal Pessoal", max_length=100, blank=True
