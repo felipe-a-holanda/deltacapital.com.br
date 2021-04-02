@@ -2,6 +2,7 @@
 
 section.wrapper.form {
   padding: 12% 7%;
+  background-color: white;
   
 }
 // Todo: clean padding override from form.scss
@@ -31,8 +32,11 @@ form.login{
   }
 }
 #id_sexo{
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+#id_sexo li {
+  margin: 10px;
 }
  #id_remember,#id_remember + label{
   display: none;
@@ -160,7 +164,7 @@ section.form form {
 
 .label-float input:focus + label {
   font-size: 15px;
-  top: 0;
+  top: 20%;
   color: #3951b2;
 }
 
@@ -261,6 +265,7 @@ button:focus {
     height: 44px;
     width: 178px;
     color: #374eff;
+    text-decoration: none;
 }
 .progress {
   width: 100%;
