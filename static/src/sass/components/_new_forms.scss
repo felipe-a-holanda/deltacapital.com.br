@@ -164,7 +164,7 @@ section.form form {
 
 .label-float input:focus + label {
   font-size: 15px;
-  top: 20%;
+  top: 0;
   color: #3951b2;
 }
 
@@ -172,6 +172,14 @@ section.form form {
  .label-float input:valid + label, .label-float #id_valor_financiado + label {
   font-size: 15px;
   top: 0;
+}
+.label-float select + label{ 
+  position: absolute;
+  top: 0;
+  color: #3951b2;
+  background-color: white;
+  font-size: 20px;
+
 }
 
 input:-webkit-autofill,
@@ -295,12 +303,7 @@ button:focus {
   color: gray;
 }
 
-.label-float select:hover:focus + label, .label-float select:not(:placeholder-shown) + label {
-  font-size: 13px;
-  top: 0;
-  color:  #3951b2;
-  background-color: white;
-}
+
 
 .listErrrors {
   background-color: #ff000057;
