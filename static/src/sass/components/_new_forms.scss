@@ -32,11 +32,27 @@ form.login{
   }
 }
 #id_sexo{
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: 65px;
+  padding-right: 65px;
+  margin: -27px;
+  
+}
+#id_sexo + label{
+  margin-right: 490px;
+  color: #3d4459;
+  
 }
 #id_sexo li {
   margin: 10px;
+}
+#id_dados_placa{
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+#id_dados_placa li {
+  margin: 10px;
+  
 }
  #id_remember,#id_remember + label{
   display: none;

@@ -149,6 +149,9 @@ class BasePropostaForm(BaseForm):
             "motor",
             "cor",
             "login",
+            "placa",
+            "renavam",
+            "chassi",
             
         ],
         "cpf": ["cpf"],
