@@ -42,7 +42,7 @@ Compile frontend
 
 ```
 npm install
-npm run build
+npm run start 
 ```
 
 Create database
@@ -50,6 +50,11 @@ Create database
 ```
 cp .env.example .env
 python manage.py migrate
+```
+
+Create admin user
+```
+./manage.py createsuperuser
 ```
 
 Run Django server
