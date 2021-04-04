@@ -37,13 +37,22 @@ form.login{
   margin: -27px;
   
 }
-// label[for="id_sexo_0"]{
-//  margin-right: 490px;
-// }
-
-
+#id_sexo + label{
+  margin-right: 490px;
+  color: #3d4459;
+  
+}
 #id_sexo li {
   margin: 10px;
+}
+#id_dados_placa{
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+#id_dados_placa li {
+  margin: 10px;
+  
 }
  #id_remember,#id_remember + label{
   display: none;
