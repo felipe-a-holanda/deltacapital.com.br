@@ -291,6 +291,8 @@ button:focus {
     height: 44px;
     width: 178px;
     color: #374eff;
+    border: 1px solid;
+    border-radius: 5px;
     text-decoration: none;
 }
 .progress {
