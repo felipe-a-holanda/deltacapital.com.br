@@ -254,7 +254,7 @@ button:focus {
   display: none;
 }
 
-.error.active {
+.error.active, .help-block {
   display: block;
   position: relative;
   opacity: 1;
@@ -262,6 +262,8 @@ button:focus {
   top: -5px;
   background-color: white;
   color: red;
+  text-align: left;
+  margin-bottom: 10px;
 }
 
 .hidden {

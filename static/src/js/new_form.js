@@ -110,6 +110,25 @@ function verificarInputs(event) {
   }
 }
 
+//Validação do form cdc
+function validateForm() {
+  var activeSection = $('form:not(.inactive)');  
+  var activeDivs = $(activeSection).children(".label-float:not(.inactive)");
+
+  $.each(activeDivs, function(index, Div) {
+    var input = $(Div).children('input:not([readonly]), select').first();
+    var erroMsg =  $(input).siblings('.error').first();
+
+    if (!input.val()) {
+      $(input).addClass("invalid");
+      $(erroMsg).addClass("active");
+    } else {
+      $(input).removeClass("invalid");
+      $(erroMsg).removeClass("active");
+    }
+  });
+} 
+
 // A partir do nome da sessão ativa, calcula o nome da próxima e a ativa
 function nextSection(activeSection, sectionNumber){
   sectionNumber = Number(sectionNumber) + 1;
