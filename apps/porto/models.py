@@ -193,7 +193,7 @@ class PropostaPorto(models.Model):
         help_text="<h2>Informe a renda do seu cliente</h2>"
         "<h3>Essas informações são essenciais para análise de crédito do "
         "financiamento</h3>"
-        "<h3>Tipo de Renda</h3>",
+        # "<h3>Tipo de Renda:</h3>",
     )
     renda_mensal_pessoal = models.CharField(
         "Renda Mensal Pessoal", max_length=100, blank=True
@@ -239,7 +239,7 @@ class PropostaPorto(models.Model):
         max_length=100,
         blank=True,
         help_text="<h2>Informações sobre o Veículo</h2><p>Caso seu cliente não saiba "
-        "extamente qual veículo irá comprar, indique algum compatível em "
+        "exatamente qual veículo irá comprar, indique algum compatível em "
         "termos de preço. Fique tranquilo, você poderá mudar essa informação "
         "a qualquer momento.</p>",
     )

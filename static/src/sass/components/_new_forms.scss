@@ -31,6 +31,10 @@ form.login{
     color: red;
   }
 }
+#id_tipo_de_renda + label{
+  color: #272727;
+
+} 
 #id_sexo{
   padding-left: 65px;
   padding-right: 65px;
@@ -40,7 +44,6 @@ form.login{
 #id_sexo + label{
   margin-right: 490px;
   color: #3d4459;
-  
 }
 #id_sexo li {
   margin: 10px;
