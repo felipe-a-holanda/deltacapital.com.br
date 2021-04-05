@@ -226,7 +226,7 @@ class BasePropostaForm(BaseForm):
                 "assalariado": ["profissao_assalariado"]
                 + endereco_comercial
                 + ["tempo_de_empresa"],
-                "autonomo": ["profissao_liberal", "tempo_de_atividade"],
+                "autnomo": ["profissao_liberal", "tempo_de_atividade"],
                 "empresario": ["inicio_da_atividade"]
                 + endereco_comercial
                 + ["cnpj_da_empresa"],
