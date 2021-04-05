@@ -254,13 +254,15 @@ button:focus {
   text-align: left;
   transition-timing-function: linear;
   font-size: 13px;
+  display: none;
 }
 
 .error.active {
+  display: block;
   position: relative;
   opacity: 1;
   display: block;
-  top: 10px;
+  top: -5px;
   background-color: white;
   color: red;
 }
@@ -292,6 +294,8 @@ button:focus {
     height: 44px;
     width: 178px;
     color: #374eff;
+    border: 1px solid;
+    border-radius: 5px;
     text-decoration: none;
 }
 .progress {
