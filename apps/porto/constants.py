@@ -53,8 +53,8 @@ TIPO_RENDA2 = [
 
 TIPO_RENDA = [
     ("assalariado", "assalariado"),
-    ("autonomo", "autonomo"),
-    ("empresario", "empresario"),
+    ("autonomo", "autônomo"),
+    ("empresario", "empresário"),
     ("aposentado", "aposentado"),
 ]
 

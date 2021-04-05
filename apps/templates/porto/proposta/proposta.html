@@ -35,7 +35,7 @@
     {% endif %}
   <div class="inner-form form proposta-porto" data-depth="0.10">
 
-    <form id="proposta-financiamento" method="post" action="." data-anos-url="{% url 'porto:ajax_load_anos' %}" >
+    <form id="proposta-financiamento" method="post" action="." data-anos-url="{% url 'porto:ajax_load_anos' %}">
 
 
       {% csrf_token %}
@@ -87,8 +87,10 @@
           <!-- labels de texto -->
           <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
           {% endif %}
-
-         
+          
+          <div class="error">
+            <span> OBRIGATÓRIO! </span>
+          </div>
 
           {% for error in field.errors %}
             <span class="help-block">{{ error }}</span>
@@ -98,8 +100,7 @@
 
 
       <div class="button-row">
-        
-        <button class="button-submit" type="submit" value="continue">Seguinte</button>
+        <button class="button-submit" type="submit" value="continue" onclick="validateForm()">Seguinte</button>
       </div>
 
     </form>
@@ -111,6 +112,8 @@
 
 {% block js %}
 <script src="https://unpkg.com/conditionize@1/dist/conditionize.min.js"></script>
+<script src="{% static 'src/js/new_form.js' %}"></script>
+
 <script>
   $(document).ready( function(){
     $('#proposta-financiamento').conditionize();
