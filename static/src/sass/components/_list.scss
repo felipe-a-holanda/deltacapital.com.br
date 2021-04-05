@@ -9,14 +9,16 @@
 			padding-left: 0.25rem;
 		}
 	}
-
+	
 	ul {
 		list-style: disc;
 		margin: 0 0 _size(element-margin) 0;
 		padding-left: 1rem;
+		padding: 20px;
 
 		li {
 			padding-left: 0.325rem;
+			padding: 1px;
 		}
 
 		&.plain {

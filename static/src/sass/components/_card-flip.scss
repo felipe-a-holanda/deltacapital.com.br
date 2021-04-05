@@ -28,11 +28,12 @@ html {
   font-family: "Nunito Sans", sans-serif;
 }
 
-body {
+body{
   margin: 0;
   padding: 0;
   height: 100vh;
   background-color: $primary-light;
+  // background-color: white;
   background-attachment: fixed;
 }
 
