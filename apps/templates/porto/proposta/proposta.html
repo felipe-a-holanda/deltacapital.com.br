@@ -28,12 +28,16 @@
 {% block content %}
 
 <section class="wrapper form">
-
+  <!-- <div class="progress-wrap progress" id='progress-div' data-progress-percent="0">
+    <div class="progress-bar progress" id='progress-barra'></div>
+  </div>  -->
 
   {% if form.instance.pre_aprovado and current_stage == 2 %}
     {% include 'porto/proposta/pre_aprovado.html' with pre_aprovado=form.instance.pre_aprovado %}
     {% endif %}
+    
   <div class="inner-form form proposta-porto" data-depth="0.10">
+    
 
     <form id="proposta-financiamento" method="post" action="." data-anos-url="{% url 'porto:ajax_load_anos' %}">
 
@@ -61,16 +65,22 @@
         {% endif %}
         
       {% for field in form.visible_fields %}
-
-      
       
         {% if field.help_text %}
         <div class="help-text">
-          
+          <!-- <div class="progress-wrap progress" id='progress-div' data-progress-percent="0">
+            <div class="progress-bar progress" id='progress-barra'></div>
+          </div> -->
+
           {{ field.help_text|safe }}
+          <!-- <div class="progress-wrap progress" id='progress-div' data-progress-percent="0">
+              <div class="progress-bar progress" id='progress-barra'></div>
+            </div> -->
         </div>
         
           {% endif %}
+
+          
           
     
 

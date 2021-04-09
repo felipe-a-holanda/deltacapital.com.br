@@ -91,6 +91,15 @@
           </div>
         </div>
 
+        <div class="label-float form-group moeda inactive">
+          {{ form.ano }}
+          <label for="id_ano">Ano do Modelo</label>
+          {{ form.ano.errors }}
+          <div class="error">
+            <span> OBRIGATÓRIO! </span>
+          </div>
+        </div>
+
         <div class="label-float form-group inactive">
           {{ form.tipo_veiculo }}
           <label> O que deseja financiar? </label>
