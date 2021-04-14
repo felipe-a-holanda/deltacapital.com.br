@@ -46,18 +46,11 @@
 
       
         {% if back_stage %}
-        
           <a class="nova-proposta" href="{% url 'porto:proposta-create' %}">Nova proposta</a>
-        
-          {% if back_stage == 1 %}
-          <div class="back_button" onclick="location.href='{% url 'porto:proposta-create'  %}';" value="Anterior" />
-          <span id='arrow'>&#8617;</span>
-          <span>Voltar</span></div>
-          {% else %}
+
           <div class="back_button" onclick="location.href='{% url 'porto:proposta-update' form.instance.id back_stage %}';" value="Anterior" />
           <span id='arrow'>&#8617;</span>
-          <span>Voltar</span></div>
-          {% endif %}
+          <span>Voltar</span>
         {% endif %}
         
       {% for field in form.visible_fields %}

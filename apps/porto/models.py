@@ -7,6 +7,7 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
+from django.core.validators import MaxLengthValidator, MinLengthValidator
 from .constants import CAMBIO
 from .constants import COMBUSTIVEL
 from .constants import PRAZO
@@ -27,6 +28,8 @@ from .constants import STATUS_PRE_RECUSADO
 from .constants import STATUS_SIMULACAO
 from .constants import TIPO_RENDA
 from .constants import UFS
+
+from . import constants
 from apps.delta.helpers import model_to_dict_verbose
 from apps.users.models import User
 
@@ -260,9 +263,16 @@ class PropostaPorto(models.Model):
         blank=True,
     )
 
-    placa = models.CharField("Placa", max_length=100, blank=True)
-    renavam = models.CharField("Renavam", max_length=100, blank=True)
-    chassi = models.CharField("Chassi", max_length=100, blank=True)
+    placa = models.CharField("Placa", max_length=100, blank=True,
+                             validators=(
+                                 MinLengthValidator(constants.VALIDATE_PLACA_MIN),
+                                 MaxLengthValidator(constants.VALIDATE_PLACA_MAX)))
+    renavam = models.CharField("Renavam", max_length=100, blank=True, validators=(
+                                 MinLengthValidator(constants.VALIDATE_RENAVAM_MIN),
+                                 MaxLengthValidator(constants.VALIDATE_RENAVAM_MAX)))
+    chassi = models.CharField("Chassi", max_length=100, blank=True, validators=(
+                                 MinLengthValidator(constants.VALIDATE_CHASSI_MIN),
+                                 MaxLengthValidator(constants.VALIDATE_CHASSI_MAX)))
 
     nome_operador = models.CharField("Nome do Operador", max_length=100, blank=True)
 
@@ -456,4 +466,6 @@ class PropostaPorto(models.Model):
 
     @property
     def loja(self):
-        return self.user.loja
+        if self.user:
+            return self.user.get_loja()
+        return None

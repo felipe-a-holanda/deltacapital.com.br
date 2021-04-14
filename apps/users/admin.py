@@ -80,6 +80,7 @@ class UserAdmin(auth_admin.UserAdmin):
             if obj.user_type == VENDEDOR:
                 personal = {"fields": ("name", "loja")}  # type: ignore
 
+
             super_fieldsets = (
                 (
                     None,
@@ -112,9 +113,11 @@ class UserAdmin(auth_admin.UserAdmin):
 
             if request.user.is_superuser:
                 return super_fieldsets
+            print(owner_fieldsets)
             return owner_fieldsets
         else:
-            return super(UserAdmin, self).get_fieldsets(request, obj)
+            fieldsets = super(UserAdmin, self).get_fieldsets(request, obj)
+            return fieldsets
 
     def get_form(self, request, obj=None, **kwargs):
         if obj is not None:
@@ -163,6 +166,7 @@ class UserVendedorAdmin(UserAdmin):
     def get_form(self, request, obj=None, **kwargs):
         form = super(UserVendedorAdmin, self).get_form(request, obj, **kwargs)
         form.base_fields["user_type"].initial = VENDEDOR
-        form.base_fields["loja"].required = True
+        if "loja" in form.base_fields:
+            form.base_fields["loja"].required = True
 
         return form

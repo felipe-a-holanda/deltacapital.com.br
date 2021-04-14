@@ -86,9 +86,20 @@ PROFISSAO_LIBERAL = [
     ("OUTROS", "OUTROS"),
 ]
 
-COMBUSTIVEL = [("Gasolina/Alcool/Flex", "Gasolina/Alcool/Flex"), ("Diesel", "Diesel")]
-CAMBIO = [("Manual", "Manual"), ("Automatico", "Automático")]
+COMBUSTIVEL = [
+    ("Gasolina/Alcool/Flex", "Gasolina/Alcool/Flex"),
+    ("Hibrido", "Hibrido"),
+    ("Eletrico", "Elétrico"),
+]
 
+CAMBIO = [("Manual", "Manual"), ("Automatico", "Automático")]
+ANOS = 20
+
+VALIDATE_PLACA_MIN = VALIDATE_PLACA_MAX = 7
+VALIDATE_RENAVAM_MIN = 9
+VALIDATE_RENAVAM_MAX = 11
+VALIDATE_CHASSI_MIN = 17
+VALIDATE_CHASSI_MAX = 17
 
 State = Enum("State", "INICIAL ERRO RECUSADO APROVADO PRE_APROVADO")
 

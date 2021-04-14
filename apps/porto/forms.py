@@ -6,6 +6,8 @@ from django.core.exceptions import ValidationError
 from django.forms import HiddenInput
 from django.forms.models import ModelForm
 
+from . import constants
+
 
 class DeltaRadioSelect(forms.widgets.RadioSelect):
     template_name = "project/widgets/filter.html"
@@ -47,7 +49,7 @@ class BaseForm(ModelForm):
 
     def get_choices_ano(self):
         year = datetime.datetime.now().year
-        years = list(range(year, year - 11, -1))
+        years = list(range(year, year - (constants.ANOS + 1), -1))
         choices = [(str(year), str(year)) for year in years]
         return choices
 
@@ -56,11 +58,23 @@ class BaseForm(ModelForm):
             field = self.fields[field_name]
             if field_name == "ano_de_fabricacao":
                 field.widget = forms.Select(choices=self.get_choices_ano())
-            if field_name == "ano_do_modelo":
+            elif field_name == "ano_do_modelo":
                 field.widget = forms.Select(choices=self.get_choices_ano())
             elif field_name == "motor":
                 field.widget = forms.TextInput(
                     attrs={"placeholder": "1.0, 1.6, 2.0..."}
+                )
+            elif field_name == "placa":
+                field.widget = forms.TextInput(
+                    attrs={"maxlength": constants.VALIDATE_PLACA_MAX}
+                )
+            elif field_name == "renavam":
+                field.widget = forms.TextInput(
+                    attrs={"maxlength": constants.VALIDATE_RENAVAM_MAX}
+                )
+            elif field_name == "chassi":
+                field.widget = forms.TextInput(
+                    attrs={"maxlength": constants.VALIDATE_CHASSI_MAX}
                 )
 
     def change_widgets(self):
