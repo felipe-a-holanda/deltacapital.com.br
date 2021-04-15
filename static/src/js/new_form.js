@@ -116,7 +116,7 @@ function validateForm() {
   var activeDivs = $(activeSection).children(".label-float:not(.inactive)");
 
   $.each(activeDivs, function(index, Div) {
-    var input = $(Div).children('input:not([readonly]), select').first();
+    var input = $(Div).children('input:not([readonly]):not([style*="display: none"]), select').first();
     var erroMsg =  $(input).siblings('.error').first();
 
     if (!input.val()) {
