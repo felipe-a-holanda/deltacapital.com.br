@@ -26,7 +26,7 @@
   {% block headmedia %}{% endblock headmedia %}
 
 </head>
-<body class="{% block bodyclass %} index{% endblock bodyclass %}" id="topo">
+<body class="{% block bodyclass %} index{% endblock bodyclass %}">
 
 <div class="topnav{% if request.resolver_match.url_name == 'home' %} topnavhome{% endif %}" id="myTopnav">
   <a href="{% url 'delta:home' %}">Delta Capital</a>
