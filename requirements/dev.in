@@ -15,7 +15,7 @@ pytest-django  # https://github.com/pytest-dev/pytest-django
 
 # Code quality
 # ------------------------------------------------------------------------------
-black  # https://github.com/ambv/black
+black==19.10b0  # https://github.com/ambv/black
 coverage  # https://github.com/nedbat/coveragepy
 flake8  # https://github.com/PyCQA/flake8
 flake8-isort  # https://github.com/gforcada/flake8-isort
