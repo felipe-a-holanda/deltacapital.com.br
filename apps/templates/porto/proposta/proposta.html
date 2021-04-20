@@ -29,11 +29,12 @@
 
 <section class="wrapper form">
 
-
   {% if form.instance.pre_aprovado and current_stage == 2 %}
     {% include 'porto/proposta/pre_aprovado.html' with pre_aprovado=form.instance.pre_aprovado %}
     {% endif %}
+    
   <div class="inner-form form proposta-porto" data-depth="0.10">
+    
 
     <form id="proposta-financiamento" method="post" action="." data-anos-url="{% url 'porto:ajax_load_anos' %}">
 
@@ -54,19 +55,14 @@
         {% endif %}
         
       {% for field in form.visible_fields %}
-
-      
       
         {% if field.help_text %}
         <div class="help-text">
-          
           {{ field.help_text|safe }}
+         
         </div>
         
           {% endif %}
-          
-    
-
         <!-- Formulario -->
         <div class="form-group {{field.klass}}">
           

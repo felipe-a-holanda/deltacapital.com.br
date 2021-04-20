@@ -32,12 +32,13 @@ body{
   margin: 0;
   padding: 0;
   height: 100vh;
-  background-color: $primary-light;
-  // background-color: white;
+    // background-color: $primary-light;
   background-attachment: fixed;
 }
+.card-columns{
+  background-color: $primary-light;
+}
 
-//espaço dos cards 
 .content {
   display: flex;
   margin: 0 auto;
