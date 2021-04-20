@@ -41,3 +41,7 @@ pull_db:
 	dropdb --if-exists delta
 	heroku pg:pull DATABASE_URL delta --app deltacapital
 	#psql -d delta -c "REASSIGN OWNED BY ${USER} TO delta"
+
+copy_to_dev:
+	heroku pg:copy deltacapital::DATABASE_URL postgresql-sinuous-90885 --app deltacapital-dev --confirm deltacapital-dev
+	
