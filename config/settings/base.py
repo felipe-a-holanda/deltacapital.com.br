@@ -119,7 +119,7 @@ FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 # ------------------------------------------------------------------------------
 DATABASES = {"default": env.db("DATABASE_URL")}
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
-
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 AUTH_USER_MODEL = "users.User"
 
