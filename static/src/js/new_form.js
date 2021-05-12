@@ -35,6 +35,7 @@ window.onload = function() {
       // jQuery is loaded ;
       disableError();
       updatePercentage();
+
       // on browser resize...
       $(window).resize(function() {
         moveProgressBar();
@@ -113,19 +114,27 @@ function verificarInputs(event) {
 //Validação do form cdc
 function validateForm() {
   var activeSection = $('form:not(.inactive)');  
+  console.log(activeSection);
   var activeDivs = $(activeSection).children(".label-float:not(.inactive)");
+  console.log(activeDivs);
 
   $.each(activeDivs, function(index, Div) {
     var input = $(Div).children('input:not([readonly]):not([style*="display: none"]), select').first();
     var erroMsg =  $(input).siblings('.error').first();
+    // se o input não for outras rendas add msg de error
+    if(input.attr("id") !== "id_outras_rendas"){
+      console.log(input.attr("id"));
+      if (!input.val()) {
+        $(input).addClass("invalid");
+        
+        $(erroMsg).addClass("active");
+      } else {
+        $(input).removeClass("invalid");
+        $(erroMsg).removeClass("active");
+      }
 
-    if (!input.val()) {
-      $(input).addClass("invalid");
-      $(erroMsg).addClass("active");
-    } else {
-      $(input).removeClass("invalid");
-      $(erroMsg).removeClass("active");
     }
+ 
   });
 } 
 
@@ -181,7 +190,7 @@ function moveProgressBar() {
 }
 
 function updatePercentage(){
-  const sectionNumber = $('.section:not(.inactive)').attr('id').slice(-1);  
+  const sectionNumber = $('.section:not(.inactive)').attr('id').slice(-1);
   const totalSection = $('.section').length;
   const percentage = (sectionNumber / (totalSection+1));
   $("#progress-div").attr('data-progress-percent', percentage);
