@@ -121,8 +121,8 @@ function validateForm() {
   $.each(activeDivs, function(index, Div) {
     var input = $(Div).children('input:not([readonly]):not([style*="display: none"]), select').first();
     var erroMsg =  $(input).siblings('.error').first();
-    // se o input não for outras rendas add msg de error
-    if(input.attr("id") !== "id_outras_rendas"){
+    // se o input não for outras rendas e telefone fixo add msg de error
+    if((input.attr("id") !== "id_outras_rendas") && (input.attr("id") !== "id_telefone_fixo_da_empresa")){
       console.log(input.attr("id"));
       if (!input.val()) {
         $(input).addClass("invalid");
@@ -134,8 +134,9 @@ function validateForm() {
       }
 
     }
- 
+
   });
+  
 } 
 
 // A partir do nome da sessão ativa, calcula o nome da próxima e a ativa
