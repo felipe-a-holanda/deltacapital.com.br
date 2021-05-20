@@ -298,3 +298,7 @@ def test_email(request, pk):
     dic = model_to_dict_verbose(object, exclude=["id"] + object.hidden_fields)
     email = render_to_string("delta/emails/email.html", {"object": dic})
     return HttpResponse(email)
+
+
+class PropostaSelectView(LoginRequiredMixin, TemplateView):
+    template_name = "porto/proposta/proposta-select.html"

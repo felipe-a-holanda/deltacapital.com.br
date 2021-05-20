@@ -1,0 +1,25 @@
+{% extends 'delta/base.html' %}
+{% load static %}
+
+{% block title %}Delta Capital - Proposta{% endblock %}
+
+
+
+
+{% block content %}
+<div class="">
+    <br>
+    <br>
+    <br>
+    <h1>Selecione o tipo de proposta de financiamento de veículo</h1>
+    <p>
+    <a href="{% url 'porto:proposta-pf' %}">Proposta Pessoa Física</a>
+    </p>
+    <p>
+    <a href="{% url 'porto:proposta-pj' %}">Proposta Pessoa Jurídica</a>
+    </p>
+
+
+</div>
+{% endblock content %}
+
