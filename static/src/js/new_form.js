@@ -119,11 +119,10 @@ function validateForm() {
   console.log(activeDivs);
 
   var input = $("#id_valor_de_entrada");
+  var actId = $("#id_valor_financiado");
 
-  if(input >= $("#id_valor_do_veiculo")){
-      $(input.querySelector("#id_valor_financiado").addClass("invalid"));
-  
-      
+  if(input.val() >= $("#id_valor_do_veiculo").val()){
+      $(actId.addClass("invalid"));
   
      } else {
        $(input).removeClass("invalid");
@@ -147,12 +146,7 @@ function validateForm() {
 
     }
 
-   
- 
   });
-  // se o valor de entrada for maior que o valor do veiculo
-  // selecionar o valor financiado e add error
-  
 
 } 
 
