@@ -118,6 +118,17 @@ function validateForm() {
   var activeDivs = $(activeSection).children(".label-float:not(.inactive)");
   console.log(activeDivs);
 
+  var input = $("#id_valor_de_entrada");
+  var actId = $("#id_valor_financiado");
+
+  if(input.val() >= $("#id_valor_do_veiculo").val()){
+      $(actId.addClass("invalid"));
+  
+     } else {
+       $(input).removeClass("invalid");
+       
+     }
+
   $.each(activeDivs, function(index, Div) {
     var input = $(Div).children('input:not([readonly]):not([style*="display: none"]), select').first();
     var erroMsg =  $(input).siblings('.error').first();
@@ -136,7 +147,7 @@ function validateForm() {
     }
 
   });
-  
+
 } 
 
 // A partir do nome da sessão ativa, calcula o nome da próxima e a ativa
