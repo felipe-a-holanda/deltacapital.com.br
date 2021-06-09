@@ -123,10 +123,13 @@ function validateForm() {
 
   if(input.val() >= $("#id_valor_do_veiculo").val()){
       $(actId.addClass("invalid"));
+      // $(document).stop(function());
+      // $scope.showNextStep = function(){$scope.toggleSteps($scope.currentStepIndex + 1, true);}
+      // $(validateForm.stop());
   
      } else {
-       $(input).removeClass("invalid");
-       
+      $(input).removeClass("invalid");
+      document.getElementById("proposta-financiamento").submit();
      }
 
   $.each(activeDivs, function(index, Div) {
@@ -142,6 +145,8 @@ function validateForm() {
       } else {
         $(input).removeClass("invalid");
         $(erroMsg).removeClass("active");
+
+        // document.getElementById("proposta-financiamento").submit();
       }
 
     }
