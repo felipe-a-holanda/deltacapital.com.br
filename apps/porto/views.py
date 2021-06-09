@@ -15,7 +15,9 @@ from django.views.generic import UpdateView
 
 from . import constants
 from .constants import COMPLETE
-from .constants import STAGE_1
+
+from .constants import STAGE_1_PJ
+from .constants import STAGE_1_PJ
 from .constants import STAGE_2
 from .constants import STATUS_EM_DIGITACAO
 from .constants import STATUS_ERRO
@@ -25,60 +27,75 @@ from .forms import BasePropostaForm
 from .models import PropostaPorto
 
 
-def get_obj_from_hash(session_hash):
-    # Find and return an unexpired, not-yet-completed JobApplication
-    # with a matching session_hash, or None if no such object exists.
-    now = datetime.datetime.utcnow().replace(tzinfo=pytz.UTC)
-    max_age = 2 * 60 * 60  # Or make this a setting in "settings.py"
-    exclude_before = now - datetime.timedelta(seconds=max_age)
-    return (
-        PropostaPorto.objects.filter(
-            session_hash=session_hash, criado_em__gte=exclude_before
-        )
-        .exclude(stage=constants.COMPLETE)
-        .first()
-    )
+
+
+
+class PropostaSelectView(LoginRequiredMixin, TemplateView):
+    template_name = "porto/proposta/proposta-select.html"
+
+
+
 
 
 class PropostaCreateView(LoginRequiredMixin, CreateView):
     template_name = "porto/proposta/proposta.html"
     model = PropostaPorto
-    fields = PropostaPorto.FIELDS[STAGE_1]
 
     def form_valid(self, form):
+        print("PropostaCreateView form_valid")
         response = super(PropostaCreateView, self).form_valid(form)
         self.object.user = self.request.user  # type: ignore
         self.object.save()  # type: ignore
         return response
 
     def get_form_class(self):
-        fields = PropostaPorto.get_fields_by_stage(STAGE_1)
+        print("PropostaCreateView get_form_class")
+        first_stage = self.FIELDS_ORDER[0]
+        fields = PropostaPorto.get_fields_by_stage(first_stage)
         form = modelform_factory(PropostaPorto, BasePropostaForm, fields)
         return form
 
+
+
+class PropostaPFCreateView(PropostaCreateView):
+    FIELDS_ORDER = constants.STAGE_ORDER_PF
+    FIRST_PAGE = constants.STAGE_1_PF
+
     def get_success_url(self):
-        return reverse('porto:proposta-update',
-                       kwargs={'pk': self.object.pk, 'page': '2'})
-        #return reverse(
-        #    "porto:proposta-simulacao", kwargs={"pk": self.object.pk}  # type: ignore
-        #)
+        print("PropostaPFCreateView get_success_url" )
+        return reverse('porto:proposta-pf-update',
+                       kwargs={'pk': self.object.pk, 'page': constants.STAGE_2})
+
+
+class PropostaPJCreateView(PropostaCreateView):
+    FIELDS_ORDER = constants.STAGE_ORDER_PJ
+    FIRST_PAGE = constants.STAGE_1_PJ
+
+    def get_success_url(self):
+        return reverse('porto:proposta-pj-update',
+                       kwargs={'pk': self.object.pk, 'page': constants.STAGE_2})
+
+
+
 
 
 
 class PropostaUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "porto/proposta/proposta.html"
     model = PropostaPorto
-    fields = PropostaPorto.FIELDS[STAGE_1]
 
     def get_form_class(self):
-        page = self.kwargs.get("page", STAGE_1)
+        print("PropostaUpdateView get_form_class")
+        page = self.kwargs.get("page", self.FIRST_PAGE)
+        print("get_form_class obj:",self.object)
         fields = PropostaPorto.get_fields_by_stage(page)
-        form = modelform_factory(PropostaPorto, BasePropostaForm, fields)
+        form = modelform_factory(PropostaPorto, BasePropostaForm, fields, )
         return form
 
     def dispatch(self, request, *args, **kwargs):
+        print("PropostaUpdateView dispatch")
         # Check permissions for the request.user here
-        page = kwargs.get("page", 1)
+        page = kwargs.get("page", self.FIRST_PAGE)
         self.object = self.get_object()
         self.object.pagina = page  # type: ignore
         self.object.save()
@@ -86,28 +103,71 @@ class PropostaUpdateView(LoginRequiredMixin, UpdateView):
             raise PermissionDenied()
 
         self.fields = PropostaPorto.FIELDS[page]
+
         return super().dispatch(request, *args, **kwargs)
+
+
+    def get_next_page(self, page):
+
+        return self.FIELDS_ORDER[self.FIELDS_ORDER.index(page)+1]
+
+    def get_previous_page(self, page):
+
+        return self.FIELDS_ORDER[self.FIELDS_ORDER.index(page) + -1]
+
 
     def get_context_data(self, **kwargs):
         context = super(PropostaUpdateView, self).get_context_data(**kwargs)
-        page = self.kwargs.get("page", 1)
-        back_stage = page - 1
+        page = self.kwargs.get("page", self.FIRST_PAGE)
+        back_stage = self.get_previous_page(page)
 
-        if back_stage > 0:
+        if page != self.FIRST_PAGE:
             context["current_stage"] = page
             context["back_stage"] = back_stage
+            context["back_url"] = reverse(self.VIEW_NAME, kwargs={"pk": self.object.pk, "page": back_stage})
 
         return context
 
     def get_success_url(self):
-        page = self.kwargs.get("page", 1)
-        next = page + 1
+        page = self.kwargs.get("page", self.FIRST_PAGE)
+        next = self.get_next_page(page)
         if next == COMPLETE:
 
             return reverse("porto:proposta-fim", kwargs={"pk": self.object.pk})
         return reverse(
-            "porto:proposta-update", kwargs={"pk": self.object.pk, "page": next}
+            self.VIEW_NAME, kwargs={"pk": self.object.pk, "page": next}
         )
+
+
+
+
+
+class PropostaPFUpdateView(PropostaUpdateView):
+    FIELDS_ORDER = constants.STAGE_ORDER_PF
+    FIRST_PAGE = constants.STAGE_1_PF
+    VIEW_NAME = "porto:proposta-pf-update"
+
+class PropostaPJUpdateView(PropostaUpdateView):
+    FIELDS_ORDER = constants.STAGE_ORDER_PJ
+    FIRST_PAGE = constants.STAGE_1_PJ
+    VIEW_NAME = "porto:proposta-pj-update"
+
+
+
+    def get_form(self):
+        form = super(PropostaPJUpdateView, self).get_form()
+        if "tipo_de_renda" in form.fields:
+            form["tipo_de_renda"].initial=constants.RENDA_EMPRESARIO
+            form.fields["tipo_de_renda"].widget.choices = ((constants.RENDA_EMPRESARIO, "empresário"),)
+        return form
+
+
+
+
+
+
+
+
 
 
 # Old:
@@ -299,6 +359,16 @@ def test_email(request, pk):
     email = render_to_string("delta/emails/email.html", {"object": dic})
     return HttpResponse(email)
 
-
-class PropostaSelectView(LoginRequiredMixin, TemplateView):
-    template_name = "porto/proposta/proposta-select.html"
+def get_obj_from_hash(session_hash):
+    # Find and return an unexpired, not-yet-completed JobApplication
+    # with a matching session_hash, or None if no such object exists.
+    now = datetime.datetime.utcnow().replace(tzinfo=pytz.UTC)
+    max_age = 2 * 60 * 60  # Or make this a setting in "settings.py"
+    exclude_before = now - datetime.timedelta(seconds=max_age)
+    return (
+        PropostaPorto.objects.filter(
+            session_hash=session_hash, criado_em__gte=exclude_before
+        )
+        .exclude(stage=constants.COMPLETE)
+        .first()
+    )
