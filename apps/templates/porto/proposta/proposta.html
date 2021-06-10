@@ -33,9 +33,8 @@
   pre_aprovado=form.instance.pre_aprovado %}
   {% endif %}
 
-  <div class="inner-form form proposta-porto" data-depth="0.10">
-    <form id="proposta-financiamento" method="post" action="."
-          data-anos-url="{% url 'porto:ajax_load_anos' %}">
+  <div class="inner-form form proposta-porto" >
+    <form id="proposta-financiamento" method="post" action=".">
 
 
       {% csrf_token %}
@@ -43,6 +42,8 @@
       {% for hidden in form.hidden_fields %}
       {{ hidden }}
       {% endfor %}
+
+      {{form.errors}}
 
 
       {% if back_stage %}
@@ -52,7 +53,7 @@
 
 
       <div class="back_button"
-           onclick="location.href='{% url 'porto:proposta-update' form.instance.id back_stage %}';"
+           onclick="location.href='{{ back_url }}';"
            value="Anterior">
         <span id='arrow'>&#8617;</span>
         <span>Voltar</span></div>

@@ -1,15 +1,21 @@
 from collections import namedtuple
 from enum import Enum
 
-STAGE_1 = 1
-STAGE_2 = 2
-STAGE_3 = 3
-STAGE_4 = 4
-STAGE_5 = 5
-STAGE_6 = 6
-COMPLETE = 7
 
-STAGE_ORDER = [STAGE_1, STAGE_2, STAGE_3, STAGE_4, STAGE_5, STAGE_6, COMPLETE]
+STAGE_1_PF = '1_pf'
+STAGE_1_PJ = '1_pj'
+STAGE_2 = '2'
+STAGE_3 = '3'
+STAGE_4 = '4'
+STAGE_5_PF = '5_pf'
+STAGE_5_PJ = '5_pj'
+
+STAGE_6 = '6'
+COMPLETE = '7'
+
+STAGE_ORDER_PF = [STAGE_1_PF, STAGE_2, STAGE_3, STAGE_4, STAGE_5_PF, STAGE_6, COMPLETE]
+STAGE_ORDER_PJ = [STAGE_1_PJ, STAGE_2, STAGE_3, STAGE_4, STAGE_5_PJ, STAGE_6, COMPLETE]
+
 
 
 PRAZO = (("12", "12x"), ("24", "24x"), ("36", "36x"), ("48", "48x"), ("60", "60x"))
@@ -51,11 +57,18 @@ TIPO_RENDA2 = [
     ("aposentado", "Aposentado"),
 ]
 
+
+
+RENDA_ASSALARIADO = "assalariado"
+RENDA_AUTONOMO = "autonomo"
+RENDA_EMPRESARIO = "empresario"
+RENDA_APOSENTADO = "aposentado"
+
 TIPO_RENDA = [
-    ("assalariado", "assalariado"),
-    ("autonomo", "autônomo"),
-    ("empresario", "empresário"),
-    ("aposentado", "aposentado"),
+    (RENDA_ASSALARIADO, "assalariado"),
+    (RENDA_AUTONOMO, "autônomo"),
+    (RENDA_EMPRESARIO, "empresário"),
+    (RENDA_APOSENTADO, "aposentado"),
 ]
 
 PROFISSAO_ASSALARIADO = [

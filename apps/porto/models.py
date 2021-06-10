@@ -8,28 +8,8 @@ from django.db import models
 from django.utils import timezone
 
 from django.core.validators import MaxLengthValidator, MinLengthValidator
-from .constants import CAMBIO
-from .constants import COMBUSTIVEL
-from .constants import PRAZO
-from .constants import PROFISSAO_ASSALARIADO
-from .constants import PROFISSAO_LIBERAL
-from .constants import SIMULACAO_INICIAL
-from .constants import STAGE_1
-from .constants import STAGE_2
-from .constants import STAGE_3
-from .constants import STAGE_4
-from .constants import STAGE_5
-from .constants import STAGE_6
-from .constants import STATUS
-from .constants import STATUS_EM_DIGITACAO
-from .constants import STATUS_ERRO
-from .constants import STATUS_NAO_SIMULADO
-from .constants import STATUS_PRE_RECUSADO
-from .constants import STATUS_SIMULACAO
-from .constants import TIPO_RENDA
-from .constants import UFS
-
 from . import constants
+
 from apps.delta.helpers import model_to_dict_verbose
 from apps.users.models import User
 
@@ -42,9 +22,10 @@ def create_session_hash():
 
 class PropostaPorto(models.Model):
     FIELDS = {
-        STAGE_1: ["valor_do_veiculo", "valor_de_entrada", "valor_financiado", "cpf"],
-        STAGE_2: ["prazo"],
-        STAGE_3: [
+        constants.STAGE_1_PF: ["valor_do_veiculo", "valor_de_entrada", "valor_financiado", "cpf"],
+        constants.STAGE_1_PJ: ["valor_do_veiculo", "valor_de_entrada", "valor_financiado", "cnpj"],
+        constants.STAGE_2: ["prazo"],
+        constants.STAGE_3: [
             "nome",
             "data_de_nascimento",
             "sexo",
@@ -54,7 +35,7 @@ class PropostaPorto(models.Model):
             "local_de_nascimento",
             "uf_de_nascimento",
         ],
-        STAGE_4: [
+        constants.STAGE_4: [
             "cep",
             "endereco",
             "numero",
@@ -66,7 +47,7 @@ class PropostaPorto(models.Model):
             "celular",
             "email",
         ],
-        STAGE_5: [
+        constants.STAGE_5_PF: [
             "tipo_de_renda",
             "renda_mensal_pessoal",
             "cep_da_empresa",
@@ -87,7 +68,28 @@ class PropostaPorto(models.Model):
             "tempo_de_aposentadoria",
             "outras_rendas",
         ],
-        STAGE_6: [
+        constants.STAGE_5_PJ: [
+            "tipo_de_renda",
+            "renda_mensal_pessoal",
+            "cep_da_empresa",
+            "endereco_comercial",
+            "numero_empresa",
+            "complemento_empresa",
+            "bairro_empresa",
+            "cidade_empresa",
+            "uf_empresa",
+            "inicio_da_atividade",
+            "telefone_fixo_da_empresa",
+            "tempo_de_empresa",
+            "razao_social_da_empresa",
+            "cnpj_da_empresa",
+            "profissao_liberal",
+            "profissao_assalariado",
+            "tempo_de_atividade",
+            "tempo_de_aposentadoria",
+            "outras_rendas",
+        ],
+        constants.STAGE_6: [
             "ano_de_fabricacao",
             "ano_do_modelo",
             "marca",
@@ -113,12 +115,12 @@ class PropostaPorto(models.Model):
     enviado_em = models.DateTimeField(null=True, blank=True)
     modificado_em = models.DateTimeField(auto_now=True)
     session_hash = models.CharField("Código Interno", max_length=40, unique=True)
-    pagina = models.PositiveSmallIntegerField("Página", default=1)
+    pagina = models.CharField("Página", max_length=100, default='')
     status = models.PositiveSmallIntegerField(
-        "Status", choices=STATUS, default=STATUS_NAO_SIMULADO
+        "Status", choices=constants.STATUS, default=constants.STATUS_NAO_SIMULADO
     )
     estado_simulacao = models.PositiveSmallIntegerField(
-        "Simulacao", choices=STATUS_SIMULACAO, default=SIMULACAO_INICIAL
+        "Simulacao", choices=constants.STATUS_SIMULACAO, default=constants.SIMULACAO_INICIAL
     )
     mensagem = models.CharField(max_length=500, null=True, blank=True)
     valores_parcelas = models.CharField(
@@ -127,6 +129,8 @@ class PropostaPorto(models.Model):
     pre_aprovado = models.CharField(
         "Crédito pre-aprovado", max_length=1000, null=True, blank=True
     )
+
+    pessoa = models.CharField(max_length=100,choices=(("",""),("pf","pf"),("pj", "pj")), default="pf")
 
     # stage 1 fields
     valor_do_veiculo = models.CharField(
@@ -143,12 +147,18 @@ class PropostaPorto(models.Model):
         blank=True,
         help_text="<h2>Cliente</h2><h3>Preencha com o CPF do seu Cliente</h3>",
     )
+    cnpj = models.CharField(
+        "CNPJ",
+        max_length=20,
+        blank=True,
+        help_text="<h2>Cliente</h2><h3>Preencha com o CNPJ da Empresa</h3>",
+    )
 
     # stage 2 fields
     prazo = models.CharField(
         '',
         max_length=3,
-        choices=PRAZO,
+        choices=constants.PRAZO,
         blank=False,
         help_text="<h2>Prazo de Financiamento</h2><h3>Selecione a melhor opção para seu cliente.</h3>",
     )
@@ -170,7 +180,7 @@ class PropostaPorto(models.Model):
         "Local de Nascimento", max_length=100, blank=True
     )
     uf_de_nascimento = models.CharField(
-        "UF de Nascimento", max_length=2, choices=UFS, blank=True
+        "UF de Nascimento", max_length=2, choices=constants.UFS, blank=True
     )
 
     # stage 4 fields
@@ -182,7 +192,7 @@ class PropostaPorto(models.Model):
     complemento = models.CharField("Complemento", max_length=100, blank=True)
     bairro = models.CharField("Bairro", max_length=100, blank=True)
     cidade = models.CharField("Cidade", max_length=100, blank=True)
-    uf = models.CharField("UF", max_length=2, choices=UFS, blank=True)
+    uf = models.CharField("UF", max_length=2, choices=constants.UFS, blank=True)
     telefone_fixo = models.CharField("Telefone Fixo", max_length=100, blank=True)
     celular = models.CharField("Celular", max_length=100, blank=True)
     email = models.CharField("Email", max_length=100, blank=True)
@@ -190,7 +200,7 @@ class PropostaPorto(models.Model):
     # stage 5 fields
     tipo_de_renda = models.CharField(
         # "Tipo de Renda",
-        choices=TIPO_RENDA,
+        choices=constants.TIPO_RENDA,
         max_length=100,
         blank=True,
         help_text="<h2>Informe a renda do seu cliente</h2>"
@@ -202,10 +212,10 @@ class PropostaPorto(models.Model):
         "Renda Mensal Pessoal", max_length=100, blank=True
     )
     profissao_assalariado = models.CharField(
-        "Profissão", choices=PROFISSAO_ASSALARIADO, max_length=100, blank=True
+        "Profissão", choices=constants.PROFISSAO_ASSALARIADO, max_length=100, blank=True
     )
     profissao_liberal = models.CharField(
-        "Profissão", choices=PROFISSAO_LIBERAL, max_length=100, blank=True
+        "Profissão", choices=constants.PROFISSAO_LIBERAL, max_length=100, blank=True
     )
     cep_da_empresa = models.CharField("CEP da Empresa", max_length=100, blank=True)
     endereco_comercial = models.CharField(
@@ -215,7 +225,7 @@ class PropostaPorto(models.Model):
     complemento_empresa = models.CharField("Complemento", max_length=100, blank=True)
     bairro_empresa = models.CharField("Bairro", max_length=100, blank=True)
     cidade_empresa = models.CharField("Cidade", max_length=100, blank=True)
-    uf_empresa = models.CharField("UF", max_length=2, choices=UFS, blank=True)
+    uf_empresa = models.CharField("UF", max_length=2, choices=constants.UFS, blank=True)
     inicio_da_atividade = models.DateField("Início da Atividade", blank=True, null=True)
     telefone_fixo_da_empresa = models.CharField(
         "Telefone Fixo da Empresa", max_length=100, blank=True
@@ -252,9 +262,9 @@ class PropostaPorto(models.Model):
     versao = models.CharField("Versão", max_length=100, blank=True)
     cor = models.CharField("Cor", max_length=100, blank=True)
     combustivel = models.CharField(
-        "Combustível", choices=COMBUSTIVEL, max_length=100, blank=True
+        "Combustível", choices=constants.COMBUSTIVEL, max_length=100, blank=True
     )
-    cambio = models.CharField("Câmbio", choices=CAMBIO, max_length=100, blank=True)
+    cambio = models.CharField("Câmbio", choices=constants.CAMBIO, max_length=100, blank=True)
     motor = models.CharField("Motor", max_length=100, blank=True)
     dados_placa = models.CharField(
         "VOCÊ POSSUI OS DADOS DE PLACA / CHASSI / RENAVAM DESTE VEÍCULO?",
@@ -383,7 +393,7 @@ class PropostaPorto(models.Model):
         from .tasks import run_simulation
 
         # get_simulation(self.pk)
-        self.status = STATUS_NAO_SIMULADO
+        self.status = constants.STATUS_NAO_SIMULADO
         self.save()
         run_simulation.delay(self.pk)
         # if settings.DEBUG:
@@ -395,17 +405,17 @@ class PropostaPorto(models.Model):
         self.valores_parcelas = valores_parcelas
         self.pre_aprovado = pre_aprovado
         self.simulado_em = timezone.now()
-        self.status = STATUS_EM_DIGITACAO
+        self.status = constants.STATUS_EM_DIGITACAO
         self.save()
 
     def recusar(self,):
         self.simulado_em = timezone.now()
-        self.status = STATUS_PRE_RECUSADO
+        self.status = constants.STATUS_PRE_RECUSADO
         self.save()
 
     def erro(self,):
         self.simulado_em = timezone.now()
-        self.status = STATUS_ERRO
+        self.status = constants.STATUS_ERRO
         self.save()
 
     @property
@@ -433,7 +443,9 @@ class PropostaPorto(models.Model):
     @staticmethod
     def get_fields_by_stage(stage):
         fields = ["pagina"]  # Must always be present
+
         fields.extend(PropostaPorto.FIELDS[stage])
+        return PropostaPorto.FIELDS[stage]
         return fields
 
     def save(self, *args, **kwargs):
