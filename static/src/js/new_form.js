@@ -126,11 +126,8 @@ function validateForm() {
   if(input.val() >= $("#id_valor_do_veiculo").val()){
       $(actId.addClass("invalid"));
       hasInvalid = true;
-
-  
      } else {
       $(input).removeClass("invalid");
-      // document.getElementById("proposta-financiamento").submit();
      }
 
   $.each(activeDivs, function(index, Div) {
