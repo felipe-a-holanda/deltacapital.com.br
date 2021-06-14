@@ -153,6 +153,7 @@ function validateForm() {
 
     if(!hasInvalid){
       document.getElementById("proposta-financiamento").submit();
+      console.log(submit);
 
     }
 
