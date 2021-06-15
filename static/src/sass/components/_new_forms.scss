@@ -266,6 +266,9 @@ button:focus {
   font-size: 13px;
   display: none;
 }
+.errorlist{
+  display: none;
+}
 
 .error.active, .help-block {
   display: block;

@@ -166,6 +166,7 @@ class BasePropostaForm(BaseForm):
             "placa",
             "renavam",
             "chassi",
+            "cnpj",
             
         ],
         "cpf": ["cpf"],
