@@ -26,16 +26,21 @@ urlpatterns = [
     path("api/", include("config.api")),
     path("accounts/", include("allauth.urls")),
     path("usuarios/", include("apps.users.urls", namespace="user")),
+    path("shiftdata/", include("apps.shiftdata.urls", namespace="shiftdata")),
     path("", include("apps.delta.urls", namespace="delta")),
     path("", include("apps.porto.urls", namespace="porto")),
 ]
 
 
 if settings.DEBUG:
-    from django.conf.urls.static import static
+    # from django.conf.urls.static import static
 
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # urlpatterns += [
+    #    re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT})
+    # ]
+
+    # urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
     # This allows the error pages to be debugged during development, just visit
     # these url in browser to see how these error pages look like.

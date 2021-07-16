@@ -119,7 +119,7 @@ FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 # ------------------------------------------------------------------------------
 DATABASES = {"default": env.db("DATABASE_URL")}
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
-DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 AUTH_USER_MODEL = "users.User"
 
@@ -152,7 +152,7 @@ LOGIN_REDIRECT_URL = "porto:proposta-create"
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_ADAPTER = 'apps.users.account_adapter.NoNewUsersAccountAdapter'
+ACCOUNT_ADAPTER = "apps.users.account_adapter.NoNewUsersAccountAdapter"
 
 
 # Local time zone. Choices are
@@ -271,3 +271,6 @@ CONSTANCE_CONFIG = {
     "INSTAGRAM_USUARIO": ("delta.capital", "Nome de usuário do Instagram"),
     "FACEBOOK_USUARIO": ("deltacapital.com.br", "Nome de usuário do Facebook"),
 }
+
+
+SHIFTDATA_API_KEY = env.str("SHIFTDATA_API_KEY")
