@@ -72,8 +72,10 @@ class CartaoCreditoForm(BaseForm):
         "celular": ["telefone"],
         "cep": ["cep"],
         "data": ["data_de_nascimento"],
-        "radio-toolbar": ["pessoa", "bandeira", "sexo", "vencimento"],
-        "radio-toolbar-horizontal": ["pessoa", "bandeira", "sexo", "vencimento"],
+        "radio-toolbar": ["pessoa", "bandeira", "sexo"],
+        "radio-toolbar-horizontal": ["id_pessoa","pessoa", "bandeira", "sexo"],
+        "label-float":["nome","cpf","email","telefone","cep","data_de_nascimento","nome_mae","endereco"],
+        "label-float form-group":["vencimento"],
     }
 
     radio_fields = ["pessoa", "bandeira", "sexo"]
