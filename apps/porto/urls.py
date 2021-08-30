@@ -4,7 +4,11 @@ from .views import load_anos
 from .views import obrigado_view
 from .views import proposta_simulacao_view
 from .views import PropostaCreateView
-from .views import PropostaUpdateView
+from .views import PropostaPFCreateView
+from .views import PropostaPJCreateView
+from .views import PropostaPFUpdateView
+from .views import PropostaPJUpdateView
+from .views import PropostaSelectView
 from .views import recusado_view
 from .views import test_email
 
@@ -12,11 +16,18 @@ from .views import test_email
 app_name = "apps.porto"
 
 urlpatterns = [
-    path("cdcveiculos/", PropostaCreateView.as_view(), name="proposta-create"),
+    path("cdcveiculos/", PropostaSelectView.as_view(), name="proposta-create"),
+    path("cdcveiculos-pf/", PropostaPFCreateView.as_view(), name="proposta-pf"),
+    path("cdcveiculos-pj/", PropostaPJCreateView.as_view(), name="proposta-pj"),
     path(
-        "cdcveiculos/<int:pk>/<int:page>/",
-        PropostaUpdateView.as_view(),
-        name="proposta-update",
+        "cdcveiculos-pf/<int:pk>/<str:page>/",
+        PropostaPFUpdateView.as_view(),
+        name="proposta-pf-update",
+    ),
+    path(
+        "cdcveiculos-pj/<int:pk>/<str:page>/",
+        PropostaPJUpdateView.as_view(),
+        name="proposta-pj-update",
     ),
     # path("proposta/<int:id>/", proposta_view, name="proposta"),
     # path("proposta/<int:id>/<str:page>/", proposta_view, name="proposta"),

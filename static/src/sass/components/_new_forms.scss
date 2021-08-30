@@ -31,6 +31,10 @@ form.login{
     color: red;
   }
 }
+#id_tipo_de_renda + label{
+  color: #272727;
+
+} 
 #id_sexo{
   padding-left: 65px;
   padding-right: 65px;
@@ -40,7 +44,6 @@ form.login{
 #id_sexo + label{
   margin-right: 490px;
   color: #3d4459;
-  
 }
 #id_sexo li {
   margin: 10px;
@@ -115,7 +118,7 @@ section.form form {
 
 .label-float {
   position: relative;
-  margin: 1rem auto 0.2rem;
+  margin: 2rem auto 0.2rem;
   max-width: 600px;
 }
 
@@ -226,6 +229,16 @@ input:-webkit-autofill:active  {
   font-weight: 400;
   font-size: 1rem;
 }
+#choice a{
+  
+  color: rgb(250, 250, 250);
+  cursor: pointer;
+  margin: 1rem auto;
+  font-size: 1rem;
+  text-decoration:none;
+}
+
+
 
 .form form button.button-submit:hover {
   color: white !important;
@@ -251,15 +264,22 @@ button:focus {
   text-align: left;
   transition-timing-function: linear;
   font-size: 13px;
+  display: none;
+}
+.errorlist{
+  display: none;
 }
 
-.error.active {
+.error.active, .help-block {
+  display: block;
   position: relative;
   opacity: 1;
   display: block;
-  top: 10px;
+  top: -5px;
   background-color: white;
   color: red;
+  text-align: left;
+  margin-bottom: 10px;
 }
 
 .hidden {
@@ -289,8 +309,13 @@ button:focus {
     height: 44px;
     width: 178px;
     color: #374eff;
+    border: 1px solid;
+    border-radius: 5px;
     text-decoration: none;
 }
+// #progress-barra{
+//   left: 167.797px;
+// }
 .progress {
   width: 100%;
   height: 5px;

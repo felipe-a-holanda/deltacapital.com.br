@@ -4,6 +4,7 @@
 		@include padding(8rem, 0);
 		position: relative;
 		z-index: 1;
+		background-color: white;
 
 		@include breakpoint('<=large') {
 			@include padding(4rem, 0);

@@ -1,0 +1,24 @@
+{% extends 'delta/base.html' %}
+{% load static %}
+
+{% block title %}Delta Capital - Proposta{% endblock %}
+
+{% block content %}
+<section class="wrapper form">
+<div class="inner-form">
+    <img class="logo_thanks" src="{% static 'images/logo01.png' %} "/>
+    <h3>Selecione o tipo de proposta de financiamento de veículo</h3>
+    
+        <form id="choice">
+            <button class="button-submit" type="submit">
+                <a href="{% url 'porto:proposta-pf' %}">Proposta Pessoa Física</a>
+            </button>
+            <button class="button-submit" type="submit">
+                <a href="{% url 'porto:proposta-pj' %}">Proposta Pessoa Jurídica</a>
+            </button>
+        </form> 
+</div>
+</section>
+{% endblock content %}
+
+

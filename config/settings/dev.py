@@ -15,12 +15,7 @@ INTERNAL_IPS = ["127.0.0.1", "localhost"]
 
 ALLOWED_HOSTS = ["*"]
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": str(ROOT_DIR / "db.sqlite3"),
-    }
-}
+
 
 # EMAIL
 # ------------------------------------------------------------------------------

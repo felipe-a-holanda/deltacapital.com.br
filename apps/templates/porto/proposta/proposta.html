@@ -24,82 +24,80 @@
 {% endblock menuextra%} -->
 
 
-
 {% block content %}
 
 <section class="wrapper form">
 
-
   {% if form.instance.pre_aprovado and current_stage == 2 %}
-    {% include 'porto/proposta/pre_aprovado.html' with pre_aprovado=form.instance.pre_aprovado %}
-    {% endif %}
-  <div class="inner-form form proposta-porto" data-depth="0.10">
+  {% include 'porto/proposta/pre_aprovado.html' with
+  pre_aprovado=form.instance.pre_aprovado %}
+  {% endif %}
 
-    <form id="proposta-financiamento" method="post" action="." data-anos-url="{% url 'porto:ajax_load_anos' %}" >
+  <div class="inner-form form proposta-porto" >
+    <form id="proposta-financiamento" method="post" action=".">
 
 
       {% csrf_token %}
 
       {% for hidden in form.hidden_fields %}
-        {{ hidden }}
+      {{ hidden }}
       {% endfor %}
 
-      
-        {% if back_stage %}
-        
-          <a class="nova-proposta" href="{% url 'porto:proposta-create' %}">Nova proposta</a>
-        
-          {% if back_stage == 1 %}
-          <div class="back_button" onclick="location.href='{% url 'porto:proposta-create'  %}';" value="Anterior" />
-          <span id='arrow'>&#8617;</span>
-          <span>Voltar</span></div>
-          {% else %}
-          <div class="back_button" onclick="location.href='{% url 'porto:proposta-update' form.instance.id back_stage %}';" value="Anterior" />
-          <span id='arrow'>&#8617;</span>
-          <span>Voltar</span></div>
-          {% endif %}
-        {% endif %}
-        
+      {{form.errors}}
+
+
+      {% if back_stage %}
+
+      <a class="nova-proposta" href="{% url 'porto:proposta-create' %}">Nova
+        proposta</a>
+
+
+      <div class="back_button"
+           onclick="location.href='{{ back_url }}';"
+           value="Anterior">
+        <span id='arrow'>&#8617;</span>
+        <span>Voltar</span></div>
+
+      {% endif %}
+
       {% for field in form.visible_fields %}
 
-      
-      
-        {% if field.help_text %}
-        <div class="help-text">
-          
-          {{ field.help_text|safe }}
+      {% if field.help_text %}
+      <div class="help-text">
+        {{ field.help_text|safe }}
+
+      </div>
+
+      {% endif %}
+      <!-- Formulario -->
+      <div class="form-group {{field.klass}}">
+
+        <!-- Boxs do form  -->
+        {{ field|add_class:'form-control' }}
+
+        {% if field.data_cond %}
+        <label data-cond="{{field.data_cond}}" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {% else %}
+
+        <!-- labels de texto -->
+        <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+        {% endif %}
+
+        <div class="error">
+          <span> OBRIGATÓRIO! </span>
         </div>
-        
-          {% endif %}
-          
-    
 
-        <!-- Formulario -->
-        <div class="form-group {{field.klass}}">
-          
-          <!-- Boxs do form  -->
-          {{ field|add_class:'form-control' }}
-          
-          {% if field.data_cond %}
-          <label data-cond="{{field.data_cond}}" for="{{ field.id_for_label }}">{{ field.label }}</label>
-          {% else %}
-         
-          <!-- labels de texto -->
-          <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
-          {% endif %}
-
-         
-
-          {% for error in field.errors %}
-            <span class="help-block">{{ error }}</span>
-          {% endfor %}
-        </div>
+        {% for error in field.errors %}
+        <span class="help-block">{{ error }}</span>
+        {% endfor %}
+      </div>
       {% endfor %}
-
+      <!-- <a href="#" onclick="document.getElementById('myForm').submit()">Submit Form</a> -->
 
       <div class="button-row">
-        
-        <button class="button-submit" type="submit" value="continue">Seguinte</button>
+        <button type="button" class="button-submit" value="continue"
+                onclick="validateForm()">Seguinte
+        </button>
       </div>
 
     </form>
@@ -111,6 +109,8 @@
 
 {% block js %}
 <script src="https://unpkg.com/conditionize@1/dist/conditionize.min.js"></script>
+<script src="{% static 'src/js/new_form.js' %}"></script>
+
 <script>
   $(document).ready( function(){
     $('#proposta-financiamento').conditionize();
@@ -152,6 +152,7 @@ $("#id_ano_de_fabricacao").change(function () {
   });
 
 });
+
 
 </script>
 {% endblock js %}

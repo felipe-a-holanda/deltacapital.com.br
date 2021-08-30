@@ -23,18 +23,22 @@ class Proposta(models.Model):
     valor_entrada = models.DecimalField(max_digits=13, decimal_places=2, null=True, blank=True)
     valor_financiado = models.DecimalField(max_digits=13, decimal_places=2, null=True, blank=True)
 
-    veiculo = models.CharField(max_length=255, blank=True)
+    veiculo = models.CharField(max_length=255, null=True, blank=True)
     parcelas = models.IntegerField(null=True, blank=True)
     valor_parcela = models.DecimalField(max_digits=13, decimal_places=2, null=True, blank=True)
     taxa = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
-    n_contrato = models.CharField(max_length=255, blank=True)
+    n_contrato = models.CharField(max_length=255, null=True, blank=True)
 
     comissao = models.DecimalField(max_digits=3, decimal_places=1, default=6.0)
     comissao_operador = models.DecimalField(max_digits=3, decimal_places=2, default=2.0)
+    comissao_campanha = models.DecimalField(max_digits=3, decimal_places=2, default=2.0)
 
     valor_comissao = models.DecimalField(max_digits=13, decimal_places=2, null=True, blank=True)
     valor_comissao_operador = models.DecimalField(max_digits=13, decimal_places=2, null=True, blank=True)
+    valor_comissao_campanha = models.DecimalField(max_digits=13, decimal_places=2,
+                                                  null=True, blank=True)
     valor_comissao_liquido = models.DecimalField(max_digits=13, decimal_places=2, null=True, blank=True)
+
 
 
     arquivo_cnh = models.FileField("Arquivo da CNH", upload_to=UploadToPath("cnh"), null=True, blank=True)
@@ -66,7 +70,7 @@ class Proposta(models.Model):
         self.cliente = porto.nome
         self.cpf_cnpj = porto.cpf
         self.telefone = porto.celular if porto.celular else porto.telefone_fixo
-        self.loja = ''
+        self.loja = porto.loja
         self.valor_veiculo = currency_to_decimal(porto.valor_do_veiculo)
         self.valor_entrada = currency_to_decimal(porto.valor_de_entrada)
         self.valor_financiado = self.valor_veiculo - self.valor_entrada
@@ -78,4 +82,6 @@ class Proposta(models.Model):
         #self.comissao = porto.nome
         #self.comissao_operador = porto.nome
         #self.valor_comissao = porto.nome
+        self.user = porto.user
+        self.save()
 

@@ -4,6 +4,7 @@ form {
   
   margin: 0 0 _size(element-margin) 0;
 
+
   button.button-submit, .button-submit {
     margin: 2rem 1rem 1rem 1rem;
     text-transform: uppercase;
@@ -15,6 +16,8 @@ form {
     border-radius: 0px;
     font-size: 1rem;
   }
+
+  
 }
 
 input[type="text"],
@@ -322,8 +325,9 @@ div.proposta-porto {
 
   label {
     // font-size: 11px;
-    letter-spacing: 1.5px;
+    // letter-spacing: 1.5px;
     font-family: 'Open Sans', sans-serif;
   }
   
 }
+

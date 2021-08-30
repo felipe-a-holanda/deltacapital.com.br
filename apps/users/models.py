@@ -73,6 +73,11 @@ class User(AbstractUser):
         self.change_user_by_type()
         super().save(*args, **kwargs)
 
+    def get_loja(self):
+        if self.is_vendedor:
+            return self.loja
+        return None
+
     @property
     def is_operador(self):
         return self.user_type == OPERADOR

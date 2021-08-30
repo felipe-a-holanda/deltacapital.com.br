@@ -35,6 +35,7 @@ window.onload = function() {
       // jQuery is loaded ;
       disableError();
       updatePercentage();
+
       // on browser resize...
       $(window).resize(function() {
         moveProgressBar();
@@ -110,6 +111,57 @@ function verificarInputs(event) {
   }
 }
 
+//Validação do form cdc
+function validateForm() {
+  var activeSection = $('form:not(.inactive)');  
+  console.log(activeSection);
+  var activeDivs = $(activeSection).children(".label-float:not(.inactive)");
+  console.log(activeDivs.length);
+
+  var input = $("#id_valor_de_entrada");
+  var actId = $("#id_valor_financiado");
+
+  var hasInvalid = false;
+
+  if(input.val() >= $("#id_valor_do_veiculo").val()){
+      $(actId.addClass("invalid"));
+      hasInvalid = true;
+     } else {
+      $(input).removeClass("invalid");
+     }
+  
+  if(activeDivs.length){
+    
+  }
+
+  $.each(activeDivs, function(index, Div) {
+    var input = $(Div).children('input:not([readonly]):not([style*="display: none"]), select').first();
+    var erroMsg =  $(input).siblings('.error').first();
+    // se o input não for outras rendas e telefone fixo add msg de error
+    if((input.attr("id") !== "id_outras_rendas") && (input.attr("id") !== "id_telefone_fixo_da_empresa")){
+    
+      if (input.is(":visible") && !input.val()) {
+        $(input).addClass("invalid");
+        console.log(input);
+        $(erroMsg).addClass("active");
+        hasInvalid = true;
+      } else {
+        $(input).removeClass("invalid");
+        $(erroMsg).removeClass("active");
+      }
+
+    }
+  });
+    console.log(hasInvalid);
+
+    if(!hasInvalid){
+      document.getElementById("proposta-financiamento").submit();
+      console.log(submit);
+
+    }
+
+}; 
+
 // A partir do nome da sessão ativa, calcula o nome da próxima e a ativa
 function nextSection(activeSection, sectionNumber){
   sectionNumber = Number(sectionNumber) + 1;
@@ -162,7 +214,7 @@ function moveProgressBar() {
 }
 
 function updatePercentage(){
-  const sectionNumber = $('.section:not(.inactive)').attr('id').slice(-1);  
+  const sectionNumber = $('.section:not(.inactive)').attr('id').slice(-1);
   const totalSection = $('.section').length;
   const percentage = (sectionNumber / (totalSection+1));
   $("#progress-div").attr('data-progress-percent', percentage);

@@ -5,6 +5,7 @@
 
 		@include breakpoint('<=xlarge') {
 			font-size: 11pt;
+			
 		}
 
 		@include breakpoint('<=medium') {
