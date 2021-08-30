@@ -77,7 +77,7 @@ class CartaoCreditoForm(BaseForm):
         "label-float":["nome","cpf","email","telefone","cep","data_de_nascimento","nome_mae","endereco"],
         "label-float form-group":["vencimento"],
     }
-
+    # Verificar
     radio_fields = ["pessoa", "bandeira", "sexo"]
 
     class Meta:
