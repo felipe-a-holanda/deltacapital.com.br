@@ -330,4 +330,14 @@ div.proposta-porto {
   }
   
 }
+input[id="id_criado_em"]{
+  display: none;
+}
+label[for="id_criado_em"]{
+  display: none;}
 
+input[id="id_modificado_em"]{
+  display: none;
+}
+label[for="id_modificado_em"]{
+ display: none;}

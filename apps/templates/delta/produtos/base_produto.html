@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<section class="wrapper">
+<section class="wrapper form">
   <div class="inner-form form">
   {% block header %}
   {% endblock header %}
@@ -28,27 +28,28 @@
         </div>
           {% endif %}
 
-
+        <!-- Formulario -->
         <div class="form-group {{field.klass}}">
-          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+
+          <!-- Boxs do form  -->
           {{ field|add_class:'form-control' }}
 
+          <!-- labels de texto -->
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+
+          <div class="error">
+            <span> OBRIGATÓRIO! </span>
+          </div>
+          
           {% for error in field.errors %}
             <span class="help-block">{{ error }}</span>
           {% endfor %}
         </div>
       {% endfor %}
-
-
-
-
-
            <div class="button-row">
 
         <button class="button-submit" type="submit" value="Enviar">Enviar</button>
       </div>
-
-
 
     </form>
     {% endblock product %}
