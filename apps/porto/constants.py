@@ -21,6 +21,7 @@ STAGE_ORDER_PJ = [STAGE_1_PJ, STAGE_2, STAGE_3, STAGE_4, STAGE_5_PJ, STAGE_6, CO
 PRAZO = (("12", "12x"), ("24", "24x"), ("36", "36x"), ("48", "48x"), ("60", "60x"))
 
 UFS = [
+    ("  ", "  "),
     ("AC", "AC"),
     ("AL", "AL"),
     ("AP", "AP"),
@@ -101,6 +102,7 @@ PROFISSAO_LIBERAL = [
 
 COMBUSTIVEL = [
     ("Gasolina/Alcool/Flex", "Gasolina/Alcool/Flex"),
+    ('Diesel', 'Diesel'),
     ("Hibrido", "Hibrido"),
     ("Eletrico", "Elétrico"),
 ]

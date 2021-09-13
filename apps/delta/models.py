@@ -29,7 +29,7 @@ class FinanciamentoVeiculo(TimedModel):
     )
     valor_do_veiculo = models.CharField("Valor do Veículo", max_length=100)
     entrada = models.CharField("Valor de Entrada", max_length=100)
-    ano = models.PositiveSmallIntegerField(default=2010)
+    ano = models.PositiveSmallIntegerField(default="")
 
     class Meta:
         verbose_name = "Financiamento de Veículo"

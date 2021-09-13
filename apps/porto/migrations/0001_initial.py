@@ -225,6 +225,7 @@ class Migration(migrations.Migration):
                     models.CharField(
                         blank=True,
                         choices=[
+                            ("  ", "  "),
                             ("AC", "AC"),
                             ("AL", "AL"),
                             ("AP", "AP"),
