@@ -1,10 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.models import ModelForm
-
 from validate_docbr import CPF
-
-
 
 from .models import CapitalGiro
 from .models import CartaoCredito
@@ -36,8 +33,8 @@ class BaseForm(ModelForm):
 
         for field_name in self.fields:
             field = self.fields.get(field_name)
-            #if field and isinstance(field, forms.TypedChoiceField):
-            #    field.choices = field.choices[1:]  # type: ignore
+            if field and isinstance(field, forms.TypedChoiceField):
+                field.choices = field.choices[1:]  # type: ignore
 
             if field_name in radio_fields:
                 field.widget = forms.RadioSelect(choices=field._choices)  # type: ignore
@@ -73,16 +70,25 @@ class CartaoCreditoForm(BaseForm):
         "cep": ["cep"],
         "data": ["data_de_nascimento"],
         "radio-toolbar": ["pessoa", "bandeira", "sexo"],
-        "radio-toolbar-horizontal": ["id_pessoa","pessoa", "bandeira", "sexo"],
-        "label-float":["nome","cpf","email","telefone","cep","data_de_nascimento","nome_mae","endereco"],
-        "label-float form-group":["vencimento"],
+        "radio-toolbar-horizontal": ["id_pessoa", "pessoa", "bandeira", "sexo"],
+        "label-float": [
+            "nome",
+            "cpf",
+            "email",
+            "telefone",
+            "cep",
+            "data_de_nascimento",
+            "nome_mae",
+            "endereco",
+        ],
+        "label-float form-group": ["vencimento"],
     }
     # Verificar
     radio_fields = ["pessoa", "bandeira", "sexo"]
 
     class Meta:
         model = CartaoCredito
-        fields = "__all__"
+        fields = ["nome", "cpf", "email", "nome"]
 
 
 class CapitalGiroForm(BaseForm):

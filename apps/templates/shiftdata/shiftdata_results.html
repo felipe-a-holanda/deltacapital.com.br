@@ -1,0 +1,13 @@
+{% extends 'delta/base.html' %}
+
+{% block content %}
+
+<section class="wrapper">
+  <div class="inner-form form">
+    <h1>{{request.session.cpf}}</h1>
+
+    {{ request.session.result|safe|escape }}
+  </div>
+  </section>
+
+{% endblock content %}
