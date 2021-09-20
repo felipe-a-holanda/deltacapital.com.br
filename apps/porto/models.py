@@ -87,7 +87,7 @@ class PropostaPorto(models.Model):
             "profissao_assalariado",
             "tempo_de_atividade",
             "tempo_de_aposentadoria",
-            "outras_rendas",
+            # "outras_rendas",
         ],
         constants.STAGE_6: [
             "ano_de_fabricacao",
