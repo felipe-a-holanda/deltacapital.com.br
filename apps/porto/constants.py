@@ -73,6 +73,7 @@ TIPO_RENDA = [
 ]
 
 PROFISSAO_ASSALARIADO = [
+    ("  ","  "),
     ("ADMINISTRADORES / ECONOMISTAS", "ADMINISTRADORES / ECONOMISTAS"),
     ("ANALISTAS", "ANALISTAS"),
     ("CONSULTOR", "CONSULTOR"),
@@ -101,13 +102,14 @@ PROFISSAO_LIBERAL = [
 ]
 
 COMBUSTIVEL = [
+    ("  ","  "),
     ("Gasolina/Alcool/Flex", "Gasolina/Alcool/Flex"),
     ('Diesel', 'Diesel'),
     ("Hibrido", "Hibrido"),
     ("Eletrico", "Elétrico"),
 ]
 
-CAMBIO = [("Manual", "Manual"), ("Automatico", "Automático")]
+CAMBIO = [("  ","  "),("Manual", "Manual"), ("Automatico", "Automático")]
 ANOS = 20
 
 VALIDATE_PLACA_MIN = VALIDATE_PLACA_MAX = 7
