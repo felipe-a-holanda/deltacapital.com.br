@@ -122,7 +122,6 @@ function validateForm() {
   var actId = $("#id_valor_financiado");
 
   var hasInvalid = false;
-
   if(input.val() >= $("#id_valor_do_veiculo").val()){
       $(actId.addClass("invalid"));
       hasInvalid = true;
