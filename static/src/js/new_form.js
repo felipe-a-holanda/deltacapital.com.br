@@ -114,9 +114,7 @@ function verificarInputs(event) {
 //Validação do form cdc
 function validateForm() {
   var activeSection = $('form:not(.inactive)');  
-  console.log(activeSection);
   var activeDivs = $(activeSection).children(".label-float:not(.inactive)");
-  console.log(activeDivs.length);
 
   var input = $("#id_valor_de_entrada");
   var actId = $("#id_valor_financiado");
@@ -129,10 +127,6 @@ function validateForm() {
       $(input).removeClass("invalid");
      }
   
-  if(activeDivs.length){
-    
-  }
-
   $.each(activeDivs, function(index, Div) {
     var input = $(Div).children('input:not([readonly]):not([style*="display: none"]), select').first();
     var erroMsg =  $(input).siblings('.error').first();
@@ -151,15 +145,36 @@ function validateForm() {
 
     }
   });
-    console.log(hasInvalid);
-
+  //verificar em que pagina esta
+    //pegar a url
+    var url = window.location.href;
+    // pegar a ultima substring e verificar se é a 6
+    var list = url.split('/');
+    var pag = list[5];
+  // se for na pag 6 chama o validateAnoFabric
+    if(pag == '6'){
+      hasInvalid = validateAnoFabric()
+    }
     if(!hasInvalid){
       document.getElementById("proposta-financiamento").submit();
-      console.log(submit);
-
     }
 
 }; 
+
+function validateAnoFabric(){
+  var input = $("#id_ano_do_modelo");
+  var actiId = $("#id_ano_de_fabricacao");
+  var hasInvalid = false;
+  
+  if(input.val() < $("#id_ano_de_fabricacao").val()){
+    $(input.addClass("invalid"));
+    hasInvalid = true;
+    alert("O Ano do Modelo não pode ser menor que ano de fabricação.");
+  } else {
+    $(input).removeClass("invalid");
+    }
+  return hasInvalid;
+};
 
 // A partir do nome da sessão ativa, calcula o nome da próxima e a ativa
 function nextSection(activeSection, sectionNumber){

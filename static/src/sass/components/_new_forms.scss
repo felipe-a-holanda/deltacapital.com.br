@@ -285,7 +285,14 @@ button:focus {
 .hidden {
   display: none;
 }
-
+#back_button_finish{
+  position: absolute;
+  left: 100%;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #374eff;
+  text-decoration: none;
+}
 .back_button{
   position: absolute;
   left: 3%;

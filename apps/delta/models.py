@@ -14,6 +14,7 @@ class TimedModel(models.Model):
 
 class FinanciamentoVeiculo(TimedModel):
     TIPOS_VEICULO = (
+        ("  ", "  "),
         ("carro", "Carro"),
         ("moto", "Moto"),
         ("utilitario", "Utilitário"),

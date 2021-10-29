@@ -57,9 +57,9 @@ class BaseForm(ModelForm):
         for field_name in self.fields:
             field = self.fields[field_name]
             if field_name == "ano_de_fabricacao":
-                field.widget = forms.Select(choices=self.get_choices_ano())
+                field.widget = forms.TextInput(attrs={"placeholder": "2021, 2020..."})
             elif field_name == "ano_do_modelo":
-                field.widget = forms.Select(choices=self.get_choices_ano())
+                field.widget = forms.TextInput(attrs={"placeholder": "2021, 2020..."})
             elif field_name == "motor":
                 field.widget = forms.TextInput(
                     attrs={"placeholder": "1.0, 1.6, 2.0..."}
