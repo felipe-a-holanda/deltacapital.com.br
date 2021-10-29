@@ -6,6 +6,10 @@
 {% block content %}
 <section class="wrapper form">
 <div class="inner-form">
+    <div id="back_button_finish">
+        <a href="{% url 'account_logout' %}" style="text-decoration:none">Sair</a>
+      </div>
+
     <img class="logo_thanks" src="{% static 'images/logo01.png' %} "/>
     <h3>Selecione o tipo de proposta de financiamento de veículo</h3>
     

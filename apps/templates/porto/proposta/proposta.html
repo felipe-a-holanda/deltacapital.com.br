@@ -136,50 +136,5 @@ function calc_valor_financiado(){
 
   $('#id_valor_financiado').val("R$ "+valor_financiado);
 }
-
-$("#id_ano_de_fabricacao").change(function () {
-  // var url = $("#proposta-financiamento").attr("data-anos-url");  // get the url of the `load_cities` view
-  // var ano_fabricacao = $(this).val();  // get the selected country ID from the HTML input
-
-  // $.ajax({                       // initialize an AJAX request
-  //   url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
-  //   data: {
-  //     'ano': ano_fabricacao       // add the country id to the GET parameters
-  //   },
-  //   success: function (data) {   // `data` is the return of the `load_cities` view function
-  //     $("#id_ano_do_modelo").html(data);  // replace the contents of the city input with the data that came from the server
-  //   }
-  // });
-
-  // Pegar o valor do ano de fabricação
-  var ano_de_fabricacao = $(this).val();
-  // Se for String converte em numero
-  var fabricacao_convertido = parseInt(ano_de_fabricacao,10);  // conversao do numero
-  
-  var list_anos = [ano_de_fabricacao,fabricacao_convertido+1]; //array
-  console.log(list_anos);
-  
-  // adicionar as opções do ano modelo
-    // criar variavel string fora do forEach para armazenar as options - list_de_options)
-    var list_de_options = "";
-    // iterar sobre os eletemos do list_anos forEach
-    list_anos.forEach(function iteracao(item){
-      //  para cada elemento criaa uma string com o option
-      var option = "<option value="+item+">"+item+"</option>";
-      console.log(option);
-      
-      //concatenar o option com list_de_options
-      list_de_options += option;
-      console.log(list_de_options);
-     
-    });
-  $("#id_ano_do_modelo").html(list_de_options);
-  
-    // pesquisar como colocar uma variavel dentro da string
-  
-  
-});
-
-
 </script>
 {% endblock js %}
