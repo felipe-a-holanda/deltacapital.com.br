@@ -1,0 +1,15 @@
+{% extends 'delta/produtos/base_produto.html' %}
+{% load static %}
+
+{% block content %}
+<h2 class="form_title">Consignado Privado</h2>
+<p>Entre em contato conosco</p>
+<section class="wrapper form">
+    <ul class="plain">
+        <li><a href=""><i
+                class="">&nbsp;</i>Email</a></li>
+        <li><a href="{% url 'delta:whatsapp' %}"><i
+                class="icon fa-whatsapp">&nbsp;</i>WhatsApp</a></li>
+      </ul>
+</section>
+{% endblock content %}
