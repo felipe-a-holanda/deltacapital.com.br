@@ -4,12 +4,12 @@ import sys
 from decimal import Decimal
 
 from django.conf import settings
+from django.core.validators import MaxLengthValidator
+from django.core.validators import MinLengthValidator
 from django.db import models
 from django.utils import timezone
 
-from django.core.validators import MaxLengthValidator, MinLengthValidator
 from . import constants
-
 from apps.delta.helpers import model_to_dict_verbose
 from apps.users.models import User
 
@@ -22,8 +22,18 @@ def create_session_hash():
 
 class PropostaPorto(models.Model):
     FIELDS = {
-        constants.STAGE_1_PF: ["valor_do_veiculo", "valor_de_entrada", "valor_financiado", "cpf"],
-        constants.STAGE_1_PJ: ["valor_do_veiculo", "valor_de_entrada", "valor_financiado", "cnpj"],
+        constants.STAGE_1_PF: [
+            "valor_do_veiculo",
+            "valor_de_entrada",
+            "valor_financiado",
+            "cpf",
+        ],
+        constants.STAGE_1_PJ: [
+            "valor_do_veiculo",
+            "valor_de_entrada",
+            "valor_financiado",
+            "cnpj",
+        ],
         constants.STAGE_2: ["prazo"],
         constants.STAGE_3: [
             "nome",
@@ -115,12 +125,14 @@ class PropostaPorto(models.Model):
     enviado_em = models.DateTimeField(null=True, blank=True)
     modificado_em = models.DateTimeField(auto_now=True)
     session_hash = models.CharField("Código Interno", max_length=40, unique=True)
-    pagina = models.CharField("Página", max_length=100, default='')
+    pagina = models.CharField("Página", max_length=100, default="")
     status = models.PositiveSmallIntegerField(
         "Status", choices=constants.STATUS, default=constants.STATUS_NAO_SIMULADO
     )
     estado_simulacao = models.PositiveSmallIntegerField(
-        "Simulacao", choices=constants.STATUS_SIMULACAO, default=constants.SIMULACAO_INICIAL
+        "Simulacao",
+        choices=constants.STATUS_SIMULACAO,
+        default=constants.SIMULACAO_INICIAL,
     )
     mensagem = models.CharField(max_length=500, null=True, blank=True)
     valores_parcelas = models.CharField(
@@ -130,7 +142,9 @@ class PropostaPorto(models.Model):
         "Crédito pre-aprovado", max_length=1000, null=True, blank=True
     )
 
-    pessoa = models.CharField(max_length=100,choices=(("",""),("pf","pf"),("pj", "pj")), default="pf")
+    pessoa = models.CharField(
+        max_length=100, choices=(("", ""), ("pf", "pf"), ("pj", "pj")), default="pf"
+    )
 
     # stage 1 fields
     valor_do_veiculo = models.CharField(
@@ -156,7 +170,7 @@ class PropostaPorto(models.Model):
 
     # stage 2 fields
     prazo = models.CharField(
-        '',
+        "",
         max_length=3,
         choices=constants.PRAZO,
         blank=False,
@@ -166,7 +180,7 @@ class PropostaPorto(models.Model):
     # stage 3 fields
     nome = models.CharField("Nome", max_length=100, blank=True)
     data_de_nascimento = models.DateField("Data de Nascimento", null=True, blank=True)
-    
+
     sexo = models.CharField(
         "Sexo",
         max_length=100,
@@ -264,7 +278,9 @@ class PropostaPorto(models.Model):
     combustivel = models.CharField(
         "Combustível", choices=constants.COMBUSTIVEL, max_length=100, blank=True
     )
-    cambio = models.CharField("Câmbio", choices=constants.CAMBIO, max_length=100, blank=True)
+    cambio = models.CharField(
+        "Câmbio", choices=constants.CAMBIO, max_length=100, blank=True
+    )
     motor = models.CharField("Motor", max_length=100, blank=True)
     dados_placa = models.CharField(
         "VOCÊ POSSUI OS DADOS DE PLACA / CHASSI / RENAVAM DESTE VEÍCULO?",
@@ -273,16 +289,33 @@ class PropostaPorto(models.Model):
         blank=True,
     )
 
-    placa = models.CharField("Placa", max_length=100, blank=True,
-                             validators=(
-                                 MinLengthValidator(constants.VALIDATE_PLACA_MIN),
-                                 MaxLengthValidator(constants.VALIDATE_PLACA_MAX)))
-    renavam = models.CharField("Renavam", max_length=100, blank=True, validators=(
-                                 MinLengthValidator(constants.VALIDATE_RENAVAM_MIN),
-                                 MaxLengthValidator(constants.VALIDATE_RENAVAM_MAX)))
-    chassi = models.CharField("Chassi", max_length=100, blank=True, validators=(
-                                 MinLengthValidator(constants.VALIDATE_CHASSI_MIN),
-                                 MaxLengthValidator(constants.VALIDATE_CHASSI_MAX)))
+    placa = models.CharField(
+        "Placa",
+        max_length=100,
+        blank=True,
+        validators=(
+            MinLengthValidator(constants.VALIDATE_PLACA_MIN),
+            MaxLengthValidator(constants.VALIDATE_PLACA_MAX),
+        ),
+    )
+    renavam = models.CharField(
+        "Renavam",
+        max_length=100,
+        blank=True,
+        validators=(
+            MinLengthValidator(constants.VALIDATE_RENAVAM_MIN),
+            MaxLengthValidator(constants.VALIDATE_RENAVAM_MAX),
+        ),
+    )
+    chassi = models.CharField(
+        "Chassi",
+        max_length=100,
+        blank=True,
+        validators=(
+            MinLengthValidator(constants.VALIDATE_CHASSI_MIN),
+            MaxLengthValidator(constants.VALIDATE_CHASSI_MAX),
+        ),
+    )
 
     nome_operador = models.CharField("Nome do Operador", max_length=100, blank=True)
 
@@ -291,6 +324,7 @@ class PropostaPorto(models.Model):
     hidden_fields = ["pagina", "session_hash", "nome_operador"]
     radio_fields = ["prazo", "sexo", "tipo_de_renda", "dados_placa"]
     readonly_fields = ["valor_financiado"]
+    remove_empty_fields = ["prazo", "sexo", "dados_placa"]
 
     required_fields = [
         "valor_do_veiculo",

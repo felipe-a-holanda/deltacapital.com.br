@@ -1,10 +1,11 @@
 import datetime
 from collections import defaultdict
-from validate_docbr import CPF
+
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import HiddenInput
 from django.forms.models import ModelForm
+from validate_docbr import CPF
 
 from . import constants
 
@@ -82,17 +83,18 @@ class BaseForm(ModelForm):
         radio_fields = getattr(self.instance, "radio_fields", [])
         hidden_fields = getattr(self.instance, "hidden_fields", [])
         readonly_fields = getattr(self.instance, "readonly_fields", [])
+        remove_empty_fields = getattr(self.instance, "remove_empty_fields", [])
 
         for field_name in self.fields:
             field = self.fields.get(field_name)
-            if field and isinstance(field, forms.TypedChoiceField):
+            if field_name in remove_empty_fields:
                 field.choices = field.choices[1:]  # type:ignore
             if field_name in required_fields:
                 field.required = True  # type:ignore
             if field_name in hidden_fields:
                 field.widget = HiddenInput()  # type:ignore
             if field_name in readonly_fields:
-                field.widget.attrs['readonly'] = True
+                field.widget.attrs["readonly"] = True  # type:ignore
             if field_name in radio_fields:
                 field.widget = forms.RadioSelect(choices=field._choices)  # type: ignore
             if field_name == "prazo":
@@ -114,9 +116,9 @@ class BasePropostaForm(BaseForm):
             "outras_rendas",
         ],
         "label-float": [
-            "valor_do_veiculo", 
-            "valor_de_entrada", 
-            "valor_financiado", 
+            "valor_do_veiculo",
+            "valor_de_entrada",
+            "valor_financiado",
             "cpf",
             "nome",
             "data_de_nascimento",
@@ -167,7 +169,6 @@ class BasePropostaForm(BaseForm):
             "renavam",
             "chassi",
             "cnpj",
-            
         ],
         "cpf": ["cpf"],
         "cnpj": ["cnpj_da_empresa"],
@@ -272,4 +273,3 @@ class BasePropostaForm(BaseForm):
             return cpf
         else:
             raise ValidationError("CPF Inválido")
-

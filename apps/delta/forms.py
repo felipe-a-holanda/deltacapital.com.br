@@ -30,7 +30,6 @@ class BaseForm(ModelForm):
 
     def change_widgets(self):
         radio_fields = getattr(self, "radio_fields", [])
-
         for field_name in self.fields:
             field = self.fields.get(field_name)
             if field and isinstance(field, forms.TypedChoiceField):

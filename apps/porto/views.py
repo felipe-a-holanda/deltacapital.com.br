@@ -15,9 +15,6 @@ from django.views.generic import UpdateView
 
 from . import constants
 from .constants import COMPLETE
-
-from .constants import STAGE_1_PJ
-from .constants import STAGE_1_PJ
 from .constants import STAGE_2
 from .constants import STATUS_EM_DIGITACAO
 from .constants import STATUS_ERRO
@@ -27,14 +24,8 @@ from .forms import BasePropostaForm
 from .models import PropostaPorto
 
 
-
-
-
 class PropostaSelectView(LoginRequiredMixin, TemplateView):
     template_name = "porto/proposta/proposta-select.html"
-
-
-
 
 
 class PropostaCreateView(LoginRequiredMixin, CreateView):
@@ -42,19 +33,16 @@ class PropostaCreateView(LoginRequiredMixin, CreateView):
     model = PropostaPorto
 
     def form_valid(self, form):
-        print("PropostaCreateView form_valid")
         response = super(PropostaCreateView, self).form_valid(form)
         self.object.user = self.request.user  # type: ignore
         self.object.save()  # type: ignore
         return response
 
     def get_form_class(self):
-        print("PropostaCreateView get_form_class")
-        first_stage = self.FIELDS_ORDER[0]
+        first_stage = self.FIELDS_ORDER[0]  # type:ignore
         fields = PropostaPorto.get_fields_by_stage(first_stage)
         form = modelform_factory(PropostaPorto, BasePropostaForm, fields)
         return form
-
 
 
 class PropostaPFCreateView(PropostaCreateView):
@@ -62,9 +50,10 @@ class PropostaPFCreateView(PropostaCreateView):
     FIRST_PAGE = constants.STAGE_1_PF
 
     def get_success_url(self):
-        print("PropostaPFCreateView get_success_url" )
-        return reverse('porto:proposta-pf-update',
-                       kwargs={'pk': self.object.pk, 'page': constants.STAGE_2})
+        return reverse(
+            "porto:proposta-pf-update",
+            kwargs={"pk": self.object.pk, "page": constants.STAGE_2},  # type:ignore
+        )
 
 
 class PropostaPJCreateView(PropostaCreateView):
@@ -72,12 +61,10 @@ class PropostaPJCreateView(PropostaCreateView):
     FIRST_PAGE = constants.STAGE_1_PJ
 
     def get_success_url(self):
-        return reverse('porto:proposta-pj-update',
-                       kwargs={'pk': self.object.pk, 'page': constants.STAGE_2})
-
-
-
-
+        return reverse(
+            "porto:proposta-pj-update",
+            kwargs={"pk": self.object.pk, "page": constants.STAGE_2},  # type:ignore
+        )
 
 
 class PropostaUpdateView(LoginRequiredMixin, UpdateView):
@@ -85,17 +72,14 @@ class PropostaUpdateView(LoginRequiredMixin, UpdateView):
     model = PropostaPorto
 
     def get_form_class(self):
-        print("PropostaUpdateView get_form_class")
-        page = self.kwargs.get("page", self.FIRST_PAGE)
-        print("get_form_class obj:",self.object)
+        page = self.kwargs.get("page", self.FIRST_PAGE)  # type:ignore
         fields = PropostaPorto.get_fields_by_stage(page)
-        form = modelform_factory(PropostaPorto, BasePropostaForm, fields, )
+        form = modelform_factory(PropostaPorto, BasePropostaForm, fields)
         return form
 
     def dispatch(self, request, *args, **kwargs):
-        print("PropostaUpdateView dispatch")
         # Check permissions for the request.user here
-        page = kwargs.get("page", self.FIRST_PAGE)
+        page = kwargs.get("page", self.FIRST_PAGE)  # type:ignore
         self.object = self.get_object()
         self.object.pagina = page  # type: ignore
         self.object.save()
@@ -106,40 +90,38 @@ class PropostaUpdateView(LoginRequiredMixin, UpdateView):
 
         return super().dispatch(request, *args, **kwargs)
 
-
     def get_next_page(self, page):
 
-        return self.FIELDS_ORDER[self.FIELDS_ORDER.index(page)+1]
+        return self.FIELDS_ORDER[self.FIELDS_ORDER.index(page) + 1]  # type:ignore
 
     def get_previous_page(self, page):
 
-        return self.FIELDS_ORDER[self.FIELDS_ORDER.index(page) + -1]
-
+        return self.FIELDS_ORDER[self.FIELDS_ORDER.index(page) + -1]  # type:ignore
 
     def get_context_data(self, **kwargs):
         context = super(PropostaUpdateView, self).get_context_data(**kwargs)
-        page = self.kwargs.get("page", self.FIRST_PAGE)
+        page = self.kwargs.get("page", self.FIRST_PAGE)  # type:ignore
         back_stage = self.get_previous_page(page)
 
-        if page != self.FIRST_PAGE:
+        if page != self.FIRST_PAGE:  # type:ignore
             context["current_stage"] = page
             context["back_stage"] = back_stage
-            context["back_url"] = reverse(self.VIEW_NAME, kwargs={"pk": self.object.pk, "page": back_stage})
+            context["back_url"] = reverse(
+                self.VIEW_NAME,  # type:ignore
+                kwargs={"pk": self.object.pk, "page": back_stage},
+            )
 
         return context
 
     def get_success_url(self):
-        page = self.kwargs.get("page", self.FIRST_PAGE)
+        page = self.kwargs.get("page", self.FIRST_PAGE)  # type:ignore
         next = self.get_next_page(page)
         if next == COMPLETE:
 
             return reverse("porto:proposta-fim", kwargs={"pk": self.object.pk})
         return reverse(
-            self.VIEW_NAME, kwargs={"pk": self.object.pk, "page": next}
+            self.VIEW_NAME, kwargs={"pk": self.object.pk, "page": next}  # type:ignore
         )
-
-
-
 
 
 class PropostaPFUpdateView(PropostaUpdateView):
@@ -147,27 +129,20 @@ class PropostaPFUpdateView(PropostaUpdateView):
     FIRST_PAGE = constants.STAGE_1_PF
     VIEW_NAME = "porto:proposta-pf-update"
 
+
 class PropostaPJUpdateView(PropostaUpdateView):
     FIELDS_ORDER = constants.STAGE_ORDER_PJ
     FIRST_PAGE = constants.STAGE_1_PJ
     VIEW_NAME = "porto:proposta-pj-update"
 
-
-
     def get_form(self):
         form = super(PropostaPJUpdateView, self).get_form()
         if "tipo_de_renda" in form.fields:
-            form["tipo_de_renda"].initial=constants.RENDA_EMPRESARIO
-            form.fields["tipo_de_renda"].widget.choices = ((constants.RENDA_EMPRESARIO, "empresário"),)
+            form["tipo_de_renda"].initial = constants.RENDA_EMPRESARIO
+            form.fields["tipo_de_renda"].widget.choices = (
+                (constants.RENDA_EMPRESARIO, "empresário"),
+            )
         return form
-
-
-
-
-
-
-
-
 
 
 # Old:
@@ -182,14 +157,14 @@ class PropostaView(LoginRequiredMixin, FormView):
         elif self.proposta:
             stage = self.proposta.pagina
         else:
-            stage = constants.STAGE_1
+            stage = constants.STAGE_1  # type:ignore
         print("pagina=", stage)
         return stage
 
     def _get_back_stage(self):
         current_stage = self._get_stage()
-        i = constants.STAGE_ORDER.index(current_stage)
-        return constants.STAGE_ORDER[i - 1] if i - 1 >= 0 else None
+        i = constants.STAGE_ORDER.index(current_stage)  # type:ignore
+        return constants.STAGE_ORDER[i - 1] if i - 1 >= 0 else None  # type:ignore
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -232,15 +207,15 @@ class PropostaView(LoginRequiredMixin, FormView):
 
         # Get the next stage after this one.
 
-        new_stage = constants.STAGE_ORDER[
-            constants.STAGE_ORDER.index(current_stage) + 1
+        new_stage = constants.STAGE_ORDER[  # type:ignore
+            constants.STAGE_ORDER.index(current_stage) + 1  # type:ignore
         ]
         form.instance.pagina = new_stage
         form.save(request=self.request)  # This will save the underlying instance.
         if new_stage == constants.COMPLETE:
             form.instance.send_mail()
             return redirect(reverse("delta:obrigado"))
-        #if new_stage == constants.STAGE_2:
+        # if new_stage == constants.STAGE_2:
         #    form.instance.simular()
         #    return redirect(
         #        reverse("porto:proposta_simulacao", args=(form.instance.pk,))
@@ -264,7 +239,7 @@ class PropostaView(LoginRequiredMixin, FormView):
         elif self.proposta:
             stage = self.proposta.stage
         else:
-            stage = constants.STAGE_1
+            stage = constants.STAGE_1  # type:ignore
 
         # stage = self.proposta.stage if self.proposta else constants.STAGE_1
         # Get the form fields appropriate to that stage.
@@ -358,6 +333,7 @@ def test_email(request, pk):
     dic = model_to_dict_verbose(object, exclude=["id"] + object.hidden_fields)
     email = render_to_string("delta/emails/email.html", {"object": dic})
     return HttpResponse(email)
+
 
 def get_obj_from_hash(session_hash):
     # Find and return an unexpired, not-yet-completed JobApplication
