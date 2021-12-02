@@ -14,7 +14,7 @@ $orange: hsl(50, 80%, 50%);
   box-sizing: border-box;
 }
 
-@mixin mobile ($size: 640px) {
+@mixin mobile($size: 640px) {
   @media screen and (max-width: $size) {
     @content;
   }
@@ -28,14 +28,14 @@ html {
   font-family: "Nunito Sans", sans-serif;
 }
 
-body{
+body {
   margin: 0;
   padding: 0;
   height: 100vh;
-    // background-color: $primary-light;
+  // background-color: $primary-light;
   background-attachment: fixed;
 }
-.card-columns{
+.card-columns {
   background-color: $primary-light;
 }
 
@@ -57,15 +57,15 @@ body{
   font-weight: 900;
   font-size: 1.618rem;
   text-transform: uppercase;
-  letter-spacing: .1ch;
+  letter-spacing: 0.1ch;
   line-height: 1;
-  padding-bottom: .5em;
+  padding-bottom: 0.5em;
   margin-bottom: 1rem;
   position: relative;
 
   &:after {
     display: block;
-    content: '';
+    content: "";
     position: absolute;
     width: 60px;
     height: 4px;
@@ -92,17 +92,13 @@ body{
   margin: 2rem;
   position: relative;
 
-
-
-  @include breakpoint('<=medium') {
+  @include breakpoint("<=medium") {
     width: calc(50% - 4rem);
   }
 
-
-  @include breakpoint('<=small') {
+  @include breakpoint("<=small") {
     width: calc(100% - 4rem);
   }
-
 
   .icon {
     font-size: 4rem;
@@ -110,6 +106,7 @@ body{
   }
 
   .button {
+    opacity: 0;
     $height: 70px;
     transform: translateZ(10px);
     cursor: pointer;
@@ -117,7 +114,7 @@ body{
     backface-visibility: hidden;
     font-weight: bold;
     color: #fff !important;
-    padding: .5em 1em;
+    padding: 0.5em 1em;
     border-radius: 100px;
     font: inherit;
     border: none;
@@ -129,7 +126,7 @@ body{
       transition: 300ms ease;
       position: absolute;
       display: block;
-      content: '';
+      content: "";
       transform: translateZ(-$height);
       -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
@@ -158,8 +155,11 @@ body{
       }
     }
   }
-
-
+  &:hover {
+    .button {
+      opacity: 1;
+    }
+  }
 }
 
 .front,
@@ -191,11 +191,10 @@ body{
   overflow: hidden;
   font-family: Poppins, sans-serif;
 
-
   &:before {
     position: absolute;
     display: block;
-    content: '';
+    content: "";
     top: 0;
     left: 0;
     right: 0;
@@ -209,8 +208,8 @@ body{
   //Animação Cards
 
   .card:hover & {
-    transform: rotateY(180deg) //rotateZ(180deg);
-     }
+    transform: rotateY(180deg); //rotateZ(180deg);
+  }
 
   .card:nth-child(even):hover & {
     transform: rotateY(-180deg);
@@ -223,20 +222,21 @@ body{
   transform: rotateY(-180deg);
   padding: 0 2em;
 
-
-
-
   &:before {
     position: absolute;
     display: block;
-    content: '';
+    content: "";
     border-radius: 20px;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, adjust-hue($secondary, -60deg), $secondary);
-    opacity: .75;
+    background: linear-gradient(
+      135deg,
+      adjust-hue($secondary, -60deg),
+      $secondary
+    );
+    opacity: 0.75;
     z-index: -1;
   }
 
@@ -257,7 +257,7 @@ body{
     transform: rotateY(180deg);
 
     .button {
-    //Button roxo (2ª cor)
+      //Button roxo (2ª cor)
       //background: linear-gradient(135deg, adjust-hue($secondary, -20deg), $secondary);
 
       &:before {
