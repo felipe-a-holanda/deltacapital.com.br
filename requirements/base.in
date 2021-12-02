@@ -3,7 +3,7 @@
 Django  # https://www.djangoproject.com/
 django-admin-tools  # https://github.com/django-admin-tools/django-admin-tools
 django-allauth  # https://github.com/pennersr/django-allauth
-django-anymail[mailgun]  # https://github.com/anymail/django-anymail
+django-anymail[amazon_ses]  # https://github.com/anymail/django-anymail
 django-compressor  # https://github.com/django-compressor/django-compressor
 django-constance[database]  # https://github.com/jazzband/django-constance
 django-crispy-forms  # https://github.com/django-crispy-forms/django-crispy-forms

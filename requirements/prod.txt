@@ -13,7 +13,9 @@ asgiref==3.3.4
 billiard==3.6.4.0
     # via celery
 boto3==1.17.77
-    # via django-storages
+    # via
+    #   django-anymail
+    #   django-storages
 botocore==1.20.77
     # via
     #   boto3
@@ -50,7 +52,7 @@ django-admin-tools==0.9.1
     # via -r requirements/base.in
 django-allauth==0.44.0
     # via -r requirements/base.in
-django-anymail[mailgun]==8.3
+django-anymail[amazon_ses]==8.3
     # via -r requirements/base.in
 django-appconf==1.0.4
     # via django-compressor

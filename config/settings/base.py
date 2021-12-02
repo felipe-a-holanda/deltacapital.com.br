@@ -219,6 +219,23 @@ SERVER_EMAIL = env("DJANGO_SERVER_EMAIL", default=DEFAULT_FROM_EMAIL)
 EMAIL_SUBJECT_PREFIX = env("DJANGO_EMAIL_SUBJECT_PREFIX", default="[Delta Capital]")
 
 
+# Anymail
+# ------------------------------------------------------------------------------
+# https://anymail.readthedocs.io/en/stable/installation/#installing-anymail
+INSTALLED_APPS += ["anymail"]  # noqa F405
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
+# https://anymail.readthedocs.io/en/stable/installation/#anymail-settings-reference
+# https://anymail.readthedocs.io/en/stable/esps/mailgun/
+EMAIL_BACKEND = "anymail.backends.amazon_ses.EmailBackend"
+ANYMAIL = {
+    "AMAZON_SES_CLIENT_PARAMS": {
+        "aws_access_key_id": env("AWS_ACCESS_KEY_FOR_ANYMAIL_SES"),
+        "aws_secret_access_key": env("AWS_SECRET_KEY_FOR_ANYMAIL_SES"),
+        "region_name": "sa-east-1",
+    }
+}
+
+
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 DATE_FORMAT = "%d/%m/%Y"
