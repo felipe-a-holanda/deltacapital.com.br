@@ -2,14 +2,16 @@ from django.contrib import admin
 from django.contrib.auth import admin as auth_admin
 from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
+from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
+from validate_docbr import CPF
 
 from .constants import OPERADOR
 from .constants import VENDEDOR
 from .forms import UserChangeFormOwner
 from .forms import UserChangeFormSuper
-from .forms import UserCreationForm
+from .forms import UserCreationFormDelta
 from .models import Loja
 from .models import Operador
 from .models import User
@@ -45,10 +47,10 @@ class UserAdmin(auth_admin.UserAdmin):
     form = UserChangeFormSuper
     form_change_super = UserChangeFormSuper
     form_change_owner = UserChangeFormOwner
-    add_form = UserCreationForm
+    add_form = UserCreationFormDelta
     ordering = ["user_type", "username"]
 
-    list_display = ["username", "cpf", "name", "user_type", "date_joined"]
+    list_display = ["username", "get_cpf", "name", "user_type", "date_joined"]
     list_filter = ("is_staff", "user_type", "is_active", "groups")
     search_fields = ["name"]
 
@@ -59,7 +61,14 @@ class UserAdmin(auth_admin.UserAdmin):
             None,
             {
                 "classes": ("wide",),
-                "fields": ("username", "user_type", "password1", "password2"),
+                "fields": (
+                    "username",
+                    "cpf",
+                    "email",
+                    "user_type",
+                    "password1",
+                    "password2",
+                ),
             },
         ),
     )
@@ -68,18 +77,27 @@ class UserAdmin(auth_admin.UserAdmin):
         # this path may be any you want,
         # just put it in your static folder
         js = (
-            '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',  # jquery
-            'src/admin/js/inputmask.js',
-           # 'src/admin/js/jquery.inputmask.min.js',
-            'src/admin/js/masks_admin.js',
+            "//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js",  # jquery
+            "src/admin/js/inputmask.js",
+            # 'src/admin/js/jquery.inputmask.min.js',
+            "src/admin/js/masks_admin.js",
         )
+
+    def get_cpf(self, obj):
+        cpf = CPF()
+        masked = cpf.mask(obj.cpf)
+        if cpf.validate(obj.cpf):
+            return masked
+        return format_html('<b style="color:red;">{}</b>', masked)
+
+    get_cpf.short_description = "CPF"  # type: ignore
+    get_cpf.admin_order_field = "cpf"  # type: ignore
 
     def get_fieldsets(self, request, obj):
         if obj:
             personal = {"fields": ("name",)}
             if obj.user_type == VENDEDOR:
                 personal = {"fields": ("name", "loja")}  # type: ignore
-
 
             super_fieldsets = (
                 (

@@ -14,13 +14,12 @@ class TimedModel(models.Model):
 
 class FinanciamentoVeiculo(TimedModel):
     TIPOS_VEICULO = (
-        ("  ", "  "),
         ("carro", "Carro"),
         ("moto", "Moto"),
         ("utilitario", "Utilitário"),
         ("caminhao", "Caminhão"),
     )
-    nome = models.CharField('Nome', max_length=300, null= True )
+    nome = models.CharField("Nome", max_length=300, null=True)
     cpf = models.CharField("CPF", max_length=100)
     email = models.EmailField("E-mail", default="")
     telefone = models.CharField("Telefone", max_length=100)

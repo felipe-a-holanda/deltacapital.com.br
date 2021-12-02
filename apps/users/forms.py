@@ -1,14 +1,26 @@
 from django.contrib import auth
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
 User = get_user_model()
 
 
-class UserChangeFormSuper(auth.forms.UserChangeForm):
-    class Meta(auth.forms.UserChangeForm.Meta):
+def only_digits(s):
+    return "".join([i for i in s if i.isdigit()])
+
+
+class UserChangeFormSuper(UserChangeForm):
+    class Meta(UserChangeForm.Meta):
         model = User
+
+    def clean_username(self):
+        return self.cleaned_data["username"].lower()
+
+    def clean_cpf(self):
+        return only_digits(self.cleaned_data["cpf"])
 
 
 class UserChangeFormOwner(UserChangeFormSuper):
@@ -20,7 +32,7 @@ class UserChangeFormOwner(UserChangeFormSuper):
         return False
 
 
-class UserCreationForm(auth.forms.UserCreationForm):
+class UserCreationFormDelta(UserCreationForm):
 
     error_message = auth.forms.UserCreationForm.error_messages.update(
         {"duplicate_username": _("This username has already been taken.")}
@@ -28,10 +40,13 @@ class UserCreationForm(auth.forms.UserCreationForm):
 
     class Meta(auth.forms.UserCreationForm.Meta):
         model = User
-        fields = ("username", "email")
+        fields = ("username", "email", "cpf")
+
+    def clean_cpf(self):
+        return only_digits(self.cleaned_data["cpf"])
 
     def clean_username(self):
-        username = self.cleaned_data["username"]
+        username = self.cleaned_data["username"].lower()
 
         try:
             User.objects.get(username=username)

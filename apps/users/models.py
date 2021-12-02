@@ -33,7 +33,9 @@ class User(AbstractUser):
     # First Name and Last Name do not cover name patterns
     # around the globe.
     name = models.CharField(_("Nome do usuário"), blank=True, max_length=255)
-    cpf = models.CharField(_("CPF do usuário"), max_length=14, validators=[validate_cpf])
+    cpf = models.CharField(
+        _("CPF do usuário"), max_length=14, validators=[validate_cpf], unique=True
+    )
     user_type = models.PositiveSmallIntegerField(
         "Tipo do usuário", default=VENDEDOR, choices=USER_TYPE_CHOICES
     )
@@ -46,7 +48,6 @@ class User(AbstractUser):
     )
 
     def __str__(self):
-        return self.cpf
         if self.name:
             return self.name
         elif self.cpf:

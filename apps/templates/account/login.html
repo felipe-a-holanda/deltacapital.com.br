@@ -38,6 +38,28 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 <form class="login" method="POST" action="{% url 'account_login' %}">
   
   {% csrf_token %}
+
+
+  {% if form.non_field_errors %}
+    <ul>
+      {% for error in form.non_field_errors %}
+        <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% for hidden_field in form.hidden_fields %}
+    {% if hidden_field.errors %}
+      <ul>
+        {% for error in hidden_field.errors %}
+          <li>(Hidden field {{ hidden_field.name }}) {{ error }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {{ hidden_field }}
+  {% endfor %}
+
+
   
   {% for field in form %}
   
@@ -57,9 +79,9 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 
   <button class="button-submit" type="submit">{% trans "Sign In" %}</button>
 
-  <!--
-  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-  -->
+
+  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">Recuperar senha</a>
+
 </form>
 </div>
 </section>
