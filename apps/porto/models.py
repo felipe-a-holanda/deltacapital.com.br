@@ -324,7 +324,7 @@ class PropostaPorto(models.Model):
     hidden_fields = ["pagina", "session_hash", "nome_operador"]
     radio_fields = ["prazo", "sexo", "tipo_de_renda", "dados_placa"]
     readonly_fields = ["valor_financiado"]
-    remove_empty_fields = ["prazo", "sexo", "dados_placa"]
+    remove_empty_fields = ["prazo", "sexo", "dados_placa", "tipo_de_renda"]
 
     required_fields = [
         "valor_do_veiculo",
