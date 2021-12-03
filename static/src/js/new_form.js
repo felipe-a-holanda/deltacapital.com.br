@@ -380,14 +380,16 @@ function validateForm() {
   var actId = $("#id_valor_financiado");
 
   var hasInvalid = false;
-  if(currency(input.val()).value >= currency($("#id_valor_do_veiculo").val()).value){
+
+  if (input.length && actId.length){
+    if(currency(input.val()).value >= currency($("#id_valor_do_veiculo").val()).value){
       $(actId.addClass("invalid"));
       hasInvalid = true;
       console.log(currency(input.val()).value,">=",currency($("#id_valor_do_veiculo").val()).value);
      } else {
       $(input).removeClass("invalid");
      }
-  
+  }
   $.each(activeDivs, function(index, Div) {
     var input = $(Div).children('input:not([readonly]):not([style*="display: none"]), select').first();
     var erroMsg =  $(input).siblings('.error').first();
