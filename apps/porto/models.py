@@ -508,7 +508,7 @@ class PropostaPorto(models.Model):
         dic = model_to_dict_verbose(self, exclude=["id"] + self.hidden_fields)
 
         to_email = self.get_to_email()
-        send_default_email.delay(dic, "Proposta", to_email)
+        send_default_email(dic, "Proposta", to_email)
 
     @property
     def loja(self):

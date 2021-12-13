@@ -68,7 +68,7 @@ class ProductCreate(CreateView):
 
     def send_email(self, object):
         dic = model_to_dict_verbose(object)
-        send_default_email.delay(dic, self.subject)
+        send_default_email(dic, self.subject)
 
 
 class FinanciamentoVeiculoCreate(ProductCreate):
