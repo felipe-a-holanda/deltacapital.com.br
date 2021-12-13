@@ -87,7 +87,7 @@ class CartaoCreditoForm(BaseForm):
 
     class Meta:
         model = CartaoCredito
-        fields = ["nome", "cpf", "email", "nome"]
+        fields = "__all__"
 
 
 class CapitalGiroForm(BaseForm):
