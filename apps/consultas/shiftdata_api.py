@@ -1,13 +1,14 @@
 from urllib.parse import urljoin
 
 import requests
+from django.conf import settings
 
 
-SHIFTDATA_API_KEY = ""
+SHIFTDATA_API_KEY = settings.SHIFTDATA_API_KEY
 SHIFTDATA_BASE_URL = "https://api.shiftdata.com.br"
 
 
-class ShiftData(object):
+class ShiftDataAPI(object):
     """
     https://api.shiftdata.com.br/swagger/index.html
     """
@@ -57,6 +58,15 @@ class ShiftData(object):
         endpoint = "/api/ParticipacaoEmpresarial"
         return self.request_get(endpoint, params={"cpf": cpf})
 
+    def call_endpoint(self, endpoint, input):
+        if endpoint in ["PessoaJuridica"]:
+            param_type = "cnpj"
+        else:
+            param_type = "cpf"
+
+        url = f"/api/{endpoint}"
+        return self.request_get(url, params={param_type: input})
+
 
 if __name__ == "__main__":
-    api = ShiftData()
+    api = ShiftDataAPI()
