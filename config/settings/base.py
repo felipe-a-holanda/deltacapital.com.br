@@ -49,6 +49,7 @@ DJANGO_APPS = [
     "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.humanize",
     "django.forms",
 ]
 
@@ -72,6 +73,7 @@ LOCAL_APPS = [
     "apps.delta.apps.DeltaConfig",
     "apps.porto.apps.PortoConfig",
     "apps.gestao.apps.GestaoConfig",
+    "apps.consultas.apps.ShiftdataConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

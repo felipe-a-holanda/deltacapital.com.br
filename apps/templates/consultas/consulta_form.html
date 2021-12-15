@@ -1,0 +1,32 @@
+{% extends 'delta/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="wrapper">
+  <div class="inner-form form">
+<form action="" method="post">
+    {% csrf_token %}
+
+
+    {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {{ form }}
+    <button class="button-submit" type="submit" value="Enviar">Enviar</button>
+</form>
+    </div>
+    </section>
+<img src="{% static 'images/logo_delta_transparente.png' %}" height="1">
+{% endblock content %}
