@@ -1,0 +1,26 @@
+{% extends 'delta/base.html' %}
+{% load json_tags %}
+{% load humanize %}
+{% block content %}
+
+<section class="wrapper">
+  <div class="inner">
+    <h1>{{ object.get_tipo_display }}</h1>
+    <h5><a href="{% url 'consultas:create' %}" style="color:blue">Nova consulta</a></h5>
+
+
+    <h3>{{ object.get_input_type }}: {{ object.get_formatted_input }}</h3>
+
+
+    {{ object.get_result| json2html }}
+
+        {% if request.session.stored %}
+    <h5>Esta consulta já havia sido realizada {{ object.modificado_em | naturaltime }} por {{ object.usuario.username }}.
+      <br>Clique <a href="{% url 'consultas:consultar' object.tipo object.entrada %}">aqui</a> para refazer a consulta (sujeito a cobrança)
+    </h5>
+
+    {% endif %}
+  </div>
+  </section>
+
+{% endblock content %}
