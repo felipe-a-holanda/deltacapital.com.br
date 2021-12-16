@@ -52,6 +52,7 @@ django==3.2.10
     # via
     #   -r requirements/base.in
     #   collectfast
+    #   django-admin-autocomplete-filter
     #   django-admin-easy
     #   django-allauth
     #   django-anymail
@@ -62,7 +63,11 @@ django==3.2.10
     #   django-redis
     #   django-storages
     #   djangorestframework
+django-admin-autocomplete-filter==0.7.1
+    # via -r requirements/base.in
 django-admin-easy==0.6.1
+    # via -r requirements/base.in
+django-admin-list-filter-dropdown==1.0.3
     # via -r requirements/base.in
 django-admin-tools==0.9.2
     # via -r requirements/base.in
@@ -84,6 +89,8 @@ django-extensions==3.1.5
     # via -r requirements/base.in
 django-filter==21.1
     # via -r requirements/base.in
+django-json-widget==1.1.1
+    # via -r requirements/base.in
 django-picklefield==3.0.1
     # via django-constance
 django-redis==5.1.0
@@ -98,6 +105,8 @@ django-widget-tweaks==1.4.9
     # via -r requirements/base.in
 djangorestframework==3.13.1
     # via -r requirements/base.in
+future==0.18.2
+    # via django-json-widget
 gunicorn==20.1.0
     # via -r requirements/prod.in
 idna==3.3

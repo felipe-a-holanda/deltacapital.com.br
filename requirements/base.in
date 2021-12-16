@@ -14,7 +14,9 @@ django-redis  # https://github.com/jazzband/django-redis
 django-webpack-loader  # https://github.com/owais/django-webpack-loader
 django-widget-tweaks  # https://github.com/jazzband/django-widget-tweaks
 django-admin-easy  # https://github.com/ebertti/django-admin-easy
-
+django-admin-list-filter-dropdown  # https://github.com/mrts/django-admin-list-filter-dropdown
+django-admin-autocomplete-filter  # https://github.com/farhan0581/django-admin-autocomplete-filter
+django-json-widget  # https://github.com/jmrivas86/django-json-widget
 
 # Databases and Static files
 # ------------------------------------------------------------------------------

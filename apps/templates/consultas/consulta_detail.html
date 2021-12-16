@@ -12,14 +12,20 @@
     <h3>{{ object.get_input_type }}: {{ object.get_formatted_input }}</h3>
 
 
-    {{ object.get_result| json2html }}
 
-        {% if request.session.stored %}
+    {% if object.resultado.code == 200 %}
+    {{ object.get_result| json2html }}
+    {% else %}
+    {{ object.resultado.message }}
+    {% endif %}
+
+    {% if request.session.stored %}
     <h5>Esta consulta já havia sido realizada {{ object.modificado_em | naturaltime }} por {{ object.usuario.username }}.
       <br>Clique <a href="{% url 'consultas:consultar' object.tipo object.entrada %}">aqui</a> para refazer a consulta (sujeito a cobrança)
     </h5>
-
     {% endif %}
+
+
   </div>
   </section>
 

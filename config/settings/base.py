@@ -65,6 +65,9 @@ THIRD_PARTY_APPS = [
     "crispy_forms",
     "widget_tweaks",
     "django_extensions",
+    "django_admin_listfilter_dropdown",
+    "admin_auto_filters",
+    "django_json_widget",
 ]
 
 

@@ -54,7 +54,9 @@ class Consulta(models.Model):
 
         if self.resultado and "result" in self.resultado:
             result = self.resultado["result"]
-            return {parse_key(k): v for k, v in result.items()}
+            if result:
+                return {parse_key(k): v for k, v in result.items()}
+            return self.resultado
 
     def consultar(self):
         resultado = ShiftDataAPI().call_endpoint(self.tipo, self.entrada)
