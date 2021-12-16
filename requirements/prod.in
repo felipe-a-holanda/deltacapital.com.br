@@ -2,3 +2,4 @@
 
 Collectfast  # https://github.com/antonagestam/collectfast/
 gunicorn  # https://github.com/benoitc/gunicorn
+sentry-sdk
