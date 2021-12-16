@@ -19,8 +19,14 @@ from django.urls import include
 from django.urls import path
 
 
+def trigger_error(request):
+    division_by_zero = 1 / 0
+    return division_by_zero
+
+
 urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
+    path("sentry-debug/", trigger_error),
     path("api-auth/", include("rest_framework.urls")),
     path("api/", include("config.api")),
     path("accounts/", include("allauth.urls")),
@@ -65,4 +71,6 @@ if settings.DEBUG:
     if "debug_toolbar" in settings.INSTALLED_APPS:
         import debug_toolbar
 
-        urlpatterns = [path("__debug__/", include(debug_toolbar.urls))] + urlpatterns
+        urlpatterns = [
+            path("__debug__/", include(debug_toolbar.urls))
+        ] + urlpatterns  # type: ignore
