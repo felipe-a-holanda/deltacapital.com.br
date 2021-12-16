@@ -47,16 +47,26 @@ class Consulta(models.Model):
         return CPF().mask(self.entrada)
 
     def get_result(self):
-        def parse_key(key):
-            if key in ["CPF"]:
+        def change_key(key):
+            if key in ["CPF", "CNPJ"]:
                 return key
-            return " ".join(re.findall("[A-Z][^A-Z]*", key))
+            if isinstance(key, str):
+                return " ".join(re.findall("[A-Z][^A-Z]*", key))
+            return key
+
+        def walk(obj):
+            if isinstance(obj, dict):
+                return {change_key(k): walk(v) for k, v in obj.items()}
+            elif isinstance(obj, list):
+                return [walk(k) for k in obj]
+            else:
+                return obj
 
         if self.resultado and "result" in self.resultado:
             result = self.resultado["result"]
             if result:
-                return {parse_key(k): v for k, v in result.items()}
-            return self.resultado
+                return walk(result)
+            return None
 
     def consultar(self):
         resultado = ShiftDataAPI().call_endpoint(self.tipo, self.entrada)
