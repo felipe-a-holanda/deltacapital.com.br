@@ -1,5 +1,6 @@
 import re
 
+from dateparser import parse
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.urls import reverse
@@ -48,19 +49,56 @@ class Consulta(models.Model):
 
     def get_result(self):
         def change_key(key):
-            if key in ["CPF", "CNPJ"]:
+            if key in ["CPF", "CNPJ", "DDD", "UF", "CEP"]:
                 return key
             if isinstance(key, str):
                 return " ".join(re.findall("[A-Z][^A-Z]*", key))
             return key
 
-        def walk(obj):
+        def include_key(key):
+            if key.lower() in [
+                "primeironome",
+                "nomemeio",
+                "ultimonome",
+                "codigocbo",
+                "uf",
+                "cep",
+                "tipo",
+                "bairro",
+                "cidade",
+                "numero",
+                "titulo",
+                "ranking",
+                "latitude",
+                "longitude",
+                "logradouro",
+                "complemento",
+            ]:
+                return False
+            return True
+
+        def change_value(obj, key):
+            if (
+                key
+                and isinstance(key, str)
+                and "data" in key.lower()
+                and isinstance(obj, str)
+            ):
+                try:
+                    return str(parse(obj).date())  # type: ignore
+                except:  # noqa
+                    return obj
+            return obj
+
+        def walk(obj, key=None):
             if isinstance(obj, dict):
-                return {change_key(k): walk(v) for k, v in obj.items()}
+                return {
+                    change_key(k): walk(v, k) for k, v in obj.items() if include_key(k)
+                }
             elif isinstance(obj, list):
-                return [walk(k) for k in obj]
+                return [walk(o) for o in obj]
             else:
-                return obj
+                return change_value(obj, key)
 
         if self.resultado and "result" in self.resultado:
             result = self.resultado["result"]
