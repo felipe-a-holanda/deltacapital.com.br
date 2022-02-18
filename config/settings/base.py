@@ -18,9 +18,9 @@ import environ
 warnings.filterwarnings("ignore", category=UserWarning, module=r".*environ")
 
 
-ROOT_DIR = Path(__file__).parents[2]  # user-records/)
+ROOT_DIR = Path(__file__).parents[2]
 BASE_DIR = str(ROOT_DIR)
-APPS_DIR = ROOT_DIR / "apps"  # user-records/)
+APPS_DIR = ROOT_DIR / "apps"
 
 env = environ.Env(DEBUG=(bool, False))
 env.read_env(str(ROOT_DIR / ".env"))

@@ -92,7 +92,7 @@ class User(AbstractUser):
         return self.user_type == PROPRIETARIO
 
     def get_email(self):
-        if self.is_vendedor:
+        if self.is_vendedor and self.loja and self.loja.operador:
             return self.loja.operador.email
         return self.email
 

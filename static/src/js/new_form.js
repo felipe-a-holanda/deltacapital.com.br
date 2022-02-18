@@ -263,6 +263,7 @@ function TestaCPF(inputCPF) {
   var strCPF = inputCPF.replace(/[\.\-]+/g, '');  
   var Soma;
   var Resto;
+  var i;
   Soma = 0;
 if (strCPF == "00000000000"||
         strCPF == "11111111111" ||
@@ -394,7 +395,10 @@ function validateForm() {
     var input = $(Div).children('input:not([readonly]):not([style*="display: none"]), select').first();
     var erroMsg =  $(input).siblings('.error').first();
     // se o input não for outras rendas e telefone fixo add msg de error
-    if((input.attr("id") !== "id_outras_rendas") && (input.attr("id") !== "id_telefone_fixo_da_empresa")){
+    // retirando o obrigatorio de alguns campos do form
+    if((input.attr("id") !== "id_outras_rendas") && (input.attr("id") !== "id_telefone_fixo_da_empresa") 
+    && (input.attr("id") !== "id_telefone_fixo") && (input.attr("id") !== "id_complemento") 
+    && (input.attr("id") !== "id_complemento_empresa")){
     
       if (input.is(":visible") && !input.val()) {
         $(input).addClass("invalid");

@@ -2,9 +2,9 @@ from typing import Any
 from typing import Sequence
 
 from django.contrib.auth import get_user_model
-from factory import DjangoModelFactory
 from factory import Faker
 from factory import post_generation
+from factory.django import DjangoModelFactory
 
 
 class UserFactory(DjangoModelFactory):
@@ -25,7 +25,7 @@ class UserFactory(DjangoModelFactory):
                 digits=True,
                 upper_case=True,
                 lower_case=True,
-            ).generate(extra_kwargs={})
+            ).evaluate(None, None, extra={"locale": None})
         )
         self.set_password(password)
 

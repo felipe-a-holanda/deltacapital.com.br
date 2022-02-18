@@ -3,6 +3,12 @@ from django.contrib import admin
 from .models import PropostaPorto
 
 
+@admin.action(description="Enviar propostas selecionadas por email")
+def send_email(modeladmin, request, queryset):
+    for p in queryset:
+        p.send_mail()
+
+
 @admin.register(PropostaPorto)
 class PropostaAdmin(admin.ModelAdmin):
     list_display = [
@@ -15,7 +21,8 @@ class PropostaAdmin(admin.ModelAdmin):
         "enviado_em",
     ]
 
-    list_filter = ["status"]
+    list_filter = ["criado_em", "pessoa", "user"]
+    actions = [send_email]
 
     readonly_fields = ["session_hash", "pagina"]
 

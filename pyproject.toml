@@ -18,3 +18,4 @@
       | blib2to3
       | tests/data
     )/
+    '''

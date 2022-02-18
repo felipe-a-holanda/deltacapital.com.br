@@ -1,4 +1,6 @@
 install:
+	pip-compile requirements/prod.in
+	pip-compile requirements/dev.in
 	pip install -r requirements/dev.txt
 	pip install -r requirements/prod.txt
 
@@ -33,6 +35,17 @@ reset:
 deploy:
 	git push heroku master
 
+createdb:
+	psql -c "DROP DATABASE IF EXISTS delta;"
+	psql -c "DROP USER IF EXISTS delta;"
+	psql -c "CREATE DATABASE delta;"
+	psql -c "CREATE USER delta WITH PASSWORD 'delta';"
+	psql -c "ALTER ROLE delta SET client_encoding TO 'utf8';"
+	psql -c "ALTER ROLE delta SET default_transaction_isolation TO 'read committed';"
+	psql -c "ALTER ROLE delta SET timezone TO 'UTC';"
+	psql -c "GRANT ALL PRIVILEGES ON DATABASE delta TO delta;"
+
+
 
 pull_db:
 	dropdb --if-exists delta
@@ -41,4 +54,12 @@ pull_db:
 
 copy_to_dev:
 	heroku pg:copy deltacapital::DATABASE_URL postgresql-sinuous-90885 --app deltacapital-dev --confirm deltacapital-dev
+
+
+
+celery:
+	celery -A config.celery_app worker --loglevel=info
 	
+
+mail:
+	~/go/bin/MailHog

@@ -143,7 +143,10 @@ class PropostaPorto(models.Model):
     )
 
     pessoa = models.CharField(
-        max_length=100, choices=(("", ""), ("pf", "pf"), ("pj", "pj")), default="pf"
+        "Pessoa Física ou Jurídica",
+        max_length=100,
+        choices=(("", ""), ("pf", "Pessoa Física"), ("pj", "Pessoa Jurídica")),
+        default="pf",
     )
 
     # stage 1 fields
@@ -321,7 +324,18 @@ class PropostaPorto(models.Model):
 
     # Config
     # hidden_fields = ["stage", "session_hash", "operador"]
-    hidden_fields = ["pagina", "session_hash", "nome_operador"]
+    hidden_fields = [
+        "pagina",
+        "session_hash",
+        "nome_operador",
+        "simulado_em",
+        "pre_aprovado",
+        "valores_parcelas",
+        "status",
+        "estado_simulacao",
+        "mensagem",
+        "dados_placa",
+    ]
     radio_fields = ["prazo", "sexo", "tipo_de_renda", "dados_placa"]
     readonly_fields = ["valor_financiado"]
     remove_empty_fields = ["prazo", "sexo", "dados_placa", "tipo_de_renda"]
@@ -499,16 +513,22 @@ class PropostaPorto(models.Model):
         self.send_mail()
         Proposta.create_from_porto(self)
 
+    def format_email(self):
+        email_dic = model_to_dict_verbose(self, exclude=["id"] + self.hidden_fields)
+        for k, v in list(email_dic.items()):
+            if not v:
+                email_dic.pop(k)
+
+        return email_dic
+
     def send_mail(self):
         from apps.delta.tasks import send_default_email
 
         self.enviado_em = timezone.now()
         self.save()
 
-        dic = model_to_dict_verbose(self, exclude=["id"] + self.hidden_fields)
-
         to_email = self.get_to_email()
-        send_default_email(dic, "Proposta", to_email)
+        send_default_email(self.format_email(), "Proposta", to_email)
 
     @property
     def loja(self):
