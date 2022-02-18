@@ -21,7 +21,7 @@ class PropostaAdmin(admin.ModelAdmin):
         "enviado_em",
     ]
 
-    list_filter = ["status"]
+    list_filter = ["criado_em", "pessoa", "user"]
     actions = [send_email]
 
     readonly_fields = ["session_hash", "pagina"]
