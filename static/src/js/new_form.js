@@ -263,6 +263,7 @@ function TestaCPF(inputCPF) {
   var strCPF = inputCPF.replace(/[\.\-]+/g, '');  
   var Soma;
   var Resto;
+  var i;
   Soma = 0;
 if (strCPF == "00000000000"||
         strCPF == "11111111111" ||

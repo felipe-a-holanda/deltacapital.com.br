@@ -19,9 +19,10 @@ ALLOWED_HOSTS = env.list(
     "DJANGO_ALLOWED_HOSTS",
     default=[
         "deltacapital.com.br",
+        "www.deltacapital.com.br",
         "deltacapital.herokuapp.com",
-        "*.deltacapital.com.br",
-        "*.deltacapital.herokuapp.com",
+        ".deltacapital.com.br",
+        ".deltacapital.herokuapp.com",
     ],
 )
 

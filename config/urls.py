@@ -30,7 +30,7 @@ urlpatterns = [
     path("api-auth/", include("rest_framework.urls")),
     path("api/", include("config.api")),
     path("accounts/", include("allauth.urls")),
-    path("usuarios/", include("apps.users.urls", namespace="user")),
+    path("usuarios/", include("apps.users.urls", namespace="users")),
     path("consulta/", include("apps.consultas.urls", namespace="consultas")),
     path("", include("apps.delta.urls", namespace="delta")),
     path("", include("apps.porto.urls", namespace="porto")),

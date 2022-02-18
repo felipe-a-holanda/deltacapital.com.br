@@ -14,7 +14,6 @@ def model_to_dict_verbose(instance, exclude=("id")):
         field = fields[k]
         key = field.verbose_name[:30]
         value = str(v)
-        print(field, field.get_internal_type())
         if hasattr(field, "choices") and fields[k].choices:
             value = dict(fields[k].choices).get(v, "")
 
@@ -28,7 +27,6 @@ def model_to_dict_verbose(instance, exclude=("id")):
                 value = v.strftime("%d/%m/%Y %H:%M")
         if field.get_internal_type() in ["ForeignKey"]:
             value = str(getattr(instance, k))
-            print(value)
 
         if v is None:
             value = "-"

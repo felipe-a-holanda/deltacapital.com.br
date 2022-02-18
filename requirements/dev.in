@@ -22,7 +22,7 @@ flake8-isort  # https://github.com/gforcada/flake8-isort
 mypy  # https://github.com/python/mypy
 pylint-django  # https://github.com/PyCQA/pylint-django
 pre-commit  # https://github.com/pre-commit/pre-commit
-
+types-requests
 
 # Django
 # ------------------------------------------------------------------------------

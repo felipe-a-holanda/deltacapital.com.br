@@ -1,6 +1,6 @@
 import pytest
 
-from apps.users.forms import UserCreationForm
+from apps.users.forms import UserCreationFormDelta
 from apps.users.tests.factories import UserFactory
 
 pytestmark = pytest.mark.django_db
@@ -11,9 +11,11 @@ class TestUserCreationForm:
         # A user with proto_user params does not exist yet.
         proto_user = UserFactory.build()
 
-        form = UserCreationForm(
+        form = UserCreationFormDelta(
             {
                 "username": proto_user.username,
+                "email": proto_user.email,
+                "cpf": proto_user.cpf,
                 "password1": proto_user._password,
                 "password2": proto_user._password,
             }
@@ -27,7 +29,7 @@ class TestUserCreationForm:
 
         # The user with proto_user params already exists,
         # hence cannot be created.
-        form = UserCreationForm(
+        form = UserCreationFormDelta(
             {
                 "username": proto_user.username,
                 "password1": proto_user._password,
