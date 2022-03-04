@@ -32,8 +32,8 @@ class BaseForm(ModelForm):
         radio_fields = getattr(self, "radio_fields", [])
         for field_name in self.fields:
             field = self.fields.get(field_name)
-            if field and isinstance(field, forms.TypedChoiceField):
-                field.choices = field.choices[1:]  # type: ignore
+            # if field and isinstance(field, forms.TypedChoiceField):
+            #    field.choices = field.choices[1:]  # type: ignore
 
             if field_name in radio_fields:
                 field.widget = forms.RadioSelect(choices=field._choices)  # type: ignore
