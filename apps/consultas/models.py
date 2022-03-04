@@ -85,7 +85,7 @@ class Consulta(models.Model):
                 and isinstance(obj, str)
             ):
                 try:
-                    return str(parse(obj).date())  # type: ignore
+                    return str(parse(obj).date().strftime("%d/%m/%Y"))  # type: ignore
                 except:  # noqa
                     return obj
             return obj
